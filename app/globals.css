@@ -1,7 +1,14 @@
 @import "tailwindcss";
 
+/* Performance optimizations */
+* {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -9,9 +16,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #0a0a0a;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  /* Enable hardware acceleration */
+  transform: translateZ(0);
+  will-change: scroll-position;
 }
 
-/* Liquid Glass Design System */
+/* Liquid Glass Design System - Performance Optimized */
 .glass-morphism {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(40px) saturate(180%);
@@ -21,6 +34,10 @@ body {
     0 8px 32px rgba(0, 0, 0, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
     inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  /* Performance optimizations */
+  transform: translateZ(0);
+  will-change: backdrop-filter, background, border, box-shadow;
+  contain: layout style paint;
 }
 
 .glass-card-hover {

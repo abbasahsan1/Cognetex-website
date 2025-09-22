@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, Code, Brain, Cpu, Globe, Database, Cloud, Users, Mail, Phone, MessageSquare, ArrowRight, Sparkles, Bot, Languages, Layers, Link2, Zap, Github, Linkedin, Twitter, Menu, X, CheckCircle, TrendingUp, Award, Hexagon, Activity, Terminal, Braces, Server, GitBranch, Workflow, Binary } from 'lucide-react';
+import { ChevronRight, Code, Brain, Globe, Database, Mail, MessageSquare, ArrowRight, Sparkles, Bot, Languages, Layers, Link2, Zap, Github, Linkedin, Twitter, TrendingUp, Award, Server, Workflow } from 'lucide-react';
 
 export default function CognetexWebsite() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeService, setActiveService] = useState<number | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -227,8 +226,7 @@ export default function CognetexWebsite() {
         <div className="max-w-6xl mx-auto text-center relative z-10">
           <div className="mb-8 inline-flex items-center px-8 py-4 glass-morphism rounded-full animate-fade-in-up relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-r from-orange-400/10 to-orange-600/10 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-            <Zap className="w-5 h-5 text-orange-400 mr-3 relative z-10" />
-            <span className="text-gray-200 font-medium relative z-10">Engineering tomorrow's technology, today</span>
+            <Zap className="w-5 h-5 text-orange-400 mr-3 relative z-10" />              <span className="text-gray-200 font-medium relative z-10">Engineering tomorrow&apos;s technology, today</span>
           </div>
           
           <h1 className="text-6xl md:text-8xl font-bold mb-8 animate-fade-in-up animate-delay-200">
@@ -288,8 +286,6 @@ export default function CognetexWebsite() {
                 key={index} 
                 className="group relative fade-in-section"
                 style={{ transitionDelay: `${index * 100}ms` }}
-                onMouseEnter={() => setActiveService(index)}
-                onMouseLeave={() => setActiveService(null)}
               >
                 <div className="glass-morphism glass-card-hover rounded-3xl p-8 relative overflow-hidden">
                   {/* Glass reflection effect */}
@@ -332,7 +328,7 @@ export default function CognetexWebsite() {
             <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-orange-200 to-orange-400 bg-clip-text text-transparent">
               Our Projects
             </h2>
-            <p className="text-gray-400 text-xl">Some of the solutions we've delivered</p>
+            <p className="text-gray-400 text-xl">Some of the solutions we&apos;ve delivered</p>
           </div>
           
           <div className="grid lg:grid-cols-3 gap-8 mb-12">
@@ -611,12 +607,12 @@ export default function CognetexWebsite() {
             <div className="relative z-10">
               <div className="text-center mb-16">
                 <span className="inline-block px-6 py-3 glass-morphism rounded-full text-orange-400 font-medium mb-6">
-                  Let's Connect
+                  Let&apos;s Connect
                 </span>
                 <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-orange-200 to-orange-400 bg-clip-text text-transparent">
                   Get in Touch
                 </h2>
-                <p className="text-gray-200 text-xl">Ready to transform your ideas into reality? Let's talk.</p>
+                <p className="text-gray-200 text-xl">Ready to transform your ideas into reality? Let&apos;s talk.</p>
               </div>
               
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
