@@ -152,23 +152,28 @@ export default function CognetexWebsite() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
-      {/* Subtle Background */}
+    <div className="min-h-screen text-white liquid-gradient-bg">
+      {/* Liquid Glass Background */}
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"></div>
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-orange-500/5 rounded-full filter blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-600/5 rounded-full filter blur-3xl"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-slate-950 to-black"></div>
+        {/* Floating Glass Orbs */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-orange-500/20 to-orange-600/10 rounded-full filter blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-gradient-to-br from-orange-400/15 to-red-500/10 rounded-full filter blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-2/3 left-1/3 w-64 h-64 bg-gradient-to-br from-amber-500/10 to-orange-500/15 rounded-full filter blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        {/* Glass Texture Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/[0.02] to-transparent"></div>
       </div>
 
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'backdrop-blur-xl bg-slate-950/90 border-b border-white/10' : ''}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'glass-nav' : ''}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center">
-                <Code className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 glass-morphism rounded-2xl flex items-center justify-center relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 to-orange-600/20 group-hover:from-orange-400/30 group-hover:to-orange-600/30 transition-all duration-300"></div>
+                <Code className="w-7 h-7 text-orange-400 relative z-10" />
               </div>
-              <span className="text-2xl font-bold text-white">Cognetex</span>
+              <span className="text-2xl font-bold bg-gradient-to-r from-white via-orange-100 to-orange-200 bg-clip-text text-transparent">Cognetex</span>
             </div>
             
             <div className="hidden md:flex items-center space-x-8">
@@ -176,12 +181,13 @@ export default function CognetexWebsite() {
                 <a 
                   key={item}
                   href={`#${item.toLowerCase()}`} 
-                  className="text-gray-300 hover:text-orange-400 transition-colors duration-200 font-medium"
+                  className="relative text-gray-300 hover:text-white transition-all duration-300 font-medium group"
                 >
-                  {item}
+                  <span className="relative z-10">{item}</span>
+                  <div className="absolute inset-0 rounded-lg glass-morphism opacity-0 group-hover:opacity-100 transition-all duration-300 -m-2"></div>
                 </a>
               ))}
-              <a href="#contact" className="px-6 py-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200">
+              <a href="#contact" className="liquid-button px-6 py-3 rounded-2xl font-semibold text-white relative z-10">
                 Get in Touch
               </a>
             </div>
@@ -195,19 +201,21 @@ export default function CognetexWebsite() {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`md:hidden absolute top-20 left-0 right-0 bg-slate-950/95 backdrop-blur-xl border-b border-white/10 transition-all duration-300 ${isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}`}>
-          <div className="px-6 py-6 space-y-4">
-            {['Services', 'Projects', 'Expertise', 'Team', 'Blog'].map((item) => (
+        <div className={`md:hidden absolute top-20 left-4 right-4 glass-morphism rounded-3xl transition-all duration-500 ${isMenuOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-8 scale-95 pointer-events-none'}`}>
+          <div className="p-6 space-y-4">
+            {['Services', 'Projects', 'Expertise', 'Team', 'Blog'].map((item, index) => (
               <a 
                 key={item}
                 href={`#${item.toLowerCase()}`} 
-                className="block py-2 text-gray-300 hover:text-orange-400 transition-colors duration-200"
+                className="block py-3 px-4 text-gray-300 hover:text-white transition-all duration-300 rounded-xl hover:bg-white/5 relative group"
                 onClick={() => setIsMenuOpen(false)}
+                style={{ animationDelay: `${index * 50}ms` }}
               >
-                {item}
+                <span className="relative z-10">{item}</span>
+                <div className="absolute inset-0 rounded-xl glass-morphism opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
               </a>
             ))}
-            <a href="#contact" className="block py-3 px-6 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg text-center font-semibold mt-4" onClick={() => setIsMenuOpen(false)}>
+            <a href="#contact" className="block liquid-button py-3 px-6 rounded-2xl text-center font-semibold mt-6 text-white" onClick={() => setIsMenuOpen(false)}>
               Get in Touch
             </a>
           </div>
@@ -217,35 +225,40 @@ export default function CognetexWebsite() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-4 pt-20">
         <div className="max-w-6xl mx-auto text-center relative z-10">
-          <div className="mb-8 inline-flex items-center px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full animate-fade-in-up">
-            <Zap className="w-5 h-5 text-orange-400 mr-3" />
-            <span className="text-gray-300 font-medium">Engineering tomorrow's technology, today</span>
+          <div className="mb-8 inline-flex items-center px-8 py-4 glass-morphism rounded-full animate-fade-in-up relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-400/10 to-orange-600/10 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+            <Zap className="w-5 h-5 text-orange-400 mr-3 relative z-10" />
+            <span className="text-gray-200 font-medium relative z-10">Engineering tomorrow's technology, today</span>
           </div>
           
           <h1 className="text-6xl md:text-8xl font-bold mb-8 animate-fade-in-up animate-delay-200">
-            <span className="bg-gradient-to-r from-white via-orange-200 to-orange-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 inline-block">
+            <span className="bg-gradient-to-r from-white via-orange-200 to-orange-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-500 inline-block cursor-default">
               Cognetex
             </span>
           </h1>
           
-          <div className="flex items-center justify-center space-x-4 mb-8 animate-fade-in-up animate-delay-300">
-            <div className="h-px w-20 bg-gradient-to-r from-transparent to-orange-500/50"></div>
-            <p className="text-2xl md:text-4xl font-bold text-orange-400">
-              Code It. Scale It. Nail It.
-            </p>
-            <div className="h-px w-20 bg-gradient-to-l from-transparent to-orange-500/50"></div>
+          <div className="flex items-center justify-center space-x-6 mb-8 animate-fade-in-up animate-delay-300">
+            <div className="h-px w-24 bg-gradient-to-r from-transparent via-orange-500/70 to-transparent"></div>
+            <div className="glass-morphism px-6 py-2 rounded-2xl">
+              <p className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent">
+                Code It. Scale It. Nail It.
+              </p>
+            </div>
+            <div className="h-px w-24 bg-gradient-to-l from-transparent via-orange-500/70 to-transparent"></div>
           </div>
           
-          <p className="text-lg md:text-xl text-gray-400 mb-16 max-w-3xl mx-auto leading-relaxed animate-fade-in-up animate-delay-400">
-            We deliver intelligent, scalable, and future-ready software solutions powered by AI, automation, and modern development stacks.
-          </p>
+          <div className="glass-morphism p-8 rounded-3xl mb-16 animate-fade-in-up animate-delay-400 max-w-4xl mx-auto">
+            <p className="text-lg md:text-xl text-gray-200 leading-relaxed">
+              We deliver intelligent, scalable, and future-ready software solutions powered by AI, automation, and modern development stacks.
+            </p>
+          </div>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fade-in-up animate-delay-500">
-            <a href="#services" className="group px-10 py-4 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl font-semibold text-lg hover:from-orange-600 hover:to-orange-700 hover:scale-105 transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-orange-500/25">
+            <a href="#services" className="liquid-button px-12 py-5 rounded-2xl font-bold text-lg flex items-center justify-center text-white group">
               Explore Our Services
               <ChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-200" />
             </a>
-            <a href="#contact" className="group px-10 py-4 bg-white/5 border border-white/20 rounded-xl hover:bg-white/10 hover:border-orange-500/30 hover:scale-105 transition-all duration-300 flex items-center justify-center font-semibold text-lg shadow-lg hover:shadow-orange-500/10">
+            <a href="#contact" className="glass-card-hover px-12 py-5 glass-morphism rounded-2xl flex items-center justify-center font-bold text-lg text-white group">
               Start a Project
               <ArrowRight className="w-5 h-5 ml-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200" />
             </a>
@@ -278,16 +291,23 @@ export default function CognetexWebsite() {
                 onMouseEnter={() => setActiveService(index)}
                 onMouseLeave={() => setActiveService(null)}
               >
-                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/8 hover:border-orange-500/30 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300">
-                  <div className={`w-14 h-14 bg-gradient-to-br ${service.gradient} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
-                    {service.icon}
+                <div className="glass-morphism glass-card-hover rounded-3xl p-8 relative overflow-hidden">
+                  {/* Glass reflection effect */}
+                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                  <div className="absolute top-0 left-0 bottom-0 w-px bg-gradient-to-b from-white/10 via-transparent to-transparent"></div>
+                  
+                  <div className={`w-16 h-16 glass-morphism rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 relative overflow-hidden`}>
+                    <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-80`}></div>
+                    <div className="relative z-10 text-white">
+                      {service.icon}
+                    </div>
                   </div>
                   
                   <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-orange-100 transition-colors duration-300">
                     {service.title}
                   </h3>
                   
-                  <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                  <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
                     {service.description}
                   </p>
                   
@@ -322,11 +342,18 @@ export default function CognetexWebsite() {
                 className="group fade-in-section"
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
-                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-orange-500/30 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300">
-                  <div className="h-48 bg-gradient-to-br from-orange-500/10 to-orange-600/10 flex items-center justify-center group-hover:from-orange-500/20 group-hover:to-orange-600/20 transition-all duration-300">
-                    <div className="grid grid-cols-3 gap-2 p-6">
+                <div className="glass-morphism glass-card-hover rounded-3xl overflow-hidden relative">
+                  {/* Glass reflection effects */}
+                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                  <div className="absolute top-0 left-0 bottom-0 w-px bg-gradient-to-b from-white/10 via-transparent to-transparent"></div>
+                  
+                  <div className="h-48 glass-morphism flex items-center justify-center relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-orange-600/10 group-hover:from-orange-500/20 group-hover:to-orange-600/20 transition-all duration-300"></div>
+                    <div className="grid grid-cols-3 gap-3 p-6 relative z-10">
                       {[...Array(9)].map((_, i) => (
-                        <div key={i} className="w-6 h-6 bg-orange-500/30 rounded group-hover:bg-orange-500/50 transition-all duration-300" style={{ transitionDelay: `${i * 50}ms` }}></div>
+                        <div key={i} className="w-6 h-6 glass-morphism rounded group-hover:scale-110 transition-all duration-300" style={{ transitionDelay: `${i * 50}ms` }}>
+                          <div className="w-full h-full bg-gradient-to-br from-orange-400/30 to-orange-600/30 rounded"></div>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -335,13 +362,13 @@ export default function CognetexWebsite() {
                     <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-orange-100 transition-colors duration-300">
                       {project.title}
                     </h3>
-                    <p className="text-gray-400 mb-6 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                    <p className="text-gray-300 mb-6 leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
                       {project.description}
                     </p>
                     
                     <div className="flex flex-wrap gap-2 mb-6">
                       {project.tags.map((tag, tagIndex) => (
-                        <span key={tagIndex} className="px-3 py-1 bg-orange-500/20 text-orange-300 rounded-full text-sm font-medium hover:bg-orange-500/30 hover:scale-105 transition-all duration-200">
+                        <span key={tagIndex} className="px-3 py-1 glass-morphism text-orange-300 rounded-full text-sm font-medium hover:scale-105 transition-all duration-200">
                           {tag}
                         </span>
                       ))}
@@ -351,7 +378,7 @@ export default function CognetexWebsite() {
                       {Object.entries(project.metrics).map(([key, value], i) => (
                         <div key={i} className="text-center group-hover:scale-105 transition-transform duration-300" style={{ transitionDelay: `${i * 100}ms` }}>
                           <div className="text-xl font-bold text-orange-400">{value}</div>
-                          <div className="text-xs text-gray-500 uppercase tracking-wider">{key}</div>
+                          <div className="text-xs text-gray-400 uppercase tracking-wider">{key}</div>
                         </div>
                       ))}
                     </div>
@@ -439,16 +466,23 @@ export default function CognetexWebsite() {
             ].map((member, index) => (
               <div 
                 key={index} 
-                className="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:border-orange-500/30 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300 text-center fade-in-section"
+                className="group glass-morphism glass-card-hover rounded-3xl p-8 text-center fade-in-section relative overflow-hidden"
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg group-hover:shadow-2xl">
-                  {member.icon}
+                {/* Glass reflection effects */}
+                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                <div className="absolute top-0 left-0 bottom-0 w-px bg-gradient-to-b from-white/10 via-transparent to-transparent"></div>
+                
+                <div className="w-18 h-18 glass-morphism rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-orange-400/80 to-orange-600/80"></div>
+                  <div className="relative z-10 text-white">
+                    {member.icon}
+                  </div>
                 </div>
                 <h3 className="text-xl font-bold mb-3 text-white group-hover:text-orange-100 transition-colors duration-300">
                   {member.role}
                 </h3>
-                <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                <p className="text-gray-300 text-sm leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
                   {member.desc}
                 </p>
               </div>
@@ -565,19 +599,24 @@ export default function CognetexWebsite() {
       {/* Contact Section */}
       <section id="contact" className="py-32 px-4 relative fade-in-section">
         <div className="max-w-7xl mx-auto">
-          <div className="relative bg-gradient-to-br from-orange-500/20 via-orange-600/10 to-red-500/20 backdrop-blur-xl border border-orange-500/30 rounded-3xl p-12 md:p-16 overflow-hidden">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500/20 rounded-full filter blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-500/20 rounded-full filter blur-3xl"></div>
+          <div className="relative glass-morphism rounded-3xl p-12 md:p-16 overflow-hidden">
+            {/* Liquid glass background orbs */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-orange-500/15 to-orange-600/10 rounded-full filter blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-br from-red-500/15 to-pink-500/10 rounded-full filter blur-3xl"></div>
+            
+            {/* Glass reflection effects */}
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+            <div className="absolute top-0 left-0 bottom-0 w-px bg-gradient-to-b from-white/10 via-transparent to-transparent"></div>
             
             <div className="relative z-10">
               <div className="text-center mb-16">
-                <span className="inline-block px-4 py-2 bg-orange-500/20 backdrop-blur-sm border border-orange-500/40 rounded-full text-orange-400 font-medium mb-6">
+                <span className="inline-block px-6 py-3 glass-morphism rounded-full text-orange-400 font-medium mb-6">
                   Let's Connect
                 </span>
                 <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-orange-200 to-orange-400 bg-clip-text text-transparent">
                   Get in Touch
                 </h2>
-                <p className="text-gray-300 text-xl">Ready to transform your ideas into reality? Let's talk.</p>
+                <p className="text-gray-200 text-xl">Ready to transform your ideas into reality? Let's talk.</p>
               </div>
               
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
@@ -589,14 +628,18 @@ export default function CognetexWebsite() {
                   <a 
                     key={index}
                     href={`mailto:${contact.email}`} 
-                    className="group flex items-center space-x-4 p-6 bg-white/5 backdrop-blur-xl border border-orange-500/30 rounded-2xl hover:bg-white/10 hover:border-orange-500/50 transition-all duration-300 hover:scale-105"
+                    className="group glass-morphism glass-card-hover flex items-center space-x-4 p-6 rounded-2xl relative overflow-hidden"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                      {contact.icon}
+                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                    <div className="w-12 h-12 glass-morphism rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-br from-orange-400/80 to-orange-600/80"></div>
+                      <div className="relative z-10 text-white">
+                        {contact.icon}
+                      </div>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-400 mb-1">{contact.label}</p>
+                      <p className="text-sm text-gray-300 mb-1">{contact.label}</p>
                       <p className="text-orange-400 group-hover:text-orange-300 transition-colors break-all">
                         {contact.email}
                       </p>
@@ -608,13 +651,16 @@ export default function CognetexWebsite() {
               <div className="flex justify-center">
                 <a 
                   href="https://wa.me/923288521430" 
-                  className="group flex items-center space-x-4 px-8 py-6 bg-gradient-to-r from-green-500/20 to-green-600/20 backdrop-blur-xl border border-green-500/30 rounded-2xl hover:from-green-500/30 hover:to-green-600/30 hover:border-green-500/50 transition-all duration-300 hover:scale-105"
+                  className="group glass-morphism glass-card-hover flex items-center space-x-4 px-8 py-6 rounded-2xl relative overflow-hidden"
                 >
-                  <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <MessageSquare className="w-6 h-6 text-white" />
+                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-green-600/10 group-hover:from-green-500/20 group-hover:to-green-600/20 transition-all duration-300"></div>
+                  <div className="w-12 h-12 glass-morphism rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-green-400/80 to-green-600/80"></div>
+                    <MessageSquare className="w-6 h-6 text-white relative z-10" />
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-400 mb-1">WhatsApp</p>
+                  <div className="relative z-10">
+                    <p className="text-sm text-gray-300 mb-1">WhatsApp</p>
                     <p className="text-green-400 group-hover:text-green-300 transition-colors font-semibold">
                       +92 328 8521430
                     </p>
@@ -627,40 +673,48 @@ export default function CognetexWebsite() {
       </section>
 
       {/* Footer */}
-      <footer className="py-16 px-4 border-t border-white/10">
+      <footer className="py-16 px-4 border-t border-white/5">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-12">
-            <div className="flex items-center space-x-3 mb-6 md:mb-0">
-              <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center">
-                <Code className="w-6 h-6 text-white" />
+          <div className="glass-morphism rounded-3xl p-8 relative overflow-hidden">
+            {/* Glass reflection effects */}
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+            <div className="absolute top-0 left-0 bottom-0 w-px bg-gradient-to-b from-white/10 via-transparent to-transparent"></div>
+            
+            <div className="flex flex-col md:flex-row justify-between items-center mb-8 relative z-10">
+              <div className="flex items-center space-x-3 mb-6 md:mb-0">
+                <div className="w-12 h-12 glass-morphism rounded-2xl flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-orange-400/80 to-orange-600/80"></div>
+                  <Code className="w-7 h-7 text-white relative z-10" />
+                </div>
+                <span className="text-2xl font-bold bg-gradient-to-r from-white via-orange-100 to-orange-200 bg-clip-text text-transparent">Cognetex</span>
               </div>
-              <span className="text-2xl font-bold text-white">Cognetex</span>
+              
+              <div className="flex items-center space-x-3 mb-6 md:mb-0 glass-morphism px-4 py-2 rounded-2xl">
+                <Zap className="w-5 h-5 text-orange-400" />
+                <p className="text-orange-400 font-semibold">Code It. Scale It. Nail It.</p>
+              </div>
+              
+              <div className="flex space-x-4">
+                {[
+                  { icon: <Github className="w-5 h-5" />, href: "#" },
+                  { icon: <Linkedin className="w-5 h-5" />, href: "#" },
+                  { icon: <Twitter className="w-5 h-5" />, href: "#" }
+                ].map((social, index) => (
+                  <a 
+                    key={index}
+                    href={social.href} 
+                    className="w-12 h-12 glass-morphism rounded-xl flex items-center justify-center hover:scale-110 transition-all duration-300 text-gray-300 hover:text-orange-400 relative overflow-hidden group"
+                  >
+                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    {social.icon}
+                  </a>
+                ))}
+              </div>
             </div>
             
-            <div className="flex items-center space-x-2 mb-6 md:mb-0">
-              <Zap className="w-5 h-5 text-orange-400" />
-              <p className="text-orange-400 font-semibold">Code It. Scale It. Nail It.</p>
+            <div className="pt-6 border-t border-white/10 text-center relative z-10">
+              <p className="text-gray-300">&copy; 2024 Cognetex. All rights reserved.</p>
             </div>
-            
-            <div className="flex space-x-4">
-              {[
-                { icon: <Github className="w-5 h-5" />, href: "#" },
-                { icon: <Linkedin className="w-5 h-5" />, href: "#" },
-                { icon: <Twitter className="w-5 h-5" />, href: "#" }
-              ].map((social, index) => (
-                <a 
-                  key={index}
-                  href={social.href} 
-                  className="w-10 h-10 bg-white/5 border border-white/10 rounded-lg flex items-center justify-center hover:bg-white/10 hover:border-orange-500/30 transition-all duration-200 text-gray-400 hover:text-orange-400"
-                >
-                  {social.icon}
-                </a>
-              ))}
-            </div>
-          </div>
-          
-          <div className="pt-8 border-t border-white/10 text-center">
-            <p className="text-gray-400">&copy; 2024 Cognetex. All rights reserved.</p>
           </div>
         </div>
       </footer>
