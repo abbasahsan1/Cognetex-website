@@ -1,0 +1,26 @@
+[
+  {
+    "id": "2",
+    "title": "Generative AI in Action",
+    "description": "Real-world use cases of GenAI transforming industries.",
+    "readTime": "2 min read",
+    "category": "Case Study",
+    "date": "Dec 2024",
+    "content": "<p>Generative AI is revolutionizing content creation across multiple industries...</p>",
+    "author": "Cognetex Team",
+    "published": true,
+    "order": 0
+  },
+  {
+    "id": "3",
+    "title": "Scaling with Full Stack Development",
+    "description": "Best practices for building apps that grow with your business.",
+    "readTime": "4 min read",
+    "category": "Engineering",
+    "date": "Nov 2024",
+    "content": "<p>Building scalable applications requires careful architecture and technology choices...</p>",
+    "author": "Cognetex Team",
+    "published": true,
+    "order": 1
+  }
+]

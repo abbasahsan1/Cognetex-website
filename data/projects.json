@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "title": "AI-Powered Analytics Platformmmm",
+    "description": "Real-time data processing with predictive insights for enterprise clients.",
+    "tags": [
+      "TensorFlow",
+      "React",
+      "AWS"
+    ],
+    "metrics": {
+      "users": "13.5K+",
+      "accuracy": "99.2%",
+      "uptime": "90.9%"
+    },
+    "order": 0
+  },
+  {
+    "id": "2",
+    "title": "Autonomous Customer Service Agent",
+    "description": "NLP-driven chatbot handling 80% of support queries autonomously.",
+    "tags": [
+      "GPT-4",
+      "Node.js",
+      "MongoDB"
+    ],
+    "metrics": {
+      "queries": "1M+",
+      "satisfaction": "4.8/5",
+      "response": "<2s"
+    },
+    "order": 1
+  },
+  {
+    "id": "3",
+    "title": "Generative Content Platform",
+    "description": "AI-powered content generation for marketing teams at scale.",
+    "tags": [
+      "Stable Diffusion",
+      "Next.js",
+      "PostgreSQL"
+    ],
+    "metrics": {
+      "generated": "500K+",
+      "teams": "200+",
+      "efficiency": "10x"
+    },
+    "order": 2
+  }
+]
