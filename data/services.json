@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "title": "Agentic AI",
+    "description": "We design autonomous AI agents that can reason, plan, and take action — driving smarter workflows, adaptive decision-making, and continuous optimization.",
+    "icon": "Bot",
+    "gradient": "from-orange-400 to-red-500",
+    "order": 0
+  },
+  {
+    "id": "2",
+    "title": "Generative AI",
+    "description": "From text and images to code and audio, our Generative AI solutions unleash creativity and automation at scale, empowering businesses to build new products.",
+    "icon": "Sparkles",
+    "gradient": "from-orange-500 to-pink-500",
+    "order": 1
+  },
+  {
+    "id": "3",
+    "title": "Natural Language Processing",
+    "description": "We build NLP solutions such as chatbots, sentiment analysis, summarization, and translation — enabling more natural, meaningful interactions.",
+    "icon": "Languages",
+    "gradient": "from-orange-400 to-amber-500",
+    "order": 2
+  },
+  {
+    "id": "4",
+    "title": "AI & Machine Learning",
+    "description": "Transform raw data into insights. Our custom AI/ML models power predictive analytics, recommendation systems, and smart automation.",
+    "icon": "Brain",
+    "gradient": "from-orange-500 to-red-600",
+    "order": 3
+  },
+  {
+    "id": "5",
+    "title": "Full Stack Development",
+    "description": "From frontend to backend, we craft scalable web and mobile applications using React.js, Next.js, Node.js, Flutter, and Python.",
+    "icon": "Layers",
+    "gradient": "from-orange-400 to-yellow-500",
+    "order": 4
+  },
+  {
+    "id": "6",
+    "title": "Integration & Automation",
+    "description": "We connect systems, automate workflows, and streamline operations to make businesses faster, smarter, and more efficient.",
+    "icon": "Link2",
+    "gradient": "from-orange-500 to-red-500",
+    "order": 5
+  }
+]

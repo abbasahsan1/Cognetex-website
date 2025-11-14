@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "name": "Sarah Chen",
+    "title": "AI/ML Engineer",
+    "handle": "sarahchen",
+    "status": "Available",
+    "avatarUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&q=80",
+    "contactText": "Contact",
+    "order": 0
+  },
+  {
+    "id": "2",
+    "name": "Marcus Rodriguez",
+    "title": "Full Stack Developer",
+    "handle": "marcusdev",
+    "status": "Available",
+    "avatarUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
+    "contactText": "Contact",
+    "order": 1
+  },
+  {
+    "id": "3",
+    "name": "Emily Watson",
+    "title": "UX/UI Designer",
+    "handle": "emilywatson",
+    "status": "Available",
+    "avatarUrl": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=800&q=80",
+    "contactText": "Contact",
+    "order": 2
+  },
+  {
+    "id": "4",
+    "name": "David Kim",
+    "title": "DevOps Engineer",
+    "handle": "davidkim",
+    "status": "Available",
+    "avatarUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&q=80",
+    "contactText": "Contact",
+    "order": 3
+  }
+]
