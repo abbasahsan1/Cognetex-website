@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { LayoutDashboard, Briefcase, FolderKanban, FileText, Mail, LogOut, Loader2, Users } from 'lucide-react';
-import Dock from '@/components/Dock';
+import { LayoutDashboard, Briefcase, FolderKanban, FileText, Mail, LogOut, Loader2, Users, Code } from 'lucide-react';
+import PillNav from '@/components/PillNav';
 
 export default function AdminLayout({
   children,
@@ -182,46 +182,49 @@ export default function AdminLayout({
       </aside>
       
       {/* Main Content */}
-      <main className="flex-1 p-8 overflow-y-auto pb-32">
-        {children}
-        
-        {/* Dock Navigation */}
-        <Dock
+      <main className="flex-1 p-8 overflow-y-auto">
+        {/* Pill Navigation */}
+        <PillNav
+          logo={<Code className="w-6 h-6 text-[#3b82f6]" />}
+          logoAlt="Cognetex Admin"
           items={[
             {
-              icon: <LayoutDashboard />,
+              icon: <LayoutDashboard size={16} />,
               label: 'Dashboard',
-              onClick: () => router.push('/ghq')
+              href: '/ghq'
             },
             {
-              icon: <Briefcase />,
+              icon: <Briefcase size={16} />,
               label: 'Services',
-              onClick: () => router.push('/ghq/services')
+              href: '/ghq/services'
             },
             {
-              icon: <FolderKanban />,
+              icon: <FolderKanban size={16} />,
               label: 'Projects',
-              onClick: () => router.push('/ghq/projects')
+              href: '/ghq/projects'
             },
             {
-              icon: <FileText />,
+              icon: <FileText size={16} />,
               label: 'Blogs',
-              onClick: () => router.push('/ghq/blogs')
+              href: '/ghq/blogs'
             },
             {
-              icon: <Users />,
+              icon: <Users size={16} />,
               label: 'Team',
-              onClick: () => router.push('/ghq/team')
+              href: '/ghq/team'
             },
             {
-              icon: <Mail />,
+              icon: <Mail size={16} />,
               label: 'Contact',
-              onClick: () => router.push('/ghq/contact')
+              href: '/ghq/contact'
             }
           ]}
-          magnification={70}
-          distance={200}
+          onItemClick={(href) => router.push(href)}
         />
+        
+        <div className="mt-24">
+          {children}
+        </div>
       </main>
     </div>
   );

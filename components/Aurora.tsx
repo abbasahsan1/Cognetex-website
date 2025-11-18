@@ -95,7 +95,8 @@ void main() {
   vec3 rampColor;
   COLOR_RAMP(colors, uv.x, rampColor);
   
-  float height = snoise(vec2(uv.x * 2.0 + uTime * 0.1, uTime * 0.25)) * 0.5 * uAmplitude;
+  // Simplified noise calculation for better performance
+  float height = snoise(vec2(uv.x * 1.5 + uTime * 0.15, uTime * 0.2)) * 0.5 * uAmplitude;
   height = exp(height);
   height = (uv.y * 2.0 - height + 0.2);
   float intensity = 0.6 * height;
@@ -103,9 +104,10 @@ void main() {
   float midPoint = 0.20;
   float auroraAlpha = smoothstep(midPoint - uBlend * 0.5, midPoint + uBlend * 0.5, intensity);
   
-  vec3 auroraColor = intensity * rampColor;
+  // Pre-multiply alpha for better blending
+  vec3 auroraColor = intensity * rampColor * auroraAlpha;
   
-  fragColor = vec4(auroraColor * auroraAlpha, auroraAlpha);
+  fragColor = vec4(auroraColor, auroraAlpha);
 }
 `;
 
@@ -118,11 +120,15 @@ interface AuroraProps {
 }
 
 export default function Aurora(props: AuroraProps) {
-  const { colorStops = ['#1e3a8a', '#3b82f6', '#1e3a8a'], amplitude = 1.0, blend = 0.5 } = props;
-  const propsRef = useRef<AuroraProps>(props);
-  propsRef.current = props;
-
+  const { 
+    colorStops = ['#1e3a8a', '#3b82f6', '#1e3a8a'], 
+    amplitude = 1.0, 
+    blend = 0.5,
+    speed = 1.0
+  } = props;
+  
   const ctnDom = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<number>(0);
 
   useEffect(() => {
     const ctn = ctnDom.current;
@@ -131,7 +137,8 @@ export default function Aurora(props: AuroraProps) {
     const renderer = new Renderer({
       alpha: true,
       premultipliedAlpha: true,
-      antialias: true
+      antialias: false, // Disable antialiasing for better performance
+      dpr: Math.min(window.devicePixelRatio, 2) // Cap pixel ratio to reduce load
     });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
@@ -144,6 +151,7 @@ export default function Aurora(props: AuroraProps) {
       delete geometry.attributes.uv;
     }
 
+    // Parse colors once and cache
     const colorStopsArray = colorStops.map(hex => {
       const c = new Color(hex);
       return [c.r, c.g, c.b];
@@ -158,7 +166,8 @@ export default function Aurora(props: AuroraProps) {
         uColorStops: { value: colorStopsArray },
         uResolution: { value: [ctn.offsetWidth, ctn.offsetHeight] },
         uBlend: { value: blend }
-      }
+      },
+      transparent: true
     });
 
     const mesh = new Mesh(gl, { geometry, program });
@@ -174,23 +183,25 @@ export default function Aurora(props: AuroraProps) {
     window.addEventListener('resize', resize);
 
     let animateId = 0;
+    let lastTime = 0;
+    const targetFPS = 30; // Limit to 30 FPS for smooth performance
+    const frameInterval = 1000 / targetFPS;
+    
     const update = (t: number) => {
       animateId = requestAnimationFrame(update);
-      const { time = t * 0.01, speed = 1.0 } = propsRef.current;
-      if (program) {
-        program.uniforms.uTime.value = time * speed * 0.1;
-        program.uniforms.uAmplitude.value = propsRef.current.amplitude ?? 1.0;
-        program.uniforms.uBlend.value = propsRef.current.blend ?? blend;
-        const stops = propsRef.current.colorStops ?? colorStops;
-        program.uniforms.uColorStops.value = stops.map((hex: string) => {
-          const c = new Color(hex);
-          return [c.r, c.g, c.b];
-        });
-        renderer.render({ scene: mesh });
-      }
+      
+      // Throttle frame rate
+      const elapsed = t - lastTime;
+      if (elapsed < frameInterval) return;
+      
+      lastTime = t - (elapsed % frameInterval);
+      
+      // Only update time uniform (most efficient)
+      program.uniforms.uTime.value = t * 0.0001 * speed;
+      renderer.render({ scene: mesh });
     };
+    
     animateId = requestAnimationFrame(update);
-
     resize();
 
     return () => {
@@ -201,7 +212,7 @@ export default function Aurora(props: AuroraProps) {
       }
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  }, [amplitude, blend, colorStops]);
+  }, []); // Empty deps - initialize once only
 
   return <div ref={ctnDom} className="aurora-container" />;
 }
