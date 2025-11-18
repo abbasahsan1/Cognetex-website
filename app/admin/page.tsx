@@ -1,7 +1,8 @@
 "use client";
 
 import React from 'react';
-import { BarChart3, Users, FileText, FolderKanban, TrendingUp, Eye, DollarSign, Activity } from 'lucide-react';
+import Link from 'next/link';
+import { BarChart3, Users, FileText, FolderKanban, Eye, Activity } from 'lucide-react';
 import SpotlightCard from '@/components/SpotlightCard';
 
 export default function MockAdminPanel() {
@@ -29,14 +30,14 @@ export default function MockAdminPanel() {
               <h1 className="text-3xl font-bold bg-gradient-to-r from-orange-500 via-[#3b82f6] to-orange-500 bg-clip-text text-transparent">
                 Dashboard Overview
               </h1>
-              <p className="text-gray-400 mt-1">Welcome back! Here's what's happening.</p>
+              <p className="text-gray-400 mt-1">Welcome back! Here&apos;s what&apos;s happening.</p>
             </div>
-            <a
+            <Link
               href="/"
               className="px-6 py-3 bg-gradient-to-r from-orange-500 via-[#3b82f6] to-orange-600 rounded-xl font-semibold hover:scale-105 transition-all duration-300"
             >
               View Website
-            </a>
+            </Link>
           </div>
         </div>
       </header>
@@ -149,7 +150,7 @@ export default function MockAdminPanel() {
         <div className="mt-8 p-6 bg-gradient-to-r from-orange-500/10 via-[#3b82f6]/10 to-orange-500/10 backdrop-blur-xl border border-orange-500/30 rounded-3xl">
           <p className="text-center text-gray-300">
             🎭 This is a <span className="text-orange-500 font-semibold">mock admin panel</span> for demonstration purposes. 
-            For full admin functionality, please visit <a href="/ghq" className="text-[#3b82f6] hover:underline font-semibold">/ghq</a>
+            For full admin functionality, please visit <Link href="/ghq" className="text-[#3b82f6] hover:underline font-semibold">/ghq</Link>
           </p>
         </div>
       </main>

@@ -7,17 +7,26 @@ function cn(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(' ');
 }
 
+type StaggerFromType = 'first' | 'last' | 'center' | 'random' | number;
+
+interface RotatingTextHandle {
+  next: () => void;
+  previous: () => void;
+  jumpTo: (index: number) => void;
+  reset: () => void;
+}
+
 interface RotatingTextProps {
   texts: string[];
-  transition?: any;
-  initial?: any;
-  animate?: any;
-  exit?: any;
+  transition?: Record<string, unknown>;
+  initial?: Record<string, unknown>;
+  animate?: Record<string, unknown>;
+  exit?: Record<string, unknown>;
   animatePresenceMode?: 'wait' | 'sync' | 'popLayout';
   animatePresenceInitial?: boolean;
   rotationInterval?: number;
   staggerDuration?: number;
-  staggerFrom?: 'first' | 'last' | 'center' | 'random' | number;
+  staggerFrom?: StaggerFromType;
   loop?: boolean;
   auto?: boolean;
   splitBy?: 'characters' | 'words' | 'lines' | string;
@@ -25,12 +34,12 @@ interface RotatingTextProps {
   mainClassName?: string;
   splitLevelClassName?: string;
   elementLevelClassName?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
-const RotatingText = forwardRef<any, RotatingTextProps>((props, ref) => {
+const RotatingText = forwardRef<RotatingTextHandle, RotatingTextProps>((props, ref) => {
   const {
-    texts,
+    texts = [],
     transition = { type: 'spring', damping: 25, stiffness: 300 },
     initial = { y: '100%', opacity: 0 },
     animate = { y: 0, opacity: 1 },
@@ -48,13 +57,15 @@ const RotatingText = forwardRef<any, RotatingTextProps>((props, ref) => {
     splitLevelClassName,
     elementLevelClassName,
     ...rest
-  } = props;
+  } = props as RotatingTextProps;
 
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
 
-  const splitIntoCharacters = (text: string) => {
-    if (typeof Intl !== 'undefined' && (Intl as any).Segmenter) {
+  const splitIntoCharacters = (text: string): string[] => {
+    if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const segmenter = new (Intl as any).Segmenter('en', { granularity: 'grapheme' });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return Array.from(segmenter.segment(text), (segment: any) => segment.segment);
     }
     return Array.from(text);
@@ -64,24 +75,24 @@ const RotatingText = forwardRef<any, RotatingTextProps>((props, ref) => {
     const currentText = texts[currentTextIndex];
     if (splitBy === 'characters') {
       const words = currentText.split(' ');
-      return words.map((word, i) => ({
+      return words.map((word: string, i: number) => ({
         characters: splitIntoCharacters(word),
         needsSpace: i !== words.length - 1
       }));
     }
     if (splitBy === 'words') {
-      return currentText.split(' ').map((word, i, arr) => ({
+      return currentText.split(' ').map((word: string, i: number, arr: string[]) => ({
         characters: [word],
         needsSpace: i !== arr.length - 1
       }));
     }
     if (splitBy === 'lines') {
-      return currentText.split('\n').map((line, i, arr) => ({
+      return currentText.split('\n').map((line: string, i: number, arr: string[]) => ({
         characters: [line],
         needsSpace: i !== arr.length - 1
       }));
     }
-    return currentText.split(splitBy).map((part, i, arr) => ({
+    return currentText.split(splitBy as string).map((part: string, i: number, arr: string[]) => ({
       characters: [part],
       needsSpace: i !== arr.length - 1
     }));
@@ -90,17 +101,17 @@ const RotatingText = forwardRef<any, RotatingTextProps>((props, ref) => {
   const getStaggerDelay = useCallback(
     (index: number, totalChars: number) => {
       const total = totalChars;
-      if (staggerFrom === 'first') return index * staggerDuration;
-      if (staggerFrom === 'last') return (total - 1 - index) * staggerDuration;
+      if (staggerFrom === 'first') return index * (staggerDuration || 0);
+      if (staggerFrom === 'last') return (total - 1 - index) * (staggerDuration || 0);
       if (staggerFrom === 'center') {
         const center = Math.floor(total / 2);
-        return Math.abs(center - index) * staggerDuration;
+        return Math.abs(center - index) * (staggerDuration || 0);
       }
       if (staggerFrom === 'random') {
         const randomIndex = Math.floor(Math.random() * total);
-        return Math.abs(randomIndex - index) * staggerDuration;
+        return Math.abs(randomIndex - index) * (staggerDuration || 0);
       }
-      return Math.abs((staggerFrom as number) - index) * staggerDuration;
+      return Math.abs((staggerFrom as number) - index) * (staggerDuration || 0);
     },
     [staggerFrom, staggerDuration]
   );
@@ -152,7 +163,7 @@ const RotatingText = forwardRef<any, RotatingTextProps>((props, ref) => {
       reset
     }),
     [next, previous, jumpTo, reset]
-  );
+  ) as void;
 
   useEffect(() => {
     if (!auto) return;
@@ -165,10 +176,11 @@ const RotatingText = forwardRef<any, RotatingTextProps>((props, ref) => {
       className={cn('flex flex-wrap whitespace-pre-wrap relative', mainClassName)}
       {...rest}
       layout
-      transition={transition}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      transition={transition as any}
     >
       <span className="sr-only">{texts[currentTextIndex]}</span>
-      <AnimatePresence mode={animatePresenceMode} initial={animatePresenceInitial}>
+      <AnimatePresence mode={animatePresenceMode as 'wait' | 'sync' | 'popLayout'} initial={animatePresenceInitial}>
         <motion.span
           key={currentTextIndex}
           className={cn(splitBy === 'lines' ? 'flex flex-col w-full' : 'flex flex-wrap whitespace-pre-wrap relative')}
@@ -182,16 +194,19 @@ const RotatingText = forwardRef<any, RotatingTextProps>((props, ref) => {
                 {wordObj.characters.map((char, charIndex) => (
                   <motion.span
                     key={charIndex}
-                    initial={initial}
-                    animate={animate}
-                    exit={exit}
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    initial={initial as any}
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    animate={animate as any}
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    exit={exit as any}
                     transition={{
                       ...transition,
                       delay: getStaggerDelay(
                         previousCharsCount + charIndex,
                         array.reduce((sum, word) => sum + word.characters.length, 0)
                       )
-                    }}
+                    } as Record<string, unknown>}
                     className={cn('inline-block', elementLevelClassName)}
                   >
                     {char}

@@ -26,8 +26,8 @@ interface ChromaGridProps {
 const ChromaGrid = ({ items, className = '', radius = 300, damping = 0.45, fadeOut = 0.6, ease = 'power3.out' }: ChromaGridProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const fadeRef = useRef<HTMLDivElement>(null);
-  const setX = useRef<((value: number) => void) | null>(null);
-  const setY = useRef<((value: number) => void) | null>(null);
+  const setX = useRef<null | ((value: number) => void)>(null);
+  const setY = useRef<null | ((value: number) => void)>(null);
   const pos = useRef({ x: 0, y: 0 });
 
   const demo: ChromaGridItem[] = [
@@ -93,14 +93,16 @@ const ChromaGrid = ({ items, className = '', radius = 300, damping = 0.45, fadeO
     const el = rootRef.current;
     if (!el || typeof window === 'undefined') return;
 
-    setX.current = gsap.quickSetter(el, '--x', 'px');
-    setY.current = gsap.quickSetter(el, '--y', 'px');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    setX.current = gsap.quickSetter(el, '--x', 'px') as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    setY.current = gsap.quickSetter(el, '--y', 'px') as any;
 
     const { width, height } = el.getBoundingClientRect();
     pos.current = { x: width / 2, y: height / 2 };
 
-    setX.current(pos.current.x);
-    setY.current(pos.current.y);
+    setX.current?.(pos.current.x);
+    setY.current?.(pos.current.y);
   }, []);
 
   const moveTo = (x: number, y: number) => {

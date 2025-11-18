@@ -71,7 +71,20 @@ export default function ScrollVelocity({
     scrollerClassName,
     parallaxStyle,
     scrollerStyle
-  }: any) {
+  }: {
+    children?: React.ReactNode;
+    baseVelocity?: number;
+    scrollContainerRef?: React.RefObject<HTMLElement>;
+    className?: string;
+    damping?: number;
+    stiffness?: number;
+    numCopies?: number;
+    velocityMapping?: { input: number[]; output: number[] };
+    parallaxClassName?: string;
+    scrollerClassName?: string;
+    parallaxStyle?: React.CSSProperties;
+    scrollerStyle?: React.CSSProperties;
+  }) {
     const baseX = useMotionValue(0);
     const scrollOptions = scrollContainerRef ? { container: scrollContainerRef } : {};
     const { scrollY } = useScroll(scrollOptions);
@@ -88,7 +101,7 @@ export default function ScrollVelocity({
     );
 
     const copyRef = useRef<HTMLSpanElement>(null);
-    const copyWidth = useElementWidth(copyRef);
+    const copyWidth = useElementWidth(copyRef as React.RefObject<HTMLSpanElement>);
 
     function wrap(min: number, max: number, v: number) {
       const range = max - min;
