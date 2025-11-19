@@ -14,6 +14,7 @@ import ChromaGrid from './ChromaGrid';
 import SpotlightCard from './SpotlightCard';
 import PillNav from './PillNav';
 import { AnimatedTooltip, TooltipItem } from './ui/animated-tooltip';
+import { InfiniteScroll, ScrollingItem } from './ui/infinite-scroll';
 
 // Type definitions
 interface Service {
@@ -608,7 +609,7 @@ export default function CognetexWebsite() {
         </div>
       </section>
 
-      {/* Expertise Section - DYNAMIC with AnimatedTooltip */}
+      {/* Expertise Section - HORIZONTAL INFINITE SCROLL */}
       <section id="expertise" className="py-16 px-4 relative fade-in-section overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-orange-500/5 to-transparent"></div>
         
@@ -625,8 +626,8 @@ export default function CognetexWebsite() {
           />
         </div>
         
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-20">
+        <div className="max-w-full mx-auto relative z-10">
+          <div className="text-center mb-16 px-4">
             <span className="inline-block px-4 py-2 bg-gradient-to-r from-orange-500/10 to-[#3b82f6]/10 backdrop-blur-sm border border-orange-500/30 rounded-full text-orange-500 font-medium mb-6">
               Tech Stack
             </span>
@@ -655,31 +656,30 @@ export default function CognetexWebsite() {
               <Loader2 className="w-12 h-12 text-[#3b82f6] animate-spin" />
             </div>
           ) : tools.length > 0 ? (
-            <div className="glass-morphism rounded-3xl p-12 border border-orange-500/20 relative overflow-hidden">
-              {/* Glass reflection effects */}
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-              <div className="absolute top-0 left-0 bottom-0 w-px bg-gradient-to-b from-white/10 via-transparent to-transparent"></div>
+            <div className="space-y-4">
+              {/* First Row - Scrolling Left to Right */}
+              <InfiniteScroll 
+                items={tools.slice(0, Math.ceil(tools.length / 2)).map(tool => ({
+                  id: tool.id,
+                  name: tool.name,
+                  image: tool.image
+                } as ScrollingItem))}
+                direction="right"
+                speed={60}
+                pauseOnHover={true}
+              />
               
-              {/* Group by category */}
-              {Array.from(new Set(tools.map(t => t.category))).map((category, idx) => {
-                const categoryTools = tools
-                  .filter(t => t.category === category)
-                  .map(tool => ({
-                    id: parseInt(tool.id),
-                    name: tool.name,
-                    designation: tool.category,
-                    image: tool.image
-                  } as TooltipItem));
-
-                return (
-                  <div key={category} className="mb-12 last:mb-0 fade-in-section" style={{ transitionDelay: `${idx * 100}ms` }}>
-                    <h3 className="text-2xl font-bold text-white mb-8 text-center bg-gradient-to-r from-orange-500 to-[#3b82f6] bg-clip-text text-transparent">
-                      {category}
-                    </h3>
-                    <AnimatedTooltip items={categoryTools} />
-                  </div>
-                );
-              })}
+              {/* Second Row - Scrolling Right to Left */}
+              <InfiniteScroll 
+                items={tools.slice(Math.ceil(tools.length / 2)).map(tool => ({
+                  id: tool.id,
+                  name: tool.name,
+                  image: tool.image
+                } as ScrollingItem))}
+                direction="left"
+                speed={60}
+                pauseOnHover={true}
+              />
             </div>
           ) : (
             <div className="text-center py-20">

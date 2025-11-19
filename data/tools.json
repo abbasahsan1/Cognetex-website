@@ -2,7 +2,7 @@
   {
     "id": "1",
     "name": "Python",
-    "category": "Languages & Frameworks",
+    "category": "Languages",
     "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
     "order": 1
   },
@@ -23,42 +23,42 @@
   {
     "id": "4",
     "name": "FastAPI",
-    "category": "Languages & Frameworks",
+    "category": "Backend",
     "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg",
     "order": 4
   },
   {
     "id": "5",
     "name": "Node.js",
-    "category": "Languages & Frameworks",
+    "category": "Backend",
     "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
     "order": 5
   },
   {
     "id": "6",
     "name": "Next.js",
-    "category": "Web Development",
+    "category": "Frontend",
     "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
     "order": 6
   },
   {
     "id": "7",
     "name": "React",
-    "category": "Web Development",
+    "category": "Frontend",
     "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
     "order": 7
   },
   {
     "id": "8",
     "name": "Kotlin",
-    "category": "Mobile Development",
+    "category": "Mobile",
     "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg",
     "order": 8
   },
   {
     "id": "9",
     "name": "Flutter",
-    "category": "Mobile Development",
+    "category": "Mobile",
     "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
     "order": 9
   },
@@ -128,28 +128,28 @@
   {
     "id": "19",
     "name": "Tailwind CSS",
-    "category": "Web Development",
+    "category": "Frontend",
     "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
     "order": 19
   },
   {
     "id": "20",
     "name": "Prometheus",
-    "category": "DevOps",
+    "category": "Monitoring",
     "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg",
     "order": 20
   },
   {
     "id": "21",
     "name": "Grafana",
-    "category": "DevOps",
+    "category": "Monitoring",
     "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg",
     "order": 21
   },
   {
     "id": "22",
     "name": "SQLAlchemy",
-    "category": "Languages & Frameworks",
+    "category": "Backend",
     "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlalchemy/sqlalchemy-original.svg",
     "order": 22
   },
@@ -162,65 +162,331 @@
   },
   {
     "id": "24",
-    "name": "LLM Fine-tuning",
+    "name": "Scikit-learn",
     "category": "AI/ML",
-    "image": "https://img.icons8.com/fluency/96/artificial-intelligence.png",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg",
     "order": 24
   },
   {
     "id": "25",
-    "name": "RAG",
+    "name": "Hugging Face",
     "category": "AI/ML",
-    "image": "https://img.icons8.com/color/96/database.png",
+    "image": "https://huggingface.co/front/assets/huggingface_logo.svg",
     "order": 25
   },
   {
     "id": "26",
-    "name": "Vector Databases",
+    "name": "OpenCV",
     "category": "AI/ML",
-    "image": "https://img.icons8.com/color/96/vector.png",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg",
     "order": 26
   },
   {
     "id": "27",
-    "name": "Agentic AI",
+    "name": "Jupyter",
     "category": "AI/ML",
-    "image": "https://img.icons8.com/color/96/bot.png",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg",
     "order": 27
   },
   {
     "id": "28",
-    "name": "MLFlow",
-    "category": "AI/ML",
-    "image": "https://img.icons8.com/color/96/workflow.png",
+    "name": "Express.js",
+    "category": "Backend",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
     "order": 28
   },
   {
     "id": "29",
-    "name": "AirFlow",
-    "category": "DevOps",
-    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg",
+    "name": "Flask",
+    "category": "Backend",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg",
     "order": 29
   },
   {
     "id": "30",
-    "name": "OAuth 2.0",
-    "category": "Security",
-    "image": "https://img.icons8.com/color/96/key.png",
+    "name": "Django",
+    "category": "Backend",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg",
     "order": 30
   },
   {
     "id": "31",
-    "name": "REST APIs",
-    "category": "APIs",
-    "image": "https://img.icons8.com/color/96/api.png",
+    "name": "Ruby on Rails",
+    "category": "Backend",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rails/rails-plain.svg",
     "order": 31
   },
   {
     "id": "32",
-    "name": "Cybersecurity",
-    "category": "Security",
-    "image": "https://img.icons8.com/color/96/security-checked.png",
+    "name": "Spring Boot",
+    "category": "Backend",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg",
     "order": 32
+  },
+  {
+    "id": "33",
+    "name": "Go",
+    "category": "Backend",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg",
+    "order": 33
+  },
+  {
+    "id": "34",
+    "name": ".NET Core",
+    "category": "Backend",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg",
+    "order": 34
+  },
+  {
+    "id": "35",
+    "name": "C#",
+    "category": "Languages",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg",
+    "order": 35
+  },
+  {
+    "id": "36",
+    "name": "Angular",
+    "category": "Frontend",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg",
+    "order": 36
+  },
+  {
+    "id": "37",
+    "name": "Vue.js",
+    "category": "Frontend",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg",
+    "order": 37
+  },
+  {
+    "id": "38",
+    "name": "Svelte",
+    "category": "Frontend",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg",
+    "order": 38
+  },
+  {
+    "id": "39",
+    "name": "Redux",
+    "category": "Frontend",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg",
+    "order": 39
+  },
+  {
+    "id": "40",
+    "name": "Material-UI",
+    "category": "Frontend",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg",
+    "order": 40
+  },
+  {
+    "id": "41",
+    "name": "Swift",
+    "category": "Mobile",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg",
+    "order": 41
+  },
+  {
+    "id": "42",
+    "name": "React Native",
+    "category": "Mobile",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    "order": 42
+  },
+  {
+    "id": "43",
+    "name": "AWS",
+    "category": "Cloud",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
+    "order": 43
+  },
+  {
+    "id": "44",
+    "name": "Azure",
+    "category": "Cloud",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
+    "order": 44
+  },
+  {
+    "id": "45",
+    "name": "Google Cloud",
+    "category": "Cloud",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
+    "order": 45
+  },
+  {
+    "id": "46",
+    "name": "Ansible",
+    "category": "DevOps",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg",
+    "order": 46
+  },
+  {
+    "id": "47",
+    "name": "Docker Compose",
+    "category": "DevOps",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+    "order": 47
+  },
+  {
+    "id": "48",
+    "name": "MySQL",
+    "category": "Databases",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+    "order": 48
+  },
+  {
+    "id": "49",
+    "name": "Redis",
+    "category": "Databases",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
+    "order": 49
+  },
+  {
+    "id": "50",
+    "name": "Elasticsearch",
+    "category": "Databases",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/elasticsearch/elasticsearch-original.svg",
+    "order": 50
+  },
+  {
+    "id": "51",
+    "name": "Nginx",
+    "category": "Tools",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg",
+    "order": 51
+  },
+  {
+    "id": "52",
+    "name": "Apache",
+    "category": "Tools",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg",
+    "order": 52
+  },
+  {
+    "id": "53",
+    "name": "Vercel",
+    "category": "Cloud",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
+    "order": 53
+  },
+  {
+    "id": "54",
+    "name": "TypeScript",
+    "category": "Languages",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+    "order": 54
+  },
+  {
+    "id": "55",
+    "name": "JavaScript",
+    "category": "Languages",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    "order": 55
+  },
+  {
+    "id": "56",
+    "name": "Java",
+    "category": "Languages",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+    "order": 56
+  },
+  {
+    "id": "57",
+    "name": "Rust",
+    "category": "Languages",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-original.svg",
+    "order": 57
+  },
+  {
+    "id": "58",
+    "name": "Ruby",
+    "category": "Languages",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg",
+    "order": 58
+  },
+  {
+    "id": "59",
+    "name": "PHP",
+    "category": "Languages",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",
+    "order": 59
+  },
+  {
+    "id": "60",
+    "name": "Selenium",
+    "category": "Testing",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg",
+    "order": 60
+  },
+  {
+    "id": "61",
+    "name": "Jest",
+    "category": "Testing",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg",
+    "order": 61
+  },
+  {
+    "id": "62",
+    "name": "Cypress",
+    "category": "Testing",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cypressio/cypressio-original.svg",
+    "order": 62
+  },
+  {
+    "id": "63",
+    "name": "GitLab",
+    "category": "DevOps",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg",
+    "order": 63
+  },
+  {
+    "id": "64",
+    "name": "GitHub Actions",
+    "category": "DevOps",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+    "order": 64
+  },
+  {
+    "id": "65",
+    "name": "Webpack",
+    "category": "Tools",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg",
+    "order": 65
+  },
+  {
+    "id": "66",
+    "name": "Vite",
+    "category": "Tools",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg",
+    "order": 66
+  },
+  {
+    "id": "67",
+    "name": "Sass",
+    "category": "Frontend",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg",
+    "order": 67
+  },
+  {
+    "id": "68",
+    "name": "Bootstrap",
+    "category": "Frontend",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg",
+    "order": 68
+  },
+  {
+    "id": "69",
+    "name": "GraphQL",
+    "category": "Backend",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg",
+    "order": 69
+  },
+  {
+    "id": "70",
+    "name": "Stripe",
+    "category": "APIs",
+    "image": "https://images.ctfassets.net/fzn2n1nzq965/HTTOloNPhisV9P4hlMPNA/cacf1bb88b9fc492dfad34378d844280/Stripe_icon_-_square.svg",
+    "order": 70
   }
 ]

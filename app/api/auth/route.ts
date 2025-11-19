@@ -1,15 +1,27 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { promises as fs } from 'fs';
+import path from 'path';
 
-// Simple password authentication
-// In production, use proper authentication with hashed passwords
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'cognetex2024';
+const passwordFilePath = path.join(process.cwd(), 'data', 'password.json');
+
+async function getStoredPassword() {
+  try {
+    const fileContents = await fs.readFile(passwordFilePath, 'utf8');
+    const data = JSON.parse(fileContents);
+    return data.password;
+  } catch (error) {
+    // Fallback to default if file doesn't exist
+    return 'cognetex2024';
+  }
+}
 
 export async function POST(request: Request) {
   try {
     const { password } = await request.json();
+    const storedPassword = await getStoredPassword();
     
-    if (password === ADMIN_PASSWORD) {
+    if (password === storedPassword) {
       // Set a simple auth cookie
       const cookieStore = await cookies();
       cookieStore.set('admin_auth', 'authenticated', {
