@@ -12,6 +12,7 @@ import ScrollVelocity from './ScrollVelocity';
 import MagnetLines from './MagnetLines';
 import ChromaGrid from './ChromaGrid';
 import SpotlightCard from './SpotlightCard';
+import PillNav from './PillNav';
 
 // Type definitions
 interface Service {
@@ -77,6 +78,7 @@ const getIconComponent = (iconName: string) => {
 export default function CognetexWebsite() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
   
   // Dynamic data state
   const [services, setServices] = useState<Service[]>([]);
@@ -236,12 +238,35 @@ export default function CognetexWebsite() {
     const fadeInElements = document.querySelectorAll('.fade-in-section');
     fadeInElements.forEach((el) => observer.observe(el));
 
+    // Section tracking for active navigation
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const sectionId = entry.target.id;
+            if (sectionId) {
+              setActiveSection(`#${sectionId}`);
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+        rootMargin: '-80px 0px -50% 0px'
+      }
+    );
+
+    // Observe all sections
+    const sections = document.querySelectorAll('section[id]');
+    sections.forEach((section) => sectionObserver.observe(section));
+
     window.addEventListener('scroll', handleScroll);
     handleScroll();
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
       observer.disconnect();
+      sectionObserver.disconnect();
     };
   }, []);
 
@@ -275,64 +300,55 @@ export default function CognetexWebsite() {
       </div>
 
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'glass-nav' : ''}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 glass-morphism rounded-2xl flex items-center justify-center relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#3b82f6]/20 to-[#3b82f6]/20 group-hover:from-[#3b82f6]/30 group-hover:to-[#3b82f6]/30 transition-all duration-300"></div>
-                <Code className="w-7 h-7 text-[#3b82f6] relative z-10" />
-              </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-white via-blue-100 to-[#3b82f6] bg-clip-text text-transparent">Cognetex</span>
-            </div>
-            
-            <div className="hidden md:flex items-center gap-1">
-              {['Services', 'Projects', 'Expertise', 'Team', 'Blog'].map((item) => (
-                <a 
-                  key={item}
-                  href={`#${item.toLowerCase()}`} 
-                  className="px-4 py-2 text-gray-300 hover:text-white transition-all duration-300 rounded-xl hover:bg-white/10 relative group"
-                >
-                  <span className="relative z-10">{item}</span>
-                </a>
-              ))}
-              <a href="#contact" className="ml-2 px-6 py-2 bg-gradient-to-r from-orange-500 via-[#3b82f6] to-orange-600 rounded-xl font-semibold hover:scale-105 transition-all duration-300">
-                Contact
-              </a>
-            </div>
-
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden relative w-10 h-10 focus:outline-none">
-              <span className={`absolute w-6 h-0.5 bg-white transform transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-0' : '-translate-y-2'}`}></span>
-              <span className={`absolute w-6 h-0.5 bg-white transition-all duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-              <span className={`absolute w-6 h-0.5 bg-white transform transition-all duration-300 ${isMenuOpen ? '-rotate-45 translate-y-0' : 'translate-y-2'}`}></span>
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        <div className={`md:hidden absolute top-20 left-4 right-4 glass-morphism rounded-3xl transition-all duration-500 ${isMenuOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-8 scale-95 pointer-events-none'}`}>
-          <div className="p-6 space-y-4">
-            {['Services', 'Projects', 'Expertise', 'Team', 'Blog'].map((item, index) => (
-              <a 
-                key={item}
-                href={`#${item.toLowerCase()}`} 
-                className="block py-3 px-4 text-gray-300 hover:text-white transition-all duration-300 rounded-xl hover:bg-white/5 relative group"
-                onClick={() => setIsMenuOpen(false)}
-                style={{ animationDelay: `${index * 50}ms` }}
-              >
-                <span className="relative z-10">{item}</span>
-                <div className="absolute inset-0 rounded-xl glass-morphism opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-              </a>
-            ))}
-            <a href="#contact" className="block liquid-button py-3 px-6 rounded-2xl text-center font-semibold mt-6 text-white" onClick={() => setIsMenuOpen(false)}>
-              Get in Touch
-            </a>
-          </div>
-        </div>
-      </nav>
+      <PillNav
+        logo={
+          <span className="text-xl font-bold bg-gradient-to-r from-white via-blue-100 to-[#3b82f6] bg-clip-text text-transparent">
+            C
+          </span>
+        }
+        logoAlt="Cognetex"
+        items={[
+          {
+            label: 'Home',
+            href: '#home'
+          },
+          {
+            label: 'Services',
+            href: '#services'
+          },
+          {
+            label: 'Projects',
+            href: '#projects'
+          },
+          {
+            label: 'Expertise',
+            href: '#expertise'
+          },
+          {
+            label: 'Team',
+            href: '#team'
+          },
+          {
+            label: 'Blog',
+            href: '#blog'
+          },
+          {
+            label: 'Contact',
+            href: '#contact'
+          }
+        ]}
+        activeHref={activeSection}
+        onItemClick={(href) => {
+          setActiveSection(href);
+          const element = document.querySelector(href);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
+      />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-4 pt-20">
+      <section id="home" className="relative min-h-screen flex items-center justify-center px-4 pt-20">
         {/* Animated gradient orbs */}
         <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-orange-500/20 to-orange-600/10 rounded-full filter blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-br from-[#3b82f6]/20 to-[#60a5fa]/10 rounded-full filter blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
@@ -349,7 +365,7 @@ export default function CognetexWebsite() {
               colors={["#3b82f6", "#ff8a00", "#3b82f6", "#ff8a00", "#3b82f6"]}
               animationSpeed={4}
               showBorder={false}
-              className="text-6xl md:text-8xl font-bold"
+              className="text-6xl md:text-8xl font-bold py-4 overflow-visible"
             >
               Cognetex
             </GradientText>
@@ -360,7 +376,8 @@ export default function CognetexWebsite() {
             <div className="glass-morphism px-8 py-4 rounded-2xl border border-orange-500/20 min-w-[450px] flex justify-center bg-black/30">
               <RotatingText
                 texts={['Code It. Nail It. Scale It.', 'AI-Powered Solutions', 'Future-Ready Technology', 'Innovation at Scale']}
-                mainClassName="text-2xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-orange-500 to-[#3b82f6] whitespace-nowrap"
+                mainClassName="text-2xl md:text-4xl font-bold text-white whitespace-nowrap"
+                elementLevelClassName="bg-gradient-to-r from-orange-400 via-orange-500 to-[#3b82f6] bg-clip-text text-transparent"
                 staggerFrom="center"
                 staggerDuration={0.02}
                 rotationInterval={3000}
@@ -441,14 +458,6 @@ export default function CognetexWebsite() {
                 
                 const content = (
                   <>
-                    <div className={`w-16 h-16 glass-morphism rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 relative overflow-hidden border border-orange-500/20 group-hover:border-orange-500/40`}>
-                      <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-80 group-hover:opacity-100`}></div>
-                      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      <div className="relative z-10 text-white">
-                        {getIconComponent(service.icon)}
-                      </div>
-                    </div>
-                    
                     <h3 className="text-2xl font-bold mb-4 text-white group-hover:bg-gradient-to-r group-hover:from-orange-500 group-hover:to-[#3b82f6] group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
                       {service.title}
                     </h3>
@@ -842,21 +851,16 @@ export default function CognetexWebsite() {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { icon: <TrendingUp className="w-8 h-8" />, title: "Scalable Solutions", desc: "Built to grow with your business", gradient: "from-orange-500 to-[#3b82f6]" },
-              { icon: <Brain className="w-8 h-8" />, title: "AI-First Mindset", desc: "Harnessing Agentic AI, ML, and automation", gradient: "from-[#3b82f6] to-orange-500" },
-              { icon: <Layers className="w-8 h-8" />, title: "End-to-End Expertise", desc: "From product design to deployment", gradient: "from-orange-500 to-[#60a5fa]" },
-              { icon: <Award className="w-8 h-8" />, title: "Proven Impact", desc: "Delivering real results across industries", gradient: "from-[#60a5fa] to-orange-500" }
+              { title: "Scalable Solutions", desc: "Built to grow with your business", gradient: "from-orange-500 to-[#3b82f6]" },
+              { title: "AI-First Mindset", desc: "Harnessing Agentic AI, ML, and automation", gradient: "from-[#3b82f6] to-orange-500" },
+              { title: "End-to-End Expertise", desc: "From product design to deployment", gradient: "from-orange-500 to-[#60a5fa]" },
+              { title: "Proven Impact", desc: "Delivering real results across industries", gradient: "from-[#60a5fa] to-orange-500" }
             ].map((item, index) => (
               <div 
                 key={index} 
                 className="group text-center fade-in-section"
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <div className="relative inline-block mb-6">
-                  <div className={`w-16 h-16 bg-gradient-to-br ${item.gradient} rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg group-hover:shadow-2xl`}>
-                    {item.icon}
-                  </div>
-                </div>
                 <h3 className="text-xl font-bold mb-3 text-white group-hover:bg-gradient-to-r group-hover:from-orange-500 group-hover:to-[#3b82f6] group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
                   {item.title}
                 </h3>

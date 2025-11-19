@@ -147,12 +147,7 @@ export default function MockAdminPanel() {
         </SpotlightCard>
 
         {/* Notice */}
-        <div className="mt-8 p-6 bg-gradient-to-r from-orange-500/10 via-[#3b82f6]/10 to-orange-500/10 backdrop-blur-xl border border-orange-500/30 rounded-3xl">
-          <p className="text-center text-gray-300">
-            🎭 This is a <span className="text-orange-500 font-semibold">mock admin panel</span> for demonstration purposes. 
-            For full admin functionality, please visit <Link href="/ghq" className="text-[#3b82f6] hover:underline font-semibold">/ghq</Link>
-          </p>
-        </div>
+        
       </main>
     </div>
   );
