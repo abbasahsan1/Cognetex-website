@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { LayoutDashboard, Briefcase, FolderKanban, FileText, Mail, LogOut, Loader2, Users, Code, Wrench } from 'lucide-react';
+import Link from 'next/link';
+import { LayoutDashboard, Briefcase, FolderKanban, FileText, Mail, LogOut, Loader2, Users, Code, Wrench, Link2 } from 'lucide-react';
 import PillNav from '@/components/PillNav';
 
 export default function AdminLayout({
@@ -121,61 +122,69 @@ export default function AdminLayout({
         </div>
         
         <nav className="space-y-2">
-          <a
+          <Link
             href="/ghq"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
           >
             <LayoutDashboard className="w-5 h-5" />
             <span>Dashboard</span>
-          </a>
+          </Link>
           
-          <a
+          <Link
             href="/ghq/services"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
           >
             <Briefcase className="w-5 h-5" />
             <span>Services</span>
-          </a>
+          </Link>
           
-          <a
+          <Link
             href="/ghq/projects"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
           >
             <FolderKanban className="w-5 h-5" />
             <span>Projects</span>
-          </a>
+          </Link>
           
-          <a
+          <Link
             href="/ghq/blogs"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
           >
             <FileText className="w-5 h-5" />
             <span>Blogs</span>
-          </a>
+          </Link>
 
-          <a
+          <Link
             href="/ghq/team"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
           >
             <Users className="w-5 h-5" />
             <span>Team</span>
-          </a>
+          </Link>
           
-          <a
+          <Link
             href="/ghq/tools"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
           >
             <Wrench className="w-5 h-5" />
             <span>Tools</span>
-          </a>
+          </Link>
           
-          <a
+          <Link
+            href="/ghq/links"
+            className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
+          >
+            <Link2 className="w-5 h-5" />
+            <span>Links & Buttons</span>
+          </Link>
+          
+          <Link
             href="/ghq/contact"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
           >
             <Mail className="w-5 h-5" />
             <span>Contact</span>
-          </a>
+          </Link>
         </nav>
         
         <div className="absolute bottom-6 left-6 right-6">
@@ -225,6 +234,11 @@ export default function AdminLayout({
               icon: <Wrench size={16} />,
               label: 'Tools',
               href: '/ghq/tools'
+            },
+            {
+              icon: <Link2 size={16} />,
+              label: 'Links',
+              href: '/ghq/links'
             },
             {
               icon: <Mail size={16} />,

@@ -15,18 +15,18 @@
   }
 }
 
-/* Cognetex Design System - Dark Copper Palette */
+/* Cognetex Design System - Dark Palette with Orange Accents */
 :root {
-  /* Color Palette - Dark Copper */
+  /* Color Palette - Orange Accents on Blue Background */
   --color-bg-primary: #0D0C10;
   --color-bg-card: #1A181F;
   --color-text-primary: #FFFFFF;
   --color-text-secondary: #B0B0C8;
   --color-text-on-accent: #8C5413;
-  --color-accent-primary: #E08A20;
-  --color-accent-hover: #F0A040;
+  --color-accent-primary: #FF8A00;
+  --color-accent-hover: #FFA940;
   --color-border-subtle: #2C2A33;
-  --color-border-interactive: #E08A20;
+  --color-border-interactive: #FF8A00;
   --color-disabled: #4D4D5A;
   --color-success: #00FFAB;
   --color-error: #FF4D4D;
@@ -167,14 +167,14 @@ h3 {
 
 /* Liquid Glass Design System - Performance Optimized */
 .glass-morphism {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(59, 130, 246, 0.03);
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
   border: 1px solid var(--color-border-subtle);
   box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+    inset 0 1px 0 rgba(59, 130, 246, 0.08),
+    inset 0 -1px 0 rgba(59, 130, 246, 0.04);
   /* Performance optimizations */
   transform: translateZ(0);
   will-change: auto;
@@ -191,15 +191,15 @@ h3 {
 }
 
 .glass-card-hover:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 138, 0, 0.08);
   backdrop-filter: blur(24px) saturate(160%);
   -webkit-backdrop-filter: blur(24px) saturate(160%);
   border: 1px solid var(--color-border-interactive);
   box-shadow: 
     0 20px 64px rgba(0, 0, 0, 0.2),
-    0 4px 16px rgba(224, 138, 32, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+    0 4px 16px rgba(255, 138, 0, 0.2),
+    inset 0 1px 0 rgba(255, 138, 0, 0.15),
+    inset 0 -1px 0 rgba(255, 138, 0, 0.08);
   transform: translateY(-4px) scale(1.02);
 }
 
@@ -217,12 +217,12 @@ h3 {
 /* Liquid Buttons */
 .liquid-button {
   position: relative;
-  background: linear-gradient(135deg, rgba(224, 138, 32, 0.8), rgba(224, 138, 32, 0.9));
+  background: linear-gradient(135deg, rgba(255, 138, 0, 0.9), rgba(255, 169, 64, 0.95));
   backdrop-filter: blur(10px) saturate(120%);
   -webkit-backdrop-filter: blur(10px) saturate(120%);
-  border: 1px solid rgba(224, 138, 32, 0.3);
+  border: 1px solid rgba(255, 138, 0, 0.4);
   box-shadow: 
-    0 8px 32px rgba(224, 138, 32, 0.2),
+    0 8px 32px rgba(255, 138, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
     inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -248,8 +248,8 @@ h3 {
 .liquid-button:hover {
   background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-hover));
   box-shadow: 
-    0 12px 48px rgba(224, 138, 32, 0.3),
-    0 4px 16px rgba(224, 138, 32, 0.2),
+    0 12px 48px rgba(255, 138, 0, 0.4),
+    0 4px 16px rgba(255, 138, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.3),
     inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   transform: translateY(-2px);
@@ -258,9 +258,9 @@ h3 {
 /* Liquid Gradients */
 .liquid-gradient-bg {
   background: 
-    radial-gradient(circle at 20% 20%, rgba(224, 138, 32, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(224, 138, 32, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 40% 60%, rgba(224, 138, 32, 0.08) 0%, transparent 50%);
+    radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 60%, rgba(59, 130, 246, 0.06) 0%, transparent 50%);
 }
 
 /* Professional fade-in animations */

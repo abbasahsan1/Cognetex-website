@@ -183,19 +183,19 @@ const PillNav = ({
   return (
     <div className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-fit px-4 ${className}`}>
       <nav className="w-full flex items-center justify-between md:justify-start" aria-label="Primary">
-        {/* Logo */}
+        {/* Logo - Now on the LEFT */}
         <div
           ref={logoRef}
-          className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden glass-morphism border border-orange-500/30 cursor-pointer"
+          className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden glass-morphism border border-orange-500/30 cursor-pointer order-first"
           style={{ width: '48px', height: '48px' }}
         >
           {logo}
         </div>
 
-        {/* Desktop Nav */}
+        {/* Desktop Nav - Now on the RIGHT with ml-auto */}
         <div
           ref={navItemsRef}
-          className="relative items-center rounded-full hidden md:flex ml-2 glass-morphism border border-orange-500/20 backdrop-blur-xl"
+          className="relative items-center rounded-full hidden md:flex ml-auto glass-morphism border border-orange-500/20 backdrop-blur-xl"
           style={{ height: '48px' }}
         >
           <ul role="menubar" className="list-none flex items-stretch m-0 p-[4px] h-full gap-[4px]">
@@ -207,7 +207,7 @@ const PillNav = ({
                   <button
                     role="menuitem"
                     onClick={() => handleItemClick(item.href)}
-                    className="relative overflow-hidden inline-flex items-center justify-center gap-2 h-full no-underline rounded-full box-border font-semibold text-sm leading-none tracking-wide whitespace-nowrap cursor-pointer px-4 text-white bg-gradient-to-r from-orange-500/20 to-[#3b82f6]/20 hover:from-orange-500/30 hover:to-[#3b82f6]/30 transition-all duration-300"
+                    className="relative overflow-hidden inline-flex items-center justify-center gap-2 h-full no-underline rounded-full box-border font-semibold text-sm leading-none tracking-wide whitespace-nowrap cursor-pointer px-4 text-white bg-gradient-to-r from-orange-500/20 to-[#3b82f6]/20 hover:from-orange-500/35 hover:to-[#3b82f6]/35 transition-all duration-300"
                     aria-label={item.label}
                     onMouseEnter={() => handleEnter(i)}
                     onMouseLeave={() => handleLeave(i)}

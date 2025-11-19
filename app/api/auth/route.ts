@@ -12,7 +12,7 @@ async function getStoredPassword() {
     return data.password;
   } catch (error) {
     // Fallback to default if file doesn't exist
-    return 'cognetex2024';
+    return 'cognetex2025';
   }
 }
 

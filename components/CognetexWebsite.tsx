@@ -79,6 +79,16 @@ interface Tool {
   order: number;
 }
 
+interface Link {
+  id: string;
+  label: string;
+  url: string;
+  type: string;
+  icon: string;
+  location: string;
+  order: number;
+}
+
 // Icon mapping helper
 const getIconComponent = (iconName: string) => {
   const IconComponent = (Icons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[iconName];
@@ -97,6 +107,7 @@ export default function CognetexWebsite() {
   const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
   const [team, setTeam] = useState<TeamMember[]>([]);
   const [tools, setTools] = useState<Tool[]>([]);
+  const [links, setLinks] = useState<Link[]>([]);
   
   // Loading states
   const [loading, setLoading] = useState({
@@ -105,7 +116,8 @@ export default function CognetexWebsite() {
     blogs: true,
     contact: true,
     team: true,
-    tools: true
+    tools: true,
+    links: true
   });
 
   // Fetch all data on component mount
@@ -119,6 +131,7 @@ export default function CognetexWebsite() {
     fetchContact();
     fetchTeam();
     fetchTools();
+    fetchLinks();
   }, []);
 
   // Debug log to show current state
@@ -244,6 +257,28 @@ export default function CognetexWebsite() {
     }
   };
 
+  const fetchLinks = async () => {
+    try {
+      const response = await fetch('/api/links');
+      if (response.ok) {
+        const data = await response.json();
+        console.log('✅ Links loaded:', data.length, 'items');
+        setLinks(data);
+      } else {
+        console.error('❌ Links API failed:', response.status);
+      }
+    } catch (error) {
+      console.error('❌ Failed to fetch links:', error);
+    } finally {
+      setLoading(prev => ({ ...prev, links: false }));
+    }
+  };
+
+  // Helper to get links by location
+  const getLinksByLocation = (location: string) => {
+    return links.filter(link => link.location === location).sort((a, b) => a.order - b.order);
+  };
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -357,21 +392,21 @@ export default function CognetexWebsite() {
       />
 
       {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center px-4 pt-20">
-        {/* Animated gradient orbs */}
-        <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-orange-500/20 to-orange-600/10 rounded-full filter blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-br from-[#3b82f6]/20 to-[#60a5fa]/10 rounded-full filter blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+      <section id="home" className="relative min-h-screen flex items-center justify-center px-4 pt-16">
+        {/* Animated gradient orbs - blue background with STRONG orange accents */}
+        <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-orange-500/25 to-orange-600/15 rounded-full filter blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-br from-[#3b82f6]/12 to-[#60a5fa]/8 rounded-full filter blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
         
         <div className="max-w-6xl mx-auto text-center relative z-10">
-          <div className="mb-8 inline-flex items-center px-8 py-4 glass-morphism rounded-full animate-fade-in-up relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-500/10 via-[#3b82f6]/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+          <div className="mb-6 inline-flex items-center px-6 py-3 glass-morphism rounded-full animate-fade-in-up relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500/15 via-orange-400/15 to-orange-500/15 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
             <Sparkles className="w-5 h-5 text-orange-500 mr-3 relative z-10 animate-pulse" />
             <span className="text-gray-200 font-medium relative z-10">Engineering tomorrow&apos;s technology, today</span>
           </div>
           
-          <div className="mb-8">
+          <div className="mb-6">
             <GradientText
-              colors={["#3b82f6", "#ff8a00", "#3b82f6", "#ff8a00", "#3b82f6"]}
+              colors={["#FF8A00", "#FFA940", "#FF8A00", "#FFA940", "#FF8A00"]}
               animationSpeed={4}
               showBorder={false}
               className="text-6xl md:text-8xl font-bold py-4 overflow-visible"
@@ -380,23 +415,23 @@ export default function CognetexWebsite() {
             </GradientText>
           </div>
           
-          <div className="flex items-center justify-center space-x-6 mb-8 animate-fade-in-up animate-delay-300">
-            <div className="h-px w-24 bg-gradient-to-r from-transparent via-orange-500/70 to-transparent"></div>
-            <div className="glass-morphism px-8 py-4 rounded-2xl border border-orange-500/20 min-w-[450px] flex justify-center bg-black/30">
+          <div className="flex items-center justify-center space-x-6 mb-6 animate-fade-in-up animate-delay-300">
+            <div className="h-px w-24 bg-gradient-to-r from-transparent via-orange-500/80 to-transparent"></div>
+            <div className="glass-morphism px-6 py-3 rounded-2xl border border-orange-500/30 min-w-[450px] flex justify-center bg-black/30">
               <RotatingText
                 texts={['Code It. Nail It. Scale It.', 'AI-Powered Solutions', 'Future-Ready Technology', 'Innovation at Scale']}
                 mainClassName="text-2xl md:text-4xl font-bold text-white whitespace-nowrap"
-                elementLevelClassName="bg-gradient-to-r from-orange-400 via-orange-500 to-[#3b82f6] bg-clip-text text-transparent"
+                elementLevelClassName="bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 bg-clip-text text-transparent"
                 staggerFrom="center"
                 staggerDuration={0.02}
                 rotationInterval={3000}
                 transition={{ type: 'spring', damping: 30, stiffness: 400 }}
               />
             </div>
-            <div className="h-px w-24 bg-gradient-to-l from-transparent via-orange-500/70 to-transparent"></div>
+            <div className="h-px w-24 bg-gradient-to-l from-transparent via-orange-500/80 to-transparent"></div>
           </div>
           
-          <div className="glass-morphism p-8 rounded-3xl mb-16 animate-fade-in-up animate-delay-400 max-w-4xl mx-auto border border-orange-500/10">
+          <div className="glass-morphism p-6 rounded-3xl mb-10 animate-fade-in-up animate-delay-400 max-w-4xl mx-auto border border-orange-500/20">
             <BlurText
               text="We deliver intelligent, scalable, and future-ready software solutions powered by AI, automation, and modern development stacks."
               delay={50}
@@ -406,32 +441,46 @@ export default function CognetexWebsite() {
             />
           </div>
           
-          <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fade-in-up animate-delay-500">
-            <a href="#services" className="group relative px-12 py-5 rounded-2xl font-bold text-lg flex items-center justify-center text-white overflow-hidden transition-all duration-300 hover:scale-105">
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-500 via-[#3b82f6] to-orange-600 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-500 via-[#3b82f6] to-orange-600 blur-xl opacity-50 group-hover:opacity-70 transition-opacity"></div>
-              <span className="relative z-10">Explore Our Services</span>
-              <ChevronRight className="w-5 h-5 ml-2 relative z-10 group-hover:translate-x-1 transition-transform duration-200" />
-            </a>
-            <a href="#contact" className="glass-card-hover px-12 py-5 glass-morphism rounded-2xl flex items-center justify-center font-bold text-lg text-white group border border-orange-500/30">
-              Start a Project
-              <ArrowRight className="w-5 h-5 ml-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200" />
-            </a>
+          {/* Dynamic CTA Buttons - STRONG ORANGE */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animate-delay-500">
+            {getLinksByLocation('hero').map((link) => {
+              const IconComponent = getIconComponent(link.icon);
+              return (
+                <a 
+                  key={link.id}
+                  href={link.url} 
+                  className={
+                    link.type === 'primary-cta'
+                      ? "group relative px-10 py-4 rounded-2xl font-bold text-lg flex items-center justify-center text-white overflow-hidden transition-all duration-300 hover:scale-105"
+                      : "glass-card-hover px-10 py-4 glass-morphism rounded-2xl flex items-center justify-center font-bold text-lg text-white group border border-orange-500/40"
+                  }
+                >
+                  {link.type === 'primary-cta' && (
+                    <>
+                      <div className="absolute inset-0 bg-gradient-to-r from-orange-500 via-orange-600 to-orange-500 opacity-90 group-hover:opacity-100 transition-opacity"></div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-orange-500 via-orange-600 to-orange-500 blur-xl opacity-60 group-hover:opacity-80 transition-opacity"></div>
+                    </>
+                  )}
+                  <span className="relative z-10">{link.label}</span>
+                  <span className="relative z-10 ml-2">{IconComponent}</span>
+                </a>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Services Section - DYNAMIC */}
-      <section id="services" className="py-16 px-4 relative fade-in-section">
+      <section id="services" className="py-12 px-4 relative fade-in-section">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-orange-500/5 to-transparent"></div>
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-20">
-            <span className="inline-block px-4 py-2 bg-gradient-to-r from-orange-500/10 to-[#3b82f6]/10 backdrop-blur-sm border border-orange-500/30 rounded-full text-orange-500 font-medium mb-6">
+          <div className="text-center mb-12">
+            <span className="inline-block px-4 py-2 bg-gradient-to-r from-orange-500/10 to-[#3b82f6]/10 backdrop-blur-sm border border-orange-500/30 rounded-full text-orange-500 font-medium mb-4">
               What We Do
             </span>
-            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
               <GradientText
-                colors={["#ffffff", "#ff8a00", "#3b82f6", "#ff8a00", "#ffffff"]}
+                colors={["#ffffff", "#FF8A00", "#3b82f6", "#FF8A00", "#ffffff"]}
                 animationSpeed={5}
                 showBorder={false}
               >
@@ -443,7 +492,7 @@ export default function CognetexWebsite() {
               enableBlur={true}
               baseRotation={2}
               blurStrength={6}
-              textClassName="text-gray-400 text-xl max-w-3xl mx-auto leading-relaxed"
+              textClassName="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed"
             >
               We deliver intelligent, scalable, and future-ready software solutions powered by AI, automation, and modern development stacks.
             </ScrollReveal>
@@ -1075,7 +1124,7 @@ export default function CognetexWebsite() {
             </div>
             
             <div className="pt-6 border-t border-white/10 text-center relative z-10">
-              <p className="text-gray-300">&copy; 2024 Cognetex. All rights reserved.</p>
+              <p className="text-gray-300">&copy; 2025 Cognetex. All rights reserved.</p>
             </div>
           </div>
         </div>
