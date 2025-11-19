@@ -13,6 +13,7 @@ import MagnetLines from './MagnetLines';
 import ChromaGrid from './ChromaGrid';
 import SpotlightCard from './SpotlightCard';
 import PillNav from './PillNav';
+import { AnimatedTooltip, TooltipItem } from './ui/animated-tooltip';
 
 // Type definitions
 interface Service {
@@ -69,6 +70,14 @@ interface TeamMember {
   order: number;
 }
 
+interface Tool {
+  id: string;
+  name: string;
+  category: string;
+  image: string;
+  order: number;
+}
+
 // Icon mapping helper
 const getIconComponent = (iconName: string) => {
   const IconComponent = (Icons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[iconName];
@@ -86,6 +95,7 @@ export default function CognetexWebsite() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
   const [team, setTeam] = useState<TeamMember[]>([]);
+  const [tools, setTools] = useState<Tool[]>([]);
   
   // Loading states
   const [loading, setLoading] = useState({
@@ -93,7 +103,8 @@ export default function CognetexWebsite() {
     projects: true,
     blogs: true,
     contact: true,
-    team: true
+    team: true,
+    tools: true
   });
 
   // Fetch all data on component mount
@@ -106,6 +117,7 @@ export default function CognetexWebsite() {
     fetchBlogs();
     fetchContact();
     fetchTeam();
+    fetchTools();
   }, []);
 
   // Debug log to show current state
@@ -214,6 +226,23 @@ export default function CognetexWebsite() {
     }
   };
 
+  const fetchTools = async () => {
+    try {
+      const response = await fetch('/api/tools');
+      if (response.ok) {
+        const data = await response.json();
+        console.log('✅ Tools loaded:', data.length, 'items');
+        setTools(data.sort((a: Tool, b: Tool) => a.order - b.order));
+      } else {
+        console.error('❌ Tools API failed:', response.status);
+      }
+    } catch (error) {
+      console.error('❌ Failed to fetch tools:', error);
+    } finally {
+      setLoading(prev => ({ ...prev, tools: false }));
+    }
+  };
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -269,27 +298,6 @@ export default function CognetexWebsite() {
       sectionObserver.disconnect();
     };
   }, []);
-
-  const techStack = [
-    { 
-      category: "AI/ML", 
-      tools: ["Python", "TensorFlow", "PyTorch", "HuggingFace"],
-      icon: <Brain className="w-6 h-6" />,
-      color: "from-orange-400 to-red-500"
-    },
-    { 
-      category: "Web & Mobile", 
-      tools: ["Next.js", "React.js", "Node.js", "Flutter", "Firebase", "Supabase"],
-      icon: <Globe className="w-6 h-6" />,
-      color: "from-orange-500 to-pink-500"
-    },
-    { 
-      category: "Data & Infrastructure", 
-      tools: ["MongoDB", "PostgreSQL", "Docker", "AWS", "Kubernetes", "Terraform"],
-      icon: <Server className="w-6 h-6" />,
-      color: "from-orange-400 to-amber-500"
-    }
-  ];
 
   return (
     <div className="min-h-screen text-white liquid-gradient-bg font-['Space_Grotesk',_sans-serif]" style={{ backgroundColor: 'rgb(13, 12, 16)' }}>
@@ -600,7 +608,7 @@ export default function CognetexWebsite() {
         </div>
       </section>
 
-      {/* Expertise Section with Scroll Velocity */}
+      {/* Expertise Section - DYNAMIC with AnimatedTooltip */}
       <section id="expertise" className="py-16 px-4 relative fade-in-section overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-orange-500/5 to-transparent"></div>
         
@@ -636,40 +644,48 @@ export default function CognetexWebsite() {
               enableBlur={true}
               baseRotation={2}
               blurStrength={6}
-              textClassName="text-gray-400 text-xl"
+              textClassName="text-gray-400 text-xl max-w-3xl mx-auto"
             >
-              We leverage a proven tech stack to build robust and future-ready solutions
+              We leverage cutting-edge technologies and frameworks to build robust, scalable, and future-ready solutions
             </ScrollReveal>
           </div>
           
-          <div className="grid gap-6">
-            {techStack.map((stack, index) => (
-              <SpotlightCard
-                key={index}
-                className="!bg-transparent glass-morphism glass-card-hover !border-orange-500/20 fade-in-section"
-                spotlightColor="rgba(59, 130, 246, 0.25)"
-              >
-                <div className="flex items-center mb-6">
-                  <div className={`w-12 h-12 bg-gradient-to-br ${stack.color} rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg group-hover:shadow-2xl`}>
-                    {stack.icon}
+          {loading.tools ? (
+            <div className="flex justify-center items-center py-20">
+              <Loader2 className="w-12 h-12 text-[#3b82f6] animate-spin" />
+            </div>
+          ) : tools.length > 0 ? (
+            <div className="glass-morphism rounded-3xl p-12 border border-orange-500/20 relative overflow-hidden">
+              {/* Glass reflection effects */}
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+              <div className="absolute top-0 left-0 bottom-0 w-px bg-gradient-to-b from-white/10 via-transparent to-transparent"></div>
+              
+              {/* Group by category */}
+              {Array.from(new Set(tools.map(t => t.category))).map((category, idx) => {
+                const categoryTools = tools
+                  .filter(t => t.category === category)
+                  .map(tool => ({
+                    id: parseInt(tool.id),
+                    name: tool.name,
+                    designation: tool.category,
+                    image: tool.image
+                  } as TooltipItem));
+
+                return (
+                  <div key={category} className="mb-12 last:mb-0 fade-in-section" style={{ transitionDelay: `${idx * 100}ms` }}>
+                    <h3 className="text-2xl font-bold text-white mb-8 text-center bg-gradient-to-r from-orange-500 to-[#3b82f6] bg-clip-text text-transparent">
+                      {category}
+                    </h3>
+                    <AnimatedTooltip items={categoryTools} />
                   </div>
-                  <h3 className="text-2xl font-bold text-white group-hover:bg-gradient-to-r group-hover:from-orange-500 group-hover:to-[#3b82f6] group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">{stack.category}</h3>
-                </div>
-                
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-                  {stack.tools.map((tool, toolIndex) => (
-                    <div 
-                      key={toolIndex} 
-                      className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-orange-500/30 hover:bg-gradient-to-r hover:from-orange-500/10 hover:to-[#3b82f6]/10 hover:scale-105 hover:shadow-lg transition-all duration-200 text-center"
-                      style={{ transitionDelay: `${toolIndex * 50}ms` }}
-                    >
-                      <span className="font-medium text-gray-300 hover:text-orange-400 transition-colors duration-200">{tool}</span>
-                    </div>
-                  ))}
-                </div>
-              </SpotlightCard>
-            ))}
-          </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="text-center py-20">
+              <p className="text-gray-400 text-xl">No tools available yet. Check back soon!</p>
+            </div>
+          )}
         </div>
       </section>
 

@@ -1,0 +1,226 @@
+[
+  {
+    "id": "1",
+    "name": "Python",
+    "category": "Languages & Frameworks",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+    "order": 1
+  },
+  {
+    "id": "2",
+    "name": "PyTorch",
+    "category": "AI/ML",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg",
+    "order": 2
+  },
+  {
+    "id": "3",
+    "name": "TensorFlow",
+    "category": "AI/ML",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg",
+    "order": 3
+  },
+  {
+    "id": "4",
+    "name": "FastAPI",
+    "category": "Languages & Frameworks",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg",
+    "order": 4
+  },
+  {
+    "id": "5",
+    "name": "Node.js",
+    "category": "Languages & Frameworks",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    "order": 5
+  },
+  {
+    "id": "6",
+    "name": "Next.js",
+    "category": "Web Development",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+    "order": 6
+  },
+  {
+    "id": "7",
+    "name": "React",
+    "category": "Web Development",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    "order": 7
+  },
+  {
+    "id": "8",
+    "name": "Kotlin",
+    "category": "Mobile Development",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg",
+    "order": 8
+  },
+  {
+    "id": "9",
+    "name": "Flutter",
+    "category": "Mobile Development",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
+    "order": 9
+  },
+  {
+    "id": "10",
+    "name": "Docker",
+    "category": "DevOps",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+    "order": 10
+  },
+  {
+    "id": "11",
+    "name": "Kubernetes",
+    "category": "DevOps",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg",
+    "order": 11
+  },
+  {
+    "id": "12",
+    "name": "Jenkins",
+    "category": "DevOps",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg",
+    "order": 12
+  },
+  {
+    "id": "13",
+    "name": "Terraform",
+    "category": "DevOps",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg",
+    "order": 13
+  },
+  {
+    "id": "14",
+    "name": "PostgreSQL",
+    "category": "Databases",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+    "order": 14
+  },
+  {
+    "id": "15",
+    "name": "MongoDB",
+    "category": "Databases",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+    "order": 15
+  },
+  {
+    "id": "16",
+    "name": "Firebase",
+    "category": "Databases",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+    "order": 16
+  },
+  {
+    "id": "17",
+    "name": "Git",
+    "category": "Tools",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+    "order": 17
+  },
+  {
+    "id": "18",
+    "name": "Linux",
+    "category": "Systems",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
+    "order": 18
+  },
+  {
+    "id": "19",
+    "name": "Tailwind CSS",
+    "category": "Web Development",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+    "order": 19
+  },
+  {
+    "id": "20",
+    "name": "Prometheus",
+    "category": "DevOps",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg",
+    "order": 20
+  },
+  {
+    "id": "21",
+    "name": "Grafana",
+    "category": "DevOps",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg",
+    "order": 21
+  },
+  {
+    "id": "22",
+    "name": "SQLAlchemy",
+    "category": "Languages & Frameworks",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlalchemy/sqlalchemy-original.svg",
+    "order": 22
+  },
+  {
+    "id": "23",
+    "name": "ArgoCD",
+    "category": "DevOps",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/argocd/argocd-original.svg",
+    "order": 23
+  },
+  {
+    "id": "24",
+    "name": "LLM Fine-tuning",
+    "category": "AI/ML",
+    "image": "https://img.icons8.com/fluency/96/artificial-intelligence.png",
+    "order": 24
+  },
+  {
+    "id": "25",
+    "name": "RAG",
+    "category": "AI/ML",
+    "image": "https://img.icons8.com/color/96/database.png",
+    "order": 25
+  },
+  {
+    "id": "26",
+    "name": "Vector Databases",
+    "category": "AI/ML",
+    "image": "https://img.icons8.com/color/96/vector.png",
+    "order": 26
+  },
+  {
+    "id": "27",
+    "name": "Agentic AI",
+    "category": "AI/ML",
+    "image": "https://img.icons8.com/color/96/bot.png",
+    "order": 27
+  },
+  {
+    "id": "28",
+    "name": "MLFlow",
+    "category": "AI/ML",
+    "image": "https://img.icons8.com/color/96/workflow.png",
+    "order": 28
+  },
+  {
+    "id": "29",
+    "name": "AirFlow",
+    "category": "DevOps",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg",
+    "order": 29
+  },
+  {
+    "id": "30",
+    "name": "OAuth 2.0",
+    "category": "Security",
+    "image": "https://img.icons8.com/color/96/key.png",
+    "order": 30
+  },
+  {
+    "id": "31",
+    "name": "REST APIs",
+    "category": "APIs",
+    "image": "https://img.icons8.com/color/96/api.png",
+    "order": 31
+  },
+  {
+    "id": "32",
+    "name": "Cybersecurity",
+    "category": "Security",
+    "image": "https://img.icons8.com/color/96/security-checked.png",
+    "order": 32
+  }
+]

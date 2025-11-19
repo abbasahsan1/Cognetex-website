@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { LayoutDashboard, Briefcase, FolderKanban, FileText, Mail, LogOut, Loader2, Users, Code } from 'lucide-react';
+import { LayoutDashboard, Briefcase, FolderKanban, FileText, Mail, LogOut, Loader2, Users, Code, Wrench } from 'lucide-react';
 import PillNav from '@/components/PillNav';
 
 export default function AdminLayout({
@@ -162,6 +162,14 @@ export default function AdminLayout({
           </a>
           
           <a
+            href="/ghq/tools"
+            className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
+          >
+            <Wrench className="w-5 h-5" />
+            <span>Tools</span>
+          </a>
+          
+          <a
             href="/ghq/contact"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
           >
@@ -212,6 +220,11 @@ export default function AdminLayout({
               icon: <Users size={16} />,
               label: 'Team',
               href: '/ghq/team'
+            },
+            {
+              icon: <Wrench size={16} />,
+              label: 'Tools',
+              href: '/ghq/tools'
             },
             {
               icon: <Mail size={16} />,
