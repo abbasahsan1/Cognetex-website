@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { BarChart3, Briefcase, FolderKanban, FileText, TrendingUp } from 'lucide-react';
+import Link from 'next/link';
+import { Briefcase, FolderKanban, FileText, TrendingUp } from 'lucide-react';
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
@@ -97,36 +98,36 @@ export default function AdminDashboard() {
       <div className="glass-morphism p-6 rounded-2xl">
         <h2 className="text-2xl font-bold text-white mb-6">Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <a
+          <Link
             href="/ghq/services"
             className="px-6 py-4 rounded-xl bg-[#1A181F] hover:bg-[#2C2A33] text-white transition-colors text-center"
           >
             + Add Service
-          </a>
-          <a
+          </Link>
+          <Link
             href="/ghq/projects"
             className="px-6 py-4 rounded-xl bg-[#1A181F] hover:bg-[#2C2A33] text-white transition-colors text-center"
           >
             + Add Project
-          </a>
-          <a
+          </Link>
+          <Link
             href="/ghq/blogs"
             className="px-6 py-4 rounded-xl bg-[#1A181F] hover:bg-[#2C2A33] text-white transition-colors text-center"
           >
             + Add Blog Post
-          </a>
-          <a
+          </Link>
+          <Link
             href="/ghq/team"
             className="px-6 py-4 rounded-xl bg-[#1A181F] hover:bg-[#2C2A33] text-white transition-colors text-center"
           >
             + Add Team Member
-          </a>
-          <a
+          </Link>
+          <Link
             href="/ghq/contact"
             className="px-6 py-4 rounded-xl bg-[#1A181F] hover:bg-[#2C2A33] text-white transition-colors text-center"
           >
             Edit Contact Info
-          </a>
+          </Link>
         </div>
       </div>
 

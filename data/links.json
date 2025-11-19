@@ -1,0 +1,101 @@
+[
+  {
+    "id": "1",
+    "label": "Explore Services",
+    "url": "#services",
+    "type": "primary-cta",
+    "icon": "Sparkles",
+    "location": "hero",
+    "order": 1
+  },
+  {
+    "id": "2",
+    "label": "Get in Touch",
+    "url": "#contact",
+    "type": "secondary-cta",
+    "icon": "ArrowRight",
+    "location": "hero",
+    "order": 2
+  },
+  {
+    "id": "3",
+    "label": "View Case Study",
+    "url": "#",
+    "type": "link",
+    "icon": "ArrowRight",
+    "location": "services",
+    "order": 1
+  },
+  {
+    "id": "4",
+    "label": "Let's Build Together",
+    "url": "#contact",
+    "type": "primary-cta",
+    "icon": "ArrowRight",
+    "location": "team",
+    "order": 1
+  },
+  {
+    "id": "5",
+    "label": "Read More",
+    "url": "#",
+    "type": "link",
+    "icon": "ArrowRight",
+    "location": "blog",
+    "order": 1
+  },
+  {
+    "id": "6",
+    "label": "LinkedIn",
+    "url": "https://linkedin.com/company/cognetex",
+    "type": "social",
+    "icon": "Linkedin",
+    "location": "contact",
+    "order": 1
+  },
+  {
+    "id": "7",
+    "label": "GitHub",
+    "url": "https://github.com/cognetex",
+    "type": "social",
+    "icon": "Github",
+    "location": "contact",
+    "order": 2
+  },
+  {
+    "id": "8",
+    "label": "Twitter",
+    "url": "https://twitter.com/cognetex",
+    "type": "social",
+    "icon": "Twitter",
+    "location": "contact",
+    "order": 3
+  },
+  {
+    "id": "9",
+    "label": "LinkedIn",
+    "url": "https://linkedin.com/company/cognetex",
+    "type": "social",
+    "icon": "Linkedin",
+    "location": "footer",
+    "order": 1
+  },
+  {
+    "id": "10",
+    "label": "GitHub",
+    "url": "https://github.com/cognetex",
+    "type": "social",
+    "icon": "Github",
+    "location": "footer",
+    "order": 2
+  },
+  {
+    "id": "11",
+    "label": "Twitter",
+    "url": "https://twitter.com/cognetex",
+    "type": "social",
+    "icon": "Twitter",
+    "location": "footer",
+    "order": 3
+  }
+]

@@ -6,10 +6,17 @@
   left: 0;
   pointer-events: none;
   z-index: 0;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .aurora-container canvas {
   width: 100%;
   height: 100%;
   display: block;
+  will-change: auto;
+  image-rendering: optimizeSpeed;
+  image-rendering: -webkit-optimize-contrast;
+  transform: translateZ(0);
 }

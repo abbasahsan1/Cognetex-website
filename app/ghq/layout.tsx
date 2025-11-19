@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { LayoutDashboard, Briefcase, FolderKanban, FileText, Mail, LogOut, Loader2, Users } from 'lucide-react';
-import Dock from '@/components/Dock';
+import Link from 'next/link';
+import { LayoutDashboard, Briefcase, FolderKanban, FileText, Mail, LogOut, Loader2, Users, Code, Wrench, Link2 } from 'lucide-react';
+import PillNav from '@/components/PillNav';
 
 export default function AdminLayout({
   children,
@@ -121,53 +122,69 @@ export default function AdminLayout({
         </div>
         
         <nav className="space-y-2">
-          <a
+          <Link
             href="/ghq"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
           >
             <LayoutDashboard className="w-5 h-5" />
             <span>Dashboard</span>
-          </a>
+          </Link>
           
-          <a
+          <Link
             href="/ghq/services"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
           >
             <Briefcase className="w-5 h-5" />
             <span>Services</span>
-          </a>
+          </Link>
           
-          <a
+          <Link
             href="/ghq/projects"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
           >
             <FolderKanban className="w-5 h-5" />
             <span>Projects</span>
-          </a>
+          </Link>
           
-          <a
+          <Link
             href="/ghq/blogs"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
           >
             <FileText className="w-5 h-5" />
             <span>Blogs</span>
-          </a>
+          </Link>
 
-          <a
+          <Link
             href="/ghq/team"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
           >
             <Users className="w-5 h-5" />
             <span>Team</span>
-          </a>
+          </Link>
           
-          <a
+          <Link
+            href="/ghq/tools"
+            className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
+          >
+            <Wrench className="w-5 h-5" />
+            <span>Tools</span>
+          </Link>
+          
+          <Link
+            href="/ghq/links"
+            className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
+          >
+            <Link2 className="w-5 h-5" />
+            <span>Links & Buttons</span>
+          </Link>
+          
+          <Link
             href="/ghq/contact"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
           >
             <Mail className="w-5 h-5" />
             <span>Contact</span>
-          </a>
+          </Link>
         </nav>
         
         <div className="absolute bottom-6 left-6 right-6">
@@ -182,46 +199,59 @@ export default function AdminLayout({
       </aside>
       
       {/* Main Content */}
-      <main className="flex-1 p-8 overflow-y-auto pb-32">
-        {children}
-        
-        {/* Dock Navigation */}
-        <Dock
+      <main className="flex-1 p-8 overflow-y-auto">
+        {/* Pill Navigation */}
+        <PillNav
+          logo={<Code className="w-6 h-6 text-[#3b82f6]" />}
+          logoAlt="Cognetex Admin"
           items={[
             {
-              icon: <LayoutDashboard />,
+              icon: <LayoutDashboard size={16} />,
               label: 'Dashboard',
-              onClick: () => router.push('/ghq')
+              href: '/ghq'
             },
             {
-              icon: <Briefcase />,
+              icon: <Briefcase size={16} />,
               label: 'Services',
-              onClick: () => router.push('/ghq/services')
+              href: '/ghq/services'
             },
             {
-              icon: <FolderKanban />,
+              icon: <FolderKanban size={16} />,
               label: 'Projects',
-              onClick: () => router.push('/ghq/projects')
+              href: '/ghq/projects'
             },
             {
-              icon: <FileText />,
+              icon: <FileText size={16} />,
               label: 'Blogs',
-              onClick: () => router.push('/ghq/blogs')
+              href: '/ghq/blogs'
             },
             {
-              icon: <Users />,
+              icon: <Users size={16} />,
               label: 'Team',
-              onClick: () => router.push('/ghq/team')
+              href: '/ghq/team'
             },
             {
-              icon: <Mail />,
+              icon: <Wrench size={16} />,
+              label: 'Tools',
+              href: '/ghq/tools'
+            },
+            {
+              icon: <Link2 size={16} />,
+              label: 'Links',
+              href: '/ghq/links'
+            },
+            {
+              icon: <Mail size={16} />,
               label: 'Contact',
-              onClick: () => router.push('/ghq/contact')
+              href: '/ghq/contact'
             }
           ]}
-          magnification={70}
-          distance={200}
+          onItemClick={(href) => router.push(href)}
         />
+        
+        <div className="mt-24">
+          {children}
+        </div>
       </main>
     </div>
   );
