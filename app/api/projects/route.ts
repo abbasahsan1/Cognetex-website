@@ -11,7 +11,7 @@ export async function GET() {
     const data = await fs.readFile(DATA_FILE, 'utf-8');
     const projects = JSON.parse(data);
     // Sort by order if available
-    projects.sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0));
+    projects.sort((a: { order?: number }, b: { order?: number }) => (a.order ?? 0) - (b.order ?? 0));
     return NextResponse.json(projects);
   } catch (error) {
     console.error('Error fetching projects:', error);

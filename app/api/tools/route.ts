@@ -20,7 +20,7 @@ export async function GET() {
   try {
     const tools = await getTools();
     // Sort by order if available
-    tools.sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0));
+    tools.sort((a: { order?: number }, b: { order?: number }) => (a.order ?? 0) - (b.order ?? 0));
     return NextResponse.json(tools);
   } catch (error) {
     console.error('Failed to fetch tools:', error);

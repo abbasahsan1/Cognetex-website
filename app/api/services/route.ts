@@ -12,7 +12,7 @@ export async function GET() {
     const data = await fs.readFile(DATA_FILE, 'utf-8');
     const services = JSON.parse(data);
     // Sort by order if available
-    services.sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0));
+    services.sort((a: { order?: number }, b: { order?: number }) => (a.order ?? 0) - (b.order ?? 0));
     return NextResponse.json(services);
   } catch (error) {
     console.error('Error fetching services:', error);

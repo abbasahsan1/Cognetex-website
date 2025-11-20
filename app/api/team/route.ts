@@ -12,7 +12,7 @@ export async function GET() {
     const fileContents = await fs.readFile(dataFilePath, 'utf8');
     const team = JSON.parse(fileContents);
     // Sort by order if available
-    team.sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0));
+    team.sort((a: { order?: number }, b: { order?: number }) => (a.order ?? 0) - (b.order ?? 0));
     return NextResponse.json(team);
   } catch (error) {
     console.error('Error fetching team:', error);
