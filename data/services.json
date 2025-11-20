@@ -1,7 +1,7 @@
 [
   {
     "id": "1",
-    "title": "Agentic AI",
+    "title": "Agentic AII",
     "description": "We design autonomous AI agents that can reason, plan, and take action — driving smarter workflows, adaptive decision-making, and continuous optimization.",
     "icon": "Bot",
     "gradient": "from-orange-400 to-red-500",
@@ -46,5 +46,13 @@
     "icon": "Link2",
     "gradient": "from-orange-500 to-red-500",
     "order": 5
+  },
+  {
+    "id": "7",
+    "title": "Test Service",
+    "description": "Test Desc",
+    "icon": "Briefcase",
+    "gradient": "from-[#E08A20] to-[#F0A040]",
+    "order": 6
   }
 ]

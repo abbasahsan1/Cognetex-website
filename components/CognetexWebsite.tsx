@@ -336,7 +336,7 @@ export default function CognetexWebsite() {
   }, []);
 
   return (
-    <div className="min-h-screen text-white liquid-gradient-bg font-['Space_Grotesk',_sans-serif]" style={{ backgroundColor: 'rgb(13, 12, 16)' }}>
+    <div className="min-h-screen text-foreground bg-background font-heading">
       {/* Static Background Overlays */}
       <div className="fixed inset-0 pointer-events-none z-0">
         {/* Glass Texture Overlay */}
@@ -346,7 +346,7 @@ export default function CognetexWebsite() {
       {/* Navigation */}
       <PillNav
         logo={
-          <span className="text-xl font-bold bg-gradient-to-r from-white via-blue-100 to-[#3b82f6] bg-clip-text text-transparent">
+          <span className="text-xl font-bold bg-gradient-to-r from-foreground via-blue-100 to-blue-500 bg-clip-text text-transparent">
             C
           </span>
         }
@@ -394,14 +394,14 @@ export default function CognetexWebsite() {
       {/* Hero Section */}
       <section id="home" className="relative min-h-screen flex items-center justify-center px-4 pt-16">
         {/* Animated gradient orbs - blue background with STRONG orange accents */}
-        <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-orange-500/25 to-orange-600/15 rounded-full filter blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-br from-[#3b82f6]/12 to-[#60a5fa]/8 rounded-full filter blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-primary/25 to-primary/15 rounded-full filter blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-br from-blue-500/12 to-blue-400/8 rounded-full filter blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
         
         <div className="max-w-6xl mx-auto text-center relative z-10">
           <div className="mb-6 inline-flex items-center px-6 py-3 glass-morphism rounded-full animate-fade-in-up relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-500/15 via-orange-400/15 to-orange-500/15 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-            <Sparkles className="w-5 h-5 text-orange-500 mr-3 relative z-10 animate-pulse" />
-            <span className="text-gray-200 font-medium relative z-10">Engineering tomorrow&apos;s technology, today</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/15 via-primary/10 to-primary/15 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+            <Sparkles className="w-5 h-5 text-primary mr-3 relative z-10 animate-pulse" />
+            <span className="text-muted-foreground font-medium relative z-10">Engineering tomorrow&apos;s technology, today</span>
           </div>
           
           <div className="mb-6">
@@ -420,8 +420,8 @@ export default function CognetexWebsite() {
             <div className="glass-morphism px-6 py-3 rounded-2xl border border-orange-500/30 min-w-[450px] flex justify-center bg-black/30">
               <RotatingText
                 texts={['Code It. Nail It. Scale It.', 'AI-Powered Solutions', 'Future-Ready Technology', 'Innovation at Scale']}
-                mainClassName="text-2xl md:text-4xl font-bold text-white whitespace-nowrap"
-                elementLevelClassName="bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 bg-clip-text text-transparent"
+                mainClassName="text-2xl md:text-4xl font-bold text-foreground whitespace-nowrap"
+                elementLevelClassName="bg-gradient-to-r from-primary via-orange-500 to-orange-600 bg-clip-text text-transparent"
                 staggerFrom="center"
                 staggerDuration={0.02}
                 rotationInterval={3000}
@@ -437,7 +437,7 @@ export default function CognetexWebsite() {
               delay={50}
               animateBy="words"
               direction="top"
-              className="text-lg md:text-xl text-gray-200 leading-relaxed justify-center"
+              className="text-lg md:text-xl text-muted-foreground leading-relaxed justify-center"
             />
           </div>
           
@@ -457,8 +457,8 @@ export default function CognetexWebsite() {
                 >
                   {link.type === 'primary-cta' && (
                     <>
-                      <div className="absolute inset-0 bg-gradient-to-r from-orange-500 via-orange-600 to-orange-500 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-                      <div className="absolute inset-0 bg-gradient-to-r from-orange-500 via-orange-600 to-orange-500 blur-xl opacity-60 group-hover:opacity-80 transition-opacity"></div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary via-orange-600 to-primary opacity-90 group-hover:opacity-100 transition-opacity"></div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary via-orange-600 to-primary blur-xl opacity-60 group-hover:opacity-80 transition-opacity"></div>
                     </>
                   )}
                   <span className="relative z-10">{link.label}</span>
@@ -475,7 +475,7 @@ export default function CognetexWebsite() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-orange-500/5 to-transparent"></div>
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-12">
-            <span className="inline-block px-4 py-2 bg-gradient-to-r from-orange-500/10 to-[#3b82f6]/10 backdrop-blur-sm border border-orange-500/30 rounded-full text-orange-500 font-medium mb-4">
+            <span className="inline-block px-4 py-2 bg-gradient-to-r from-primary/10 to-blue-500/10 backdrop-blur-sm border border-primary/30 rounded-full text-primary font-medium mb-4">
               What We Do
             </span>
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -500,7 +500,7 @@ export default function CognetexWebsite() {
           
           {loading.services ? (
             <div className="flex justify-center items-center py-20">
-              <Loader2 className="w-12 h-12 text-[#3b82f6] animate-spin" />
+              <Loader2 className="w-12 h-12 text-blue-500 animate-spin" />
             </div>
           ) : services.length === 0 ? (
             <div className="text-center py-20">
@@ -516,15 +516,15 @@ export default function CognetexWebsite() {
                 
                 const content = (
                   <>
-                    <h3 className="text-2xl font-bold mb-4 text-white group-hover:bg-gradient-to-r group-hover:from-orange-500 group-hover:to-[#3b82f6] group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                    <h3 className="text-2xl font-bold mb-4 text-foreground group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-blue-500 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
                       {service.title}
                     </h3>
                     
-                    <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
+                    <p className="text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors duration-300">
                       {service.description}
                     </p>
                     
-                    <div className="mt-6 flex items-center text-orange-500 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                    <div className="mt-6 flex items-center text-primary opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
                       <span className="text-sm font-medium">Learn more</span>
                       <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" />
                     </div>
@@ -539,7 +539,7 @@ export default function CognetexWebsite() {
                   >
                     {useSpotlight ? (
                       <SpotlightCard 
-                        className="!bg-transparent glass-morphism glass-card-hover !border-orange-500/30"
+                        className="!bg-transparent glass-morphism glass-card-hover !border-primary/30"
                         spotlightColor="rgba(255, 138, 0, 0.3)"
                       >
                         {content}
@@ -563,7 +563,7 @@ export default function CognetexWebsite() {
       <section id="projects" className="py-16 px-4 relative fade-in-section">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
-            <span className="inline-block px-4 py-2 bg-gradient-to-r from-[#3b82f6]/10 to-orange-500/10 backdrop-blur-sm border border-[#3b82f6]/30 rounded-full text-[#3b82f6] font-medium mb-6">
+            <span className="inline-block px-4 py-2 bg-gradient-to-r from-blue-500/10 to-primary/10 backdrop-blur-sm border border-blue-500/30 rounded-full text-blue-500 font-medium mb-6">
               Portfolio
             </span>
             <h2 className="text-5xl md:text-6xl font-bold mb-6">
@@ -602,28 +602,28 @@ export default function CognetexWebsite() {
                       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
                       <div className="absolute top-0 left-0 bottom-0 w-px bg-gradient-to-b from-white/10 via-transparent to-transparent"></div>
                       
-                      <div className="h-48 glass-morphism flex items-center justify-center relative overflow-hidden border-b border-orange-500/10">
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#3b82f6]/10 via-orange-500/5 to-[#3b82f6]/10 group-hover:from-[#3b82f6]/20 group-hover:via-orange-500/10 group-hover:to-[#3b82f6]/20 transition-all duration-300"></div>
+                      <div className="h-48 glass-morphism flex items-center justify-center relative overflow-hidden border-b border-primary/10">
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-primary/5 to-blue-500/10 group-hover:from-blue-500/20 group-hover:via-primary/10 group-hover:to-blue-500/20 transition-all duration-300"></div>
                         <div className="grid grid-cols-3 gap-3 p-6 relative z-10">
                           {[...Array(9)].map((_, i) => (
-                            <div key={i} className="w-6 h-6 glass-morphism rounded group-hover:scale-110 transition-all duration-300 border border-orange-500/10" style={{ transitionDelay: `${i * 50}ms` }}>
-                              <div className="w-full h-full bg-gradient-to-br from-[#3b82f6]/30 via-orange-500/20 to-[#3b82f6]/30 rounded group-hover:from-orange-500/40 group-hover:to-[#3b82f6]/40 transition-all duration-300"></div>
+                            <div key={i} className="w-6 h-6 glass-morphism rounded group-hover:scale-110 transition-all duration-300 border border-primary/10" style={{ transitionDelay: `${i * 50}ms` }}>
+                              <div className="w-full h-full bg-gradient-to-br from-blue-500/30 via-primary/20 to-blue-500/30 rounded group-hover:from-primary/40 group-hover:to-blue-500/40 transition-all duration-300"></div>
                             </div>
                           ))}
                         </div>
                       </div>
                       
                       <div className="p-8">
-                        <h3 className="text-2xl font-bold mb-3 text-white group-hover:bg-gradient-to-r group-hover:from-[#3b82f6] group-hover:to-orange-500 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                        <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-primary group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
                           {project.title}
                         </h3>
-                        <p className="text-gray-300 mb-6 leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
+                        <p className="text-muted-foreground mb-6 leading-relaxed group-hover:text-foreground transition-colors duration-300">
                           {project.description}
                         </p>
                         
                         <div className="flex flex-wrap gap-2 mb-6">
                           {project.tags.map((tag, tagIndex) => (
-                            <span key={tagIndex} className="px-3 py-1 glass-morphism text-[#60a5fa] rounded-full text-sm font-medium hover:scale-105 hover:bg-gradient-to-r hover:from-orange-500/20 hover:to-[#3b82f6]/20 hover:text-orange-500 transition-all duration-200 border border-orange-500/10">
+                            <span key={tagIndex} className="px-3 py-1 glass-morphism text-blue-400 rounded-full text-sm font-medium hover:scale-105 hover:bg-gradient-to-r hover:from-primary/20 hover:to-blue-500/20 hover:text-primary transition-all duration-200 border border-primary/10">
                               {tag}
                             </span>
                           ))}
@@ -632,8 +632,8 @@ export default function CognetexWebsite() {
                         <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10">
                           {Object.entries(project.metrics).map(([key, value], i) => (
                             <div key={i} className="text-center group-hover:scale-105 transition-transform duration-300" style={{ transitionDelay: `${i * 100}ms` }}>
-                              <div className="text-xl font-bold bg-gradient-to-r from-[#3b82f6] to-orange-500 bg-clip-text text-transparent">{value}</div>
-                              <div className="text-xs text-gray-400 uppercase tracking-wider">{key}</div>
+                              <div className="text-xl font-bold bg-gradient-to-r from-blue-500 to-primary bg-clip-text text-transparent">{value}</div>
+                              <div className="text-xs text-muted-foreground uppercase tracking-wider">{key}</div>
                             </div>
                           ))}
                         </div>
@@ -644,9 +644,9 @@ export default function CognetexWebsite() {
               </div>
               
               <div className="text-center">
-                <a href="#" className="cursor-target inline-flex items-center px-8 py-4 bg-white/5 backdrop-blur-xl border-2 border-orange-500/30 rounded-2xl hover:bg-gradient-to-r hover:from-orange-500/10 hover:to-[#3b82f6]/10 hover:border-orange-500/50 transition-all duration-300 group">
-                  <span className="text-orange-500 font-semibold">View All Projects</span>
-                  <ArrowRight className="w-5 h-5 ml-3 text-orange-500 group-hover:translate-x-2 transition-transform" />
+                <a href="#" className="cursor-target inline-flex items-center px-8 py-4 bg-white/5 backdrop-blur-xl border-2 border-primary/30 rounded-2xl hover:bg-gradient-to-r hover:from-primary/10 hover:to-blue-500/10 hover:border-primary/50 transition-all duration-300 group">
+                  <span className="text-primary font-semibold">View All Projects</span>
+                  <ArrowRight className="w-5 h-5 ml-3 text-primary group-hover:translate-x-2 transition-transform" />
                 </a>
               </div>
             </>
@@ -677,7 +677,7 @@ export default function CognetexWebsite() {
         
         <div className="max-w-full mx-auto relative z-10">
           <div className="text-center mb-16 px-4">
-            <span className="inline-block px-4 py-2 bg-gradient-to-r from-orange-500/10 to-[#3b82f6]/10 backdrop-blur-sm border border-orange-500/30 rounded-full text-orange-500 font-medium mb-6">
+            <span className="inline-block px-4 py-2 bg-gradient-to-r from-primary/10 to-blue-500/10 backdrop-blur-sm border border-primary/30 rounded-full text-primary font-medium mb-6">
               Tech Stack
             </span>
             <h2 className="text-5xl md:text-6xl font-bold mb-6">
@@ -742,7 +742,7 @@ export default function CognetexWebsite() {
       <section id="team" className="py-16 px-4 relative fade-in-section">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
-            <span className="inline-block px-4 py-2 bg-gradient-to-r from-[#3b82f6]/10 to-orange-500/10 backdrop-blur-sm border border-[#3b82f6]/30 rounded-full text-[#3b82f6] font-medium mb-6">
+            <span className="inline-block px-4 py-2 bg-gradient-to-r from-blue-500/10 to-primary/10 backdrop-blur-sm border border-blue-500/30 rounded-full text-blue-500 font-medium mb-6">
               Our People
             </span>
             <h2 className="text-5xl md:text-6xl font-bold mb-6">
@@ -793,11 +793,11 @@ export default function CognetexWebsite() {
             </div>
           )}
           
-          <div className="text-center bg-gradient-to-r from-orange-500/10 via-[#3b82f6]/10 to-orange-500/10 backdrop-blur-xl border border-orange-500/30 rounded-3xl p-12">
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-              We believe in <span className="text-orange-500 font-semibold">collaboration</span>, <span className="text-[#3b82f6] font-semibold">innovation</span>, and <span className="text-orange-500 font-semibold">craftsmanship</span> — values that drive us to deliver technology with impact.
+          <div className="text-center bg-gradient-to-r from-primary/10 via-blue-500/10 to-primary/10 backdrop-blur-xl border border-primary/30 rounded-3xl p-12">
+            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+              We believe in <span className="text-primary font-semibold">collaboration</span>, <span className="text-blue-500 font-semibold">innovation</span>, and <span className="text-primary font-semibold">craftsmanship</span> — values that drive us to deliver technology with impact.
             </p>
-            <a href="#contact" className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-orange-500 via-[#3b82f6] to-orange-600 rounded-2xl hover:scale-105 transition-all duration-300 group shadow-lg shadow-orange-500/20">
+            <a href="#contact" className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary via-blue-500 to-orange-600 rounded-2xl hover:scale-105 transition-all duration-300 group shadow-lg shadow-primary/20">
               <span className="font-semibold text-white">Get in Touch</span>
               <ArrowRight className="w-5 h-5 ml-3 text-white group-hover:translate-x-2 transition-transform" />
             </a>

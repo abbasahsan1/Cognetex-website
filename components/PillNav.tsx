@@ -186,7 +186,7 @@ const PillNav = ({
         {/* Logo - Now on the LEFT */}
         <div
           ref={logoRef}
-          className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden glass-morphism border border-orange-500/30 cursor-pointer order-first"
+          className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden glass-morphism border border-primary/30 cursor-pointer order-first"
           style={{ width: '48px', height: '48px' }}
         >
           {logo}
@@ -195,7 +195,7 @@ const PillNav = ({
         {/* Desktop Nav - Now on the RIGHT with ml-auto */}
         <div
           ref={navItemsRef}
-          className="relative items-center rounded-full hidden md:flex ml-auto glass-morphism border border-orange-500/20 backdrop-blur-xl"
+          className="relative items-center rounded-full hidden md:flex ml-auto glass-morphism border border-primary/20 backdrop-blur-xl"
           style={{ height: '48px' }}
         >
           <ul role="menubar" className="list-none flex items-stretch m-0 p-[4px] h-full gap-[4px]">
@@ -207,36 +207,36 @@ const PillNav = ({
                   <button
                     role="menuitem"
                     onClick={() => handleItemClick(item.href)}
-                    className="relative overflow-hidden inline-flex items-center justify-center gap-2 h-full no-underline rounded-full box-border font-semibold text-sm leading-none tracking-wide whitespace-nowrap cursor-pointer px-4 text-white bg-gradient-to-r from-orange-500/20 to-[#3b82f6]/20 hover:from-orange-500/35 hover:to-[#3b82f6]/35 transition-all duration-300"
+                    className="relative overflow-hidden inline-flex items-center justify-center gap-2 h-full no-underline rounded-full box-border font-semibold text-sm leading-none tracking-wide whitespace-nowrap cursor-pointer px-4 text-foreground bg-gradient-to-r from-primary/20 to-blue-500/20 hover:from-primary/35 hover:to-blue-500/35 transition-all duration-300"
                     aria-label={item.label}
                     onMouseEnter={() => handleEnter(i)}
                     onMouseLeave={() => handleLeave(i)}
                   >
                     <span
-                      className="hover-circle absolute left-1/2 bottom-0 rounded-full z-[1] block pointer-events-none bg-gradient-to-br from-orange-500 to-[#3b82f6]"
+                      className="hover-circle absolute left-1/2 bottom-0 rounded-full z-[1] block pointer-events-none bg-gradient-to-br from-primary to-blue-500"
                       aria-hidden="true"
                       ref={el => {
                         circleRefs.current[i] = el;
                       }}
                     />
-                    
+
                     {item.icon && <span className="relative z-[2]">{item.icon}</span>}
-                    
+
                     <span className="label-stack relative inline-block leading-none z-[2]">
                       <span className="pill-label relative z-[2] inline-block leading-none">
                         {item.label}
                       </span>
                       <span
-                        className="pill-label-hover absolute left-0 top-0 z-[3] inline-block text-white"
+                        className="pill-label-hover absolute left-0 top-0 z-[3] inline-block text-foreground"
                         aria-hidden="true"
                       >
                         {item.label}
                       </span>
                     </span>
-                    
+
                     {isActive && (
                       <span
-                        className="absolute left-1/2 -bottom-[6px] -translate-x-1/2 w-2 h-2 rounded-full z-[4] bg-gradient-to-r from-orange-500 to-[#3b82f6]"
+                        className="absolute left-1/2 -bottom-[6px] -translate-x-1/2 w-2 h-2 rounded-full z-[4] bg-gradient-to-r from-primary to-blue-500"
                         aria-hidden="true"
                       />
                     )}
@@ -253,32 +253,31 @@ const PillNav = ({
           onClick={toggleMobileMenu}
           aria-label="Toggle menu"
           aria-expanded={isMobileMenuOpen}
-          className="md:hidden rounded-full border border-orange-500/30 flex flex-col items-center justify-center gap-1 cursor-pointer p-0 relative glass-morphism backdrop-blur-xl"
+          className="md:hidden rounded-full border border-primary/30 flex flex-col items-center justify-center gap-1 cursor-pointer p-0 relative glass-morphism backdrop-blur-xl"
           style={{ width: '48px', height: '48px' }}
         >
-          <span className="hamburger-line w-4 h-0.5 rounded origin-center bg-white" />
-          <span className="hamburger-line w-4 h-0.5 rounded origin-center bg-white" />
+          <span className="hamburger-line w-4 h-0.5 rounded origin-center bg-foreground" />
+          <span className="hamburger-line w-4 h-0.5 rounded origin-center bg-foreground" />
         </button>
       </nav>
 
       {/* Mobile Menu */}
       <div
         ref={mobileMenuRef}
-        className="md:hidden absolute top-[3.5rem] left-4 right-4 rounded-3xl shadow-2xl z-[998] origin-top glass-morphism border border-orange-500/30 backdrop-blur-xl"
+        className="md:hidden absolute top-[3.5rem] left-4 right-4 rounded-3xl shadow-2xl z-[998] origin-top glass-morphism border border-primary/30 backdrop-blur-xl bg-background/90"
       >
         <ul className="list-none m-0 p-2 flex flex-col gap-1">
           {items.map(item => {
             const isActive = activeHref === item.href;
-            
+
             return (
               <li key={item.href}>
                 <button
                   onClick={() => handleItemClick(item.href)}
-                  className={`w-full flex items-center gap-3 py-3 px-4 text-sm font-medium rounded-2xl transition-all duration-300 ${
-                    isActive
-                      ? 'bg-gradient-to-r from-orange-500 to-[#3b82f6] text-white'
-                      : 'bg-white/5 text-gray-300 hover:bg-gradient-to-r hover:from-orange-500/30 hover:to-[#3b82f6]/30 hover:text-white'
-                  }`}
+                  className={`w-full flex items-center gap-3 py-3 px-4 text-sm font-medium rounded-2xl transition-all duration-300 ${isActive
+                      ? 'bg-gradient-to-r from-primary to-blue-500 text-foreground'
+                      : 'bg-white/5 text-muted-foreground hover:bg-gradient-to-r hover:from-primary/30 hover:to-blue-500/30 hover:text-foreground'
+                    }`}
                 >
                   {item.icon && <span>{item.icon}</span>}
                   {item.label}

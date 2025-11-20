@@ -59,7 +59,7 @@ export default function BlogsPage() {
 
   const handleSave = async () => {
     if (!editingBlog) return;
-    
+
     setLoading(true);
     try {
       const method = editingBlog.id ? 'PUT' : 'POST';
@@ -84,7 +84,7 @@ export default function BlogsPage() {
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this blog post?')) return;
-    
+
     try {
       const response = await fetch(`/api/blogs?id=${id}`, {
         method: 'DELETE',
@@ -118,8 +118,8 @@ export default function BlogsPage() {
     <div>
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-4xl font-bold text-white mb-2">Blog Posts</h1>
-          <p className="text-gray-400">Manage your blog content</p>
+          <h1 className="text-4xl font-bold text-foreground mb-2">Blog Posts</h1>
+          <p className="text-muted-foreground">Manage your blog content</p>
         </div>
         <button
           onClick={handleAdd}
@@ -140,19 +140,19 @@ export default function BlogsPage() {
             <div className="flex justify-between items-start">
               <div className="flex-1">
                 <div className="flex items-center space-x-3 mb-2">
-                  <span className="text-sm text-gray-400">#{blog.order + 1}</span>
+                  <span className="text-sm text-muted-foreground">#{blog.order + 1}</span>
                   <span className={`px-3 py-1 rounded-full text-xs ${blog.published ? 'bg-green-500/20 text-green-400' : 'bg-gray-500/20 text-gray-400'}`}>
                     {blog.published ? 'Published' : 'Draft'}
                   </span>
-                  <span className="px-3 py-1 rounded-full bg-[#E08A20]/20 text-[#E08A20] text-xs">
+                  <span className="px-3 py-1 rounded-full bg-primary/20 text-primary text-xs">
                     {blog.category}
                   </span>
                 </div>
-                
-                <h3 className="text-xl font-bold text-white mb-2">{blog.title}</h3>
-                <p className="text-gray-300 text-sm mb-3">{blog.description}</p>
-                
-                <div className="flex items-center space-x-4 text-sm text-gray-400">
+
+                <h3 className="text-xl font-bold text-foreground mb-2">{blog.title}</h3>
+                <p className="text-muted-foreground text-sm mb-3">{blog.description}</p>
+
+                <div className="flex items-center space-x-4 text-sm text-muted-foreground">
                   <span>{blog.author}</span>
                   <span>•</span>
                   <span>{blog.date}</span>
@@ -160,24 +160,24 @@ export default function BlogsPage() {
                   <span>{blog.readTime}</span>
                 </div>
               </div>
-              
+
               <div className="flex space-x-2">
                 <button
                   onClick={() => togglePublish(blog)}
-                  className="p-2 rounded-lg bg-[#1A181F] hover:bg-green-500/20 text-gray-300 hover:text-green-400 transition-colors"
+                  className="p-2 rounded-lg bg-card hover:bg-green-500/20 text-muted-foreground hover:text-green-400 transition-colors"
                   title={blog.published ? 'Unpublish' : 'Publish'}
                 >
                   {blog.published ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
                 </button>
                 <button
                   onClick={() => handleEdit(blog)}
-                  className="p-2 rounded-lg bg-[#1A181F] hover:bg-[#E08A20] text-gray-300 hover:text-white transition-colors"
+                  className="p-2 rounded-lg bg-card hover:bg-primary text-muted-foreground hover:text-primary-foreground transition-colors"
                 >
                   <Edit2 className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => handleDelete(blog.id)}
-                  className="p-2 rounded-lg bg-[#1A181F] hover:bg-red-500 text-gray-300 hover:text-white transition-colors"
+                  className="p-2 rounded-lg bg-card hover:bg-destructive text-muted-foreground hover:text-destructive-foreground transition-colors"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -192,84 +192,84 @@ export default function BlogsPage() {
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
           <div className="glass-morphism p-8 rounded-3xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-white">
+              <h2 className="text-2xl font-bold text-foreground">
                 {editingBlog.id ? 'Edit Blog Post' : 'Add Blog Post'}
               </h2>
               <button
                 onClick={() => setIsEditing(false)}
-                className="p-2 rounded-lg hover:bg-[#1A181F] transition-colors"
+                className="p-2 rounded-lg hover:bg-card transition-colors"
               >
-                <X className="w-5 h-5 text-gray-400" />
+                <X className="w-5 h-5 text-muted-foreground" />
               </button>
             </div>
 
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Title</label>
+                  <label className="block text-sm font-medium text-muted-foreground mb-2">Title</label>
                   <input
                     type="text"
                     value={editingBlog.title}
                     onChange={(e) => setEditingBlog({ ...editingBlog, title: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#1A181F] border border-[#2C2A33] text-white focus:border-[#E08A20] focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground focus:border-primary focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Category</label>
+                  <label className="block text-sm font-medium text-muted-foreground mb-2">Category</label>
                   <input
                     type="text"
                     value={editingBlog.category}
                     onChange={(e) => setEditingBlog({ ...editingBlog, category: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#1A181F] border border-[#2C2A33] text-white focus:border-[#E08A20] focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground focus:border-primary focus:outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Description</label>
+                <label className="block text-sm font-medium text-muted-foreground mb-2">Description</label>
                 <textarea
                   value={editingBlog.description}
                   onChange={(e) => setEditingBlog({ ...editingBlog, description: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-[#1A181F] border border-[#2C2A33] text-white focus:border-[#E08A20] focus:outline-none h-20"
+                  className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground focus:border-primary focus:outline-none h-20"
                 />
               </div>
 
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Read Time</label>
+                  <label className="block text-sm font-medium text-muted-foreground mb-2">Read Time</label>
                   <input
                     type="text"
                     value={editingBlog.readTime}
                     onChange={(e) => setEditingBlog({ ...editingBlog, readTime: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#1A181F] border border-[#2C2A33] text-white focus:border-[#E08A20] focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground focus:border-primary focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Date</label>
+                  <label className="block text-sm font-medium text-muted-foreground mb-2">Date</label>
                   <input
                     type="text"
                     value={editingBlog.date}
                     onChange={(e) => setEditingBlog({ ...editingBlog, date: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#1A181F] border border-[#2C2A33] text-white focus:border-[#E08A20] focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground focus:border-primary focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Author</label>
+                  <label className="block text-sm font-medium text-muted-foreground mb-2">Author</label>
                   <input
                     type="text"
                     value={editingBlog.author}
                     onChange={(e) => setEditingBlog({ ...editingBlog, author: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#1A181F] border border-[#2C2A33] text-white focus:border-[#E08A20] focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground focus:border-primary focus:outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Content (HTML)</label>
+                <label className="block text-sm font-medium text-muted-foreground mb-2">Content (HTML)</label>
                 <textarea
                   value={editingBlog.content}
                   onChange={(e) => setEditingBlog({ ...editingBlog, content: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-[#1A181F] border border-[#2C2A33] text-white focus:border-[#E08A20] focus:outline-none h-48 font-mono text-sm"
+                  className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground focus:border-primary focus:outline-none h-48 font-mono text-sm"
                 />
               </div>
 
@@ -278,9 +278,9 @@ export default function BlogsPage() {
                   type="checkbox"
                   checked={editingBlog.published}
                   onChange={(e) => setEditingBlog({ ...editingBlog, published: e.target.checked })}
-                  className="w-4 h-4 rounded"
+                  className="w-4 h-4 rounded border-border bg-card text-primary focus:ring-primary"
                 />
-                <label className="text-sm text-gray-300">Publish immediately</label>
+                <label className="text-sm text-muted-foreground">Publish immediately</label>
               </div>
 
               <div className="flex space-x-4 pt-4">
@@ -294,7 +294,7 @@ export default function BlogsPage() {
                 </button>
                 <button
                   onClick={() => setIsEditing(false)}
-                  className="px-6 py-3 rounded-xl bg-[#1A181F] hover:bg-[#2C2A33] text-white transition-colors"
+                  className="px-6 py-3 rounded-xl bg-card hover:bg-secondary text-foreground transition-colors"
                 >
                   Cancel
                 </button>

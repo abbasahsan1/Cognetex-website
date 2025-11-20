@@ -67,22 +67,22 @@ export const AnimatedTooltip = ({
                   rotate: rotate,
                   whiteSpace: "nowrap",
                 }}
-                className="absolute -top-16 -left-1/2 translate-x-1/2 flex text-xs flex-col items-center justify-center rounded-md bg-black z-50 shadow-xl px-4 py-2"
+                className="absolute -top-16 -left-1/2 translate-x-1/2 flex text-xs flex-col items-center justify-center rounded-md bg-popover z-50 shadow-xl px-4 py-2 border border-border"
               >
                 <div className="absolute inset-x-10 z-30 w-[20%] -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-px " />
                 <div className="absolute left-10 w-[40%] z-30 -bottom-px bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px " />
-                <div className="font-bold text-white relative z-30 text-base">
+                <div className="font-bold text-popover-foreground relative z-30 text-base">
                   {item.name}
                 </div>
                 {item.designation && (
-                  <div className="text-white text-xs">{item.designation}</div>
+                  <div className="text-muted-foreground text-xs">{item.designation}</div>
                 )}
               </motion.div>
             )}
           </AnimatePresence>
           <div
             onMouseMove={handleMouseMove}
-            className="relative !m-0 h-14 w-14 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm flex items-center justify-center overflow-hidden hover:border-orange-500/50 hover:bg-orange-500/10 transition-all duration-300 cursor-pointer"
+            className="relative !m-0 h-14 w-14 rounded-full border border-primary/20 bg-background/5 backdrop-blur-sm flex items-center justify-center overflow-hidden hover:border-primary/50 hover:bg-primary/10 transition-all duration-300 cursor-pointer"
           >
             <img
               src={item.image}

@@ -40,28 +40,28 @@ export default function AdminDashboard() {
       title: 'Total Services',
       value: stats.services,
       icon: Briefcase,
-      color: 'from-[#E08A20] to-[#F0A040]',
+      color: 'from-orange-500 to-amber-500',
       href: '/ghq/services'
     },
     {
       title: 'Total Projects',
       value: stats.projects,
       icon: FolderKanban,
-      color: 'from-[#F0A040] to-[#E08A20]',
+      color: 'from-amber-500 to-orange-500',
       href: '/ghq/projects'
     },
     {
       title: 'Total Blogs',
       value: stats.blogs,
       icon: FileText,
-      color: 'from-[#E08A20] to-[#F0A040]',
+      color: 'from-orange-500 to-amber-500',
       href: '/ghq/blogs'
     },
     {
       title: 'Published Blogs',
       value: stats.publishedBlogs,
       icon: TrendingUp,
-      color: 'from-[#F0A040] to-[#E08A20]',
+      color: 'from-amber-500 to-orange-500',
       href: '/ghq/blogs'
     },
   ];
@@ -69,8 +69,8 @@ export default function AdminDashboard() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-white mb-2">Dashboard</h1>
-        <p className="text-gray-400">Welcome to Cognetex Admin Panel</p>
+        <h1 className="text-4xl font-bold text-foreground mb-2">Dashboard</h1>
+        <p className="text-muted-foreground">Welcome to Cognetex Admin Panel</p>
       </div>
 
       {/* Stats Grid */}
@@ -85,9 +85,9 @@ export default function AdminDashboard() {
               <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center`}>
                 <stat.icon className="w-6 h-6 text-white" />
               </div>
-              <span className="text-3xl font-bold text-white">{stat.value}</span>
+              <span className="text-3xl font-bold text-foreground">{stat.value}</span>
             </div>
-            <h3 className="text-gray-300 group-hover:text-white transition-colors">
+            <h3 className="text-muted-foreground group-hover:text-foreground transition-colors">
               {stat.title}
             </h3>
           </a>
@@ -96,35 +96,35 @@ export default function AdminDashboard() {
 
       {/* Quick Actions */}
       <div className="glass-morphism p-6 rounded-2xl">
-        <h2 className="text-2xl font-bold text-white mb-6">Quick Actions</h2>
+        <h2 className="text-2xl font-bold text-foreground mb-6">Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <Link
             href="/ghq/services"
-            className="px-6 py-4 rounded-xl bg-[#1A181F] hover:bg-[#2C2A33] text-white transition-colors text-center"
+            className="px-6 py-4 rounded-xl bg-card hover:bg-secondary text-foreground transition-colors text-center border border-border"
           >
             + Add Service
           </Link>
           <Link
             href="/ghq/projects"
-            className="px-6 py-4 rounded-xl bg-[#1A181F] hover:bg-[#2C2A33] text-white transition-colors text-center"
+            className="px-6 py-4 rounded-xl bg-card hover:bg-secondary text-foreground transition-colors text-center border border-border"
           >
             + Add Project
           </Link>
           <Link
             href="/ghq/blogs"
-            className="px-6 py-4 rounded-xl bg-[#1A181F] hover:bg-[#2C2A33] text-white transition-colors text-center"
+            className="px-6 py-4 rounded-xl bg-card hover:bg-secondary text-foreground transition-colors text-center border border-border"
           >
             + Add Blog Post
           </Link>
           <Link
             href="/ghq/team"
-            className="px-6 py-4 rounded-xl bg-[#1A181F] hover:bg-[#2C2A33] text-white transition-colors text-center"
+            className="px-6 py-4 rounded-xl bg-card hover:bg-secondary text-foreground transition-colors text-center border border-border"
           >
             + Add Team Member
           </Link>
           <Link
             href="/ghq/contact"
-            className="px-6 py-4 rounded-xl bg-[#1A181F] hover:bg-[#2C2A33] text-white transition-colors text-center"
+            className="px-6 py-4 rounded-xl bg-card hover:bg-secondary text-foreground transition-colors text-center border border-border"
           >
             Edit Contact Info
           </Link>
@@ -133,8 +133,8 @@ export default function AdminDashboard() {
 
       {/* Info Section */}
       <div className="mt-8 glass-morphism p-6 rounded-2xl">
-        <h2 className="text-2xl font-bold text-white mb-4">Admin Panel Information</h2>
-        <div className="space-y-3 text-gray-300">
+        <h2 className="text-2xl font-bold text-foreground mb-4">Admin Panel Information</h2>
+        <div className="space-y-3 text-muted-foreground">
           <p>• Manage all website content from this centralized dashboard</p>
           <p>• Changes are saved immediately and reflect on the live website</p>
           <p>• Use drag-and-drop to reorder items</p>

@@ -49,7 +49,7 @@ export default function LinksManagement() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       if (editingId) {
         // Update existing link
@@ -66,7 +66,7 @@ export default function LinksManagement() {
           body: JSON.stringify(formData)
         });
       }
-      
+
       fetchLinks();
       resetForm();
     } catch (error) {
@@ -82,7 +82,7 @@ export default function LinksManagement() {
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this link?')) return;
-    
+
     try {
       await fetch(`/api/links?id=${id}`, { method: 'DELETE' });
       fetchLinks();
@@ -115,10 +115,10 @@ export default function LinksManagement() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold text-white">Links & Buttons Management</h2>
+        <h2 className="text-3xl font-bold text-foreground">Links & Buttons Management</h2>
         <button
           onClick={() => setIsAdding(true)}
-          className="px-6 py-3 bg-gradient-to-r from-orange-500 to-[#3b82f6] rounded-xl hover:scale-105 transition-all duration-300 flex items-center gap-2 font-semibold"
+          className="liquid-button px-6 py-3 rounded-xl flex items-center gap-2 font-semibold text-white"
         >
           <Plus className="w-5 h-5" />
           Add Link
@@ -127,77 +127,77 @@ export default function LinksManagement() {
 
       {/* Add/Edit Form */}
       {isAdding && (
-        <div className="glass-morphism rounded-2xl p-6 border border-orange-500/20">
-          <h3 className="text-xl font-bold text-white mb-4">
+        <div className="glass-morphism rounded-2xl p-6 border border-primary/20">
+          <h3 className="text-xl font-bold text-foreground mb-4">
             {editingId ? 'Edit Link' : 'Add New Link'}
           </h3>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-gray-300 mb-2 font-medium">Label</label>
+                <label className="block text-muted-foreground mb-2 font-medium">Label</label>
                 <input
                   type="text"
                   value={formData.label}
                   onChange={(e) => setFormData({ ...formData, label: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 bg-card border border-border rounded-xl text-foreground focus:border-primary focus:outline-none transition-colors"
                   placeholder="Button text or link label"
                   required
                 />
               </div>
               <div>
-                <label className="block text-gray-300 mb-2 font-medium">URL</label>
+                <label className="block text-muted-foreground mb-2 font-medium">URL</label>
                 <input
                   type="text"
                   value={formData.url}
                   onChange={(e) => setFormData({ ...formData, url: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 bg-card border border-border rounded-xl text-foreground focus:border-primary focus:outline-none transition-colors"
                   placeholder="#section or https://..."
                   required
                 />
               </div>
               <div>
-                <label className="block text-gray-300 mb-2 font-medium">Type</label>
+                <label className="block text-muted-foreground mb-2 font-medium">Type</label>
                 <select
                   value={formData.type}
                   onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 bg-card border border-border rounded-xl text-foreground focus:border-primary focus:outline-none transition-colors"
                 >
                   {LINK_TYPES.map(type => (
-                    <option key={type} value={type} className="bg-gray-900">{type}</option>
+                    <option key={type} value={type} className="bg-card">{type}</option>
                   ))}
                 </select>
               </div>
               <div>
-                <label className="block text-gray-300 mb-2 font-medium">Location</label>
+                <label className="block text-muted-foreground mb-2 font-medium">Location</label>
                 <select
                   value={formData.location}
                   onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 bg-card border border-border rounded-xl text-foreground focus:border-primary focus:outline-none transition-colors"
                 >
                   {LOCATIONS.map(loc => (
-                    <option key={loc} value={loc} className="bg-gray-900">{loc}</option>
+                    <option key={loc} value={loc} className="bg-card">{loc}</option>
                   ))}
                 </select>
               </div>
               <div>
-                <label className="block text-gray-300 mb-2 font-medium">Icon</label>
+                <label className="block text-muted-foreground mb-2 font-medium">Icon</label>
                 <select
                   value={formData.icon}
                   onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 bg-card border border-border rounded-xl text-foreground focus:border-primary focus:outline-none transition-colors"
                 >
                   {ICON_OPTIONS.map(icon => (
-                    <option key={icon} value={icon} className="bg-gray-900">{icon}</option>
+                    <option key={icon} value={icon} className="bg-card">{icon}</option>
                   ))}
                 </select>
               </div>
               <div>
-                <label className="block text-gray-300 mb-2 font-medium">Order</label>
+                <label className="block text-muted-foreground mb-2 font-medium">Order</label>
                 <input
                   type="number"
                   value={formData.order}
                   onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) })}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:border-orange-500/50 focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 bg-card border border-border rounded-xl text-foreground focus:border-primary focus:outline-none transition-colors"
                   min="1"
                   required
                 />
@@ -206,7 +206,7 @@ export default function LinksManagement() {
             <div className="flex gap-3">
               <button
                 type="submit"
-                className="px-6 py-3 bg-gradient-to-r from-orange-500 to-[#3b82f6] rounded-xl hover:scale-105 transition-all duration-300 flex items-center gap-2 font-semibold"
+                className="liquid-button px-6 py-3 rounded-xl flex items-center gap-2 font-semibold text-white"
               >
                 <Save className="w-5 h-5" />
                 {editingId ? 'Update' : 'Create'}
@@ -214,7 +214,7 @@ export default function LinksManagement() {
               <button
                 type="button"
                 onClick={resetForm}
-                className="px-6 py-3 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all duration-300 flex items-center gap-2 font-semibold"
+                className="px-6 py-3 bg-card border border-border rounded-xl hover:bg-secondary transition-all duration-300 flex items-center gap-2 font-semibold text-foreground"
               >
                 <X className="w-5 h-5" />
                 Cancel
@@ -229,14 +229,14 @@ export default function LinksManagement() {
         {links.map((link) => (
           <div
             key={link.id}
-            className="glass-morphism rounded-xl p-6 border border-orange-500/20 hover:border-orange-500/40 transition-all duration-300 group"
+            className="glass-morphism rounded-xl p-6 border border-border hover:border-primary/40 transition-all duration-300 group"
           >
             <div className="flex justify-between items-start mb-3">
               <div className="flex-1">
-                <h3 className="text-lg font-bold text-white mb-1">{link.label}</h3>
-                <a 
-                  href={link.url} 
-                  className="text-sm text-orange-400 hover:text-orange-300 flex items-center gap-1 break-all"
+                <h3 className="text-lg font-bold text-foreground mb-1">{link.label}</h3>
+                <a
+                  href={link.url}
+                  className="text-sm text-primary hover:text-primary/80 flex items-center gap-1 break-all"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -245,41 +245,41 @@ export default function LinksManagement() {
                 </a>
               </div>
             </div>
-            
+
             <div className="space-y-2 mb-4">
               <div className="flex items-center gap-2 text-sm">
-                <span className="text-gray-400">Type:</span>
-                <span className="px-2 py-1 bg-orange-500/20 rounded text-orange-300 font-medium text-xs">
+                <span className="text-muted-foreground">Type:</span>
+                <span className="px-2 py-1 bg-primary/20 rounded text-primary font-medium text-xs">
                   {link.type}
                 </span>
               </div>
               <div className="flex items-center gap-2 text-sm">
-                <span className="text-gray-400">Location:</span>
+                <span className="text-muted-foreground">Location:</span>
                 <span className="px-2 py-1 bg-blue-500/20 rounded text-blue-300 font-medium text-xs">
                   {link.location}
                 </span>
               </div>
               <div className="flex items-center gap-2 text-sm">
-                <span className="text-gray-400">Icon:</span>
-                <span className="text-white font-medium">{link.icon}</span>
+                <span className="text-muted-foreground">Icon:</span>
+                <span className="text-foreground font-medium">{link.icon}</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
-                <span className="text-gray-400">Order:</span>
-                <span className="text-white font-medium">{link.order}</span>
+                <span className="text-muted-foreground">Order:</span>
+                <span className="text-foreground font-medium">{link.order}</span>
               </div>
             </div>
 
             <div className="flex gap-2">
               <button
                 onClick={() => handleEdit(link)}
-                className="flex-1 px-4 py-2 bg-blue-500/20 border border-blue-500/30 rounded-lg hover:bg-blue-500/30 transition-all duration-300 flex items-center justify-center gap-2 text-blue-300 font-medium"
+                className="flex-1 px-4 py-2 bg-card border border-border rounded-lg hover:bg-primary hover:text-primary-foreground transition-all duration-300 flex items-center justify-center gap-2 text-muted-foreground font-medium"
               >
                 <Edit2 className="w-4 h-4" />
                 Edit
               </button>
               <button
                 onClick={() => handleDelete(link.id)}
-                className="flex-1 px-4 py-2 bg-red-500/20 border border-red-500/30 rounded-lg hover:bg-red-500/30 transition-all duration-300 flex items-center justify-center gap-2 text-red-300 font-medium"
+                className="flex-1 px-4 py-2 bg-card border border-border rounded-lg hover:bg-destructive hover:text-destructive-foreground transition-all duration-300 flex items-center justify-center gap-2 text-muted-foreground font-medium"
               >
                 <Trash2 className="w-4 h-4" />
                 Delete
@@ -291,7 +291,7 @@ export default function LinksManagement() {
 
       {links.length === 0 && (
         <div className="text-center py-20">
-          <p className="text-gray-400 text-xl">No links configured yet. Click &ldquo;Add Link&rdquo; to get started!</p>
+          <p className="text-muted-foreground text-xl">No links configured yet. Click &ldquo;Add Link&rdquo; to get started!</p>
         </div>
       )}
     </div>

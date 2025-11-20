@@ -4,14 +4,19 @@ import path from 'path';
 
 const DATA_FILE = path.join(process.cwd(), 'data', 'services.json');
 
+export const dynamic = 'force-dynamic';
+
 // GET - Fetch all services
 export async function GET() {
   try {
     const data = await fs.readFile(DATA_FILE, 'utf-8');
     const services = JSON.parse(data);
+    // Sort by order if available
+    services.sort((a: any, b: any) => (a.order ?? 0) - (b.order ?? 0));
     return NextResponse.json(services);
-  } catch {
-    return NextResponse.json({ error: 'Failed to fetch services' }, { status: 500 });
+  } catch (error) {
+    console.error('Error fetching services:', error);
+    return NextResponse.json([], { status: 200 }); // Return empty array instead of error for UI stability
   }
 }
 
@@ -21,15 +26,15 @@ export async function POST(request: Request) {
     const newService = await request.json();
     const data = await fs.readFile(DATA_FILE, 'utf-8');
     const services = JSON.parse(data);
-    
+
     // Generate new ID
     const maxId = services.length > 0 ? Math.max(...services.map((s: { id: string }) => parseInt(s.id))) : 0;
     newService.id = (maxId + 1).toString();
     newService.order = services.length;
-    
+
     services.push(newService);
     await fs.writeFile(DATA_FILE, JSON.stringify(services, null, 2));
-    
+
     return NextResponse.json(newService, { status: 201 });
   } catch {
     return NextResponse.json({ error: 'Failed to add service' }, { status: 500 });
@@ -42,15 +47,15 @@ export async function PUT(request: Request) {
     const updatedService = await request.json();
     const data = await fs.readFile(DATA_FILE, 'utf-8');
     const services = JSON.parse(data);
-    
+
     const index = services.findIndex((s: { id: string }) => s.id === updatedService.id);
     if (index === -1) {
       return NextResponse.json({ error: 'Service not found' }, { status: 404 });
     }
-    
+
     services[index] = { ...services[index], ...updatedService };
     await fs.writeFile(DATA_FILE, JSON.stringify(services, null, 2));
-    
+
     return NextResponse.json(services[index]);
   } catch {
     return NextResponse.json({ error: 'Failed to update service' }, { status: 500 });
@@ -62,24 +67,24 @@ export async function DELETE(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
-    
+
     if (!id) {
       return NextResponse.json({ error: 'ID is required' }, { status: 400 });
     }
-    
+
     const data = await fs.readFile(DATA_FILE, 'utf-8');
     const servicesData = JSON.parse(data);
-    
+
     const services = servicesData.filter((s: { id: string }) => s.id !== id);
-    
+
     // Reorder remaining services
     const reorderedServices = services.map((s: { id: string; order?: number }, index: number) => ({
       ...s,
       order: index
     }));
-    
+
     await fs.writeFile(DATA_FILE, JSON.stringify(reorderedServices, null, 2));
-    
+
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json({ error: 'Failed to delete service' }, { status: 500 });

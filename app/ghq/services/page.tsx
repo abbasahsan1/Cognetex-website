@@ -51,7 +51,7 @@ export default function ServicesPage() {
 
   const handleSave = async () => {
     if (!editingService) return;
-    
+
     setLoading(true);
     try {
       const method = editingService.id ? 'PUT' : 'POST';
@@ -76,7 +76,7 @@ export default function ServicesPage() {
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this service?')) return;
-    
+
     try {
       const response = await fetch(`/api/services?id=${id}`, {
         method: 'DELETE',
@@ -99,8 +99,8 @@ export default function ServicesPage() {
     <div>
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-4xl font-bold text-white mb-2">Services</h1>
-          <p className="text-gray-400">Manage your service offerings</p>
+          <h1 className="text-4xl font-bold text-foreground mb-2">Services</h1>
+          <p className="text-muted-foreground">Manage your service offerings</p>
         </div>
         <button
           onClick={handleAdd}
@@ -120,29 +120,29 @@ export default function ServicesPage() {
           >
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-center space-x-2">
-                <GripVertical className="w-5 h-5 text-gray-500 cursor-move" />
-                <span className="text-sm text-gray-400">#{service.order + 1}</span>
+                <GripVertical className="w-5 h-5 text-muted-foreground cursor-move" />
+                <span className="text-sm text-muted-foreground">#{service.order + 1}</span>
               </div>
               <div className="flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button
                   onClick={() => handleEdit(service)}
-                  className="p-2 rounded-lg bg-[#1A181F] hover:bg-[#E08A20] text-gray-300 hover:text-white transition-colors"
+                  className="p-2 rounded-lg bg-card hover:bg-primary text-muted-foreground hover:text-primary-foreground transition-colors"
                 >
                   <Edit2 className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => handleDelete(service.id)}
-                  className="p-2 rounded-lg bg-[#1A181F] hover:bg-red-500 text-gray-300 hover:text-white transition-colors"
+                  className="p-2 rounded-lg bg-card hover:bg-destructive text-muted-foreground hover:text-destructive-foreground transition-colors"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
               </div>
             </div>
-            
-            <h3 className="text-xl font-bold text-white mb-2">{service.title}</h3>
-            <p className="text-gray-300 text-sm line-clamp-3">{service.description}</p>
+
+            <h3 className="text-xl font-bold text-foreground mb-2">{service.title}</h3>
+            <p className="text-muted-foreground text-sm line-clamp-3">{service.description}</p>
             <div className="mt-4 flex items-center space-x-2">
-              <span className="text-xs text-gray-500">Icon: {service.icon}</span>
+              <span className="text-xs text-muted-foreground">Icon: {service.icon}</span>
             </div>
           </div>
         ))}
@@ -153,66 +153,66 @@ export default function ServicesPage() {
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
           <div className="glass-morphism p-8 rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-white">
+              <h2 className="text-2xl font-bold text-foreground">
                 {editingService.id ? 'Edit Service' : 'Add Service'}
               </h2>
               <button
                 onClick={handleCancel}
-                className="p-2 rounded-lg hover:bg-[#1A181F] transition-colors"
+                className="p-2 rounded-lg hover:bg-card transition-colors"
               >
-                <X className="w-5 h-5 text-gray-400" />
+                <X className="w-5 h-5 text-muted-foreground" />
               </button>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-muted-foreground mb-2">
                   Title
                 </label>
                 <input
                   type="text"
                   value={editingService.title}
                   onChange={(e) => setEditingService({ ...editingService, title: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-[#1A181F] border border-[#2C2A33] text-white focus:border-[#E08A20] focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground focus:border-primary focus:outline-none transition-colors"
                   placeholder="Service title"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-muted-foreground mb-2">
                   Description
                 </label>
                 <textarea
                   value={editingService.description}
                   onChange={(e) => setEditingService({ ...editingService, description: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-[#1A181F] border border-[#2C2A33] text-white focus:border-[#E08A20] focus:outline-none transition-colors h-32"
+                  className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground focus:border-primary focus:outline-none transition-colors h-32"
                   placeholder="Service description"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-muted-foreground mb-2">
                   Icon (Lucide icon name)
                 </label>
                 <input
                   type="text"
                   value={editingService.icon}
                   onChange={(e) => setEditingService({ ...editingService, icon: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-[#1A181F] border border-[#2C2A33] text-white focus:border-[#E08A20] focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground focus:border-primary focus:outline-none transition-colors"
                   placeholder="e.g., Briefcase, Code, Brain"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-muted-foreground mb-2">
                   Gradient (Tailwind classes)
                 </label>
                 <input
                   type="text"
                   value={editingService.gradient}
                   onChange={(e) => setEditingService({ ...editingService, gradient: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-[#1A181F] border border-[#2C2A33] text-white focus:border-[#E08A20] focus:outline-none transition-colors"
-                  placeholder="e.g., from-[#E08A20] to-[#F0A040]"
+                  className="w-full px-4 py-3 rounded-xl bg-card border border-border text-foreground focus:border-primary focus:outline-none transition-colors"
+                  placeholder="e.g., from-orange-500 to-red-500"
                 />
               </div>
 
@@ -227,7 +227,7 @@ export default function ServicesPage() {
                 </button>
                 <button
                   onClick={handleCancel}
-                  className="px-6 py-3 rounded-xl bg-[#1A181F] hover:bg-[#2C2A33] text-white transition-colors"
+                  className="px-6 py-3 rounded-xl bg-card hover:bg-secondary text-foreground transition-colors"
                 >
                   Cancel
                 </button>
