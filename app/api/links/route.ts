@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs/promises';
-import path from 'path';
+import { db } from '@/lib/firebase';
+import { collection, getDocs, doc, setDoc, deleteDoc, getDoc, updateDoc } from 'firebase/firestore';
 
-const LINKS_FILE = path.join(process.cwd(), 'data', 'links.json');
+const COLLECTION_NAME = 'links';
 
 interface Link {
   id: string;
@@ -14,23 +14,23 @@ interface Link {
   order: number;
 }
 
-// GET - Fetch all links or filter by location
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const location = searchParams.get('location');
-    
-    const data = await fs.readFile(LINKS_FILE, 'utf-8');
-    let links: Link[] = JSON.parse(data);
-    
-    // Filter by location if provided
+
+    const querySnapshot = await getDocs(collection(db, COLLECTION_NAME));
+    let links = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    })) as Link[];
+
     if (location) {
       links = links.filter(link => link.location === location);
     }
-    
-    // Sort by order
+
     links.sort((a, b) => a.order - b.order);
-    
+
     return NextResponse.json(links);
   } catch (error) {
     console.error('Error reading links:', error);
@@ -38,70 +38,71 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST - Create new link
 export async function POST(request: NextRequest) {
   try {
     const newLink = await request.json();
-    const data = await fs.readFile(LINKS_FILE, 'utf-8');
-    const links: Link[] = JSON.parse(data);
-    
-    // Generate new ID
-    const maxId = links.reduce((max, link) => Math.max(max, parseInt(link.id)), 0);
-    newLink.id = (maxId + 1).toString();
-    
-    links.push(newLink);
-    await fs.writeFile(LINKS_FILE, JSON.stringify(links, null, 2));
-    
-    return NextResponse.json(newLink, { status: 201 });
+
+    const linksRef = collection(db, COLLECTION_NAME);
+    const newDocRef = doc(linksRef);
+
+    // Calculate max ID for order/id consistency if needed, but we use Firestore ID
+    // The original code used max ID for ID.
+    // We'll use Firestore ID but maybe we should keep numeric ID in data if needed?
+    // The interface has id: string.
+
+    const querySnapshot = await getDocs(linksRef);
+    const count = querySnapshot.size;
+
+    // For ID, let's use the doc ID.
+
+    const linkData = {
+      ...newLink,
+      id: newDocRef.id,
+      // If order is not provided, append to end
+      order: newLink.order ?? count
+    };
+
+    await setDoc(newDocRef, linkData);
+
+    return NextResponse.json(linkData, { status: 201 });
   } catch (error) {
     console.error('Error creating link:', error);
     return NextResponse.json({ error: 'Failed to create link' }, { status: 500 });
   }
 }
 
-// PUT - Update existing link
 export async function PUT(request: NextRequest) {
   try {
     const updatedLink = await request.json();
-    const data = await fs.readFile(LINKS_FILE, 'utf-8');
-    const links: Link[] = JSON.parse(data);
-    
-    const index = links.findIndex(link => link.id === updatedLink.id);
-    if (index === -1) {
-      return NextResponse.json({ error: 'Link not found' }, { status: 404 });
+
+    if (!updatedLink.id) {
+      return NextResponse.json({ error: 'Link ID required' }, { status: 400 });
     }
-    
-    links[index] = updatedLink;
-    await fs.writeFile(LINKS_FILE, JSON.stringify(links, null, 2));
-    
-    return NextResponse.json(updatedLink);
+
+    const docRef = doc(db, COLLECTION_NAME, updatedLink.id);
+    await updateDoc(docRef, updatedLink);
+
+    // Fetch updated
+    const docSnap = await getDoc(docRef);
+
+    return NextResponse.json({ id: docSnap.id, ...docSnap.data() });
   } catch (error) {
     console.error('Error updating link:', error);
     return NextResponse.json({ error: 'Failed to update link' }, { status: 500 });
   }
 }
 
-// DELETE - Remove link
 export async function DELETE(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
-    
+
     if (!id) {
       return NextResponse.json({ error: 'Link ID required' }, { status: 400 });
     }
-    
-    const data = await fs.readFile(LINKS_FILE, 'utf-8');
-    const links: Link[] = JSON.parse(data);
-    
-    const filteredLinks = links.filter(link => link.id !== id);
-    
-    if (filteredLinks.length === links.length) {
-      return NextResponse.json({ error: 'Link not found' }, { status: 404 });
-    }
-    
-    await fs.writeFile(LINKS_FILE, JSON.stringify(filteredLinks, null, 2));
-    
+
+    await deleteDoc(doc(db, COLLECTION_NAME, id));
+
     return NextResponse.json({ message: 'Link deleted successfully' });
   } catch (error) {
     console.error('Error deleting link:', error);

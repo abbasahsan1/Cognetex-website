@@ -46,18 +46,5 @@
       "efficiency": "10x"
     },
     "order": 2
-  },
-  {
-    "id": "4",
-    "title": "Test Project",
-    "description": "Test Desc",
-    "tags": [],
-    "metrics": {
-      "metric1": "",
-      "metric2": "",
-      "metric3": ""
-    },
-    "order": 3,
-    "image": ""
   }
 ]

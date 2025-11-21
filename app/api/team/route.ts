@@ -1,18 +1,24 @@
 import { NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
+import { db } from '@/lib/firebase';
+import { collection, getDocs, doc, setDoc, deleteDoc, getDoc, updateDoc } from 'firebase/firestore';
 
-const dataFilePath = path.join(process.cwd(), 'data', 'team.json');
+const COLLECTION_NAME = 'team';
 
 export const dynamic = 'force-dynamic';
 
-// GET - Fetch all team members
+interface TeamMember {
+  id: string;
+  order?: number;
+}
+
 export async function GET() {
   try {
-    const fileContents = await fs.readFile(dataFilePath, 'utf8');
-    const team = JSON.parse(fileContents);
-    // Sort by order if available
-    team.sort((a: { order?: number }, b: { order?: number }) => (a.order ?? 0) - (b.order ?? 0));
+    const querySnapshot = await getDocs(collection(db, COLLECTION_NAME));
+    const team = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    })) as TeamMember[];
+    team.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
     return NextResponse.json(team);
   } catch (error) {
     console.error('Error fetching team:', error);
@@ -20,65 +26,64 @@ export async function GET() {
   }
 }
 
-// POST - Create a new team member
 export async function POST(request: Request) {
   try {
     const newMember = await request.json();
-    const fileContents = await fs.readFile(dataFilePath, 'utf8');
-    const team = JSON.parse(fileContents);
 
-    // Add ID and order
-    newMember.id = Date.now().toString();
-    newMember.order = team.length;
+    const teamRef = collection(db, COLLECTION_NAME);
+    const newDocRef = doc(teamRef);
 
-    team.push(newMember);
-    await fs.writeFile(dataFilePath, JSON.stringify(team, null, 2));
+    const querySnapshot = await getDocs(teamRef);
+    const count = querySnapshot.size;
 
-    return NextResponse.json(newMember, { status: 201 });
-  } catch {
+    const memberData = {
+      ...newMember,
+      id: newDocRef.id,
+      order: count
+    };
+
+    await setDoc(newDocRef, memberData);
+
+    return NextResponse.json(memberData, { status: 201 });
+  } catch (error) {
+    console.error('Error creating team member:', error);
     return NextResponse.json({ error: 'Failed to create team member' }, { status: 500 });
   }
 }
 
-// PUT - Update a team member
 export async function PUT(request: Request) {
   try {
     const updatedMember = await request.json();
-    const fileContents = await fs.readFile(dataFilePath, 'utf8');
-    const team = JSON.parse(fileContents);
 
-    const index = team.findIndex((m: { id: string }) => m.id === updatedMember.id);
-    if (index === -1) {
-      return NextResponse.json({ error: 'Team member not found' }, { status: 404 });
+    if (!updatedMember.id) {
+      return NextResponse.json({ error: 'Team member ID is required' }, { status: 400 });
     }
 
-    team[index] = { ...team[index], ...updatedMember };
-    await fs.writeFile(dataFilePath, JSON.stringify(team, null, 2));
+    const docRef = doc(db, COLLECTION_NAME, updatedMember.id);
+    await updateDoc(docRef, updatedMember);
 
-    return NextResponse.json(team[index]);
-  } catch {
+    const docSnap = await getDoc(docRef);
+
+    return NextResponse.json({ id: docSnap.id, ...docSnap.data() });
+  } catch (error) {
+    console.error('Error updating team member:', error);
     return NextResponse.json({ error: 'Failed to update team member' }, { status: 500 });
   }
 }
 
-// DELETE - Delete a team member
 export async function DELETE(request: Request) {
   try {
     const { id } = await request.json();
-    const fileContents = await fs.readFile(dataFilePath, 'utf8');
-    const teamData = JSON.parse(fileContents);
 
-    const team = teamData.filter((m: { id: string }) => m.id !== id);
+    if (!id) {
+      return NextResponse.json({ error: 'ID is required' }, { status: 400 });
+    }
 
-    // Reorder remaining members
-    team.forEach((member: { order?: number }, index: number) => {
-      member.order = index;
-    });
-
-    await fs.writeFile(dataFilePath, JSON.stringify(team, null, 2));
+    await deleteDoc(doc(db, COLLECTION_NAME, id));
 
     return NextResponse.json({ success: true });
-  } catch {
+  } catch (error) {
+    console.error('Error deleting team member:', error);
     return NextResponse.json({ error: 'Failed to delete team member' }, { status: 500 });
   }
 }
