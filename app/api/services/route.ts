@@ -1,76 +1,68 @@
 import { NextResponse } from 'next/server';
-import { db } from '@/lib/firebase';
-import { collection, getDocs, doc, setDoc, deleteDoc, getDoc, updateDoc } from 'firebase/firestore';
+import fs from 'fs/promises';
+import path from 'path';
 
-const COLLECTION_NAME = 'services';
+const DATA_FILE = path.join(process.cwd(), 'data', 'services.json');
 
 export const dynamic = 'force-dynamic';
 
-interface Service {
-  id: string;
-  order?: number;
-}
-
+// GET - Fetch all services
 export async function GET() {
   try {
-    const querySnapshot = await getDocs(collection(db, COLLECTION_NAME));
-    const services = querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    })) as Service[];
-    services.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+    const data = await fs.readFile(DATA_FILE, 'utf-8');
+    const services = JSON.parse(data);
+    // Sort by order if available
+    services.sort((a: { order?: number }, b: { order?: number }) => (a.order ?? 0) - (b.order ?? 0));
     return NextResponse.json(services);
   } catch (error) {
     console.error('Error fetching services:', error);
-    return NextResponse.json([], { status: 200 });
+    return NextResponse.json([], { status: 200 }); // Return empty array instead of error for UI stability
   }
 }
 
+// POST - Add new service
 export async function POST(request: Request) {
   try {
     const newService = await request.json();
+    const data = await fs.readFile(DATA_FILE, 'utf-8');
+    const services = JSON.parse(data);
 
-    const servicesRef = collection(db, COLLECTION_NAME);
-    const newDocRef = doc(servicesRef);
+    // Generate new ID
+    const maxId = services.length > 0 ? Math.max(...services.map((s: { id: string }) => parseInt(s.id))) : 0;
+    newService.id = (maxId + 1).toString();
+    newService.order = services.length;
 
-    const querySnapshot = await getDocs(servicesRef);
-    const count = querySnapshot.size;
+    services.push(newService);
+    await fs.writeFile(DATA_FILE, JSON.stringify(services, null, 2));
 
-    const serviceData = {
-      ...newService,
-      id: newDocRef.id,
-      order: count
-    };
-
-    await setDoc(newDocRef, serviceData);
-
-    return NextResponse.json(serviceData, { status: 201 });
-  } catch (error) {
-    console.error('Error adding service:', error);
+    return NextResponse.json(newService, { status: 201 });
+  } catch {
     return NextResponse.json({ error: 'Failed to add service' }, { status: 500 });
   }
 }
 
+// PUT - Update service
 export async function PUT(request: Request) {
   try {
     const updatedService = await request.json();
+    const data = await fs.readFile(DATA_FILE, 'utf-8');
+    const services = JSON.parse(data);
 
-    if (!updatedService.id) {
-      return NextResponse.json({ error: 'Service ID is required' }, { status: 400 });
+    const index = services.findIndex((s: { id: string }) => s.id === updatedService.id);
+    if (index === -1) {
+      return NextResponse.json({ error: 'Service not found' }, { status: 404 });
     }
 
-    const docRef = doc(db, COLLECTION_NAME, updatedService.id);
-    await updateDoc(docRef, updatedService);
+    services[index] = { ...services[index], ...updatedService };
+    await fs.writeFile(DATA_FILE, JSON.stringify(services, null, 2));
 
-    const docSnap = await getDoc(docRef);
-
-    return NextResponse.json({ id: docSnap.id, ...docSnap.data() });
-  } catch (error) {
-    console.error('Error updating service:', error);
+    return NextResponse.json(services[index]);
+  } catch {
     return NextResponse.json({ error: 'Failed to update service' }, { status: 500 });
   }
 }
 
+// DELETE - Remove service
 export async function DELETE(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -80,11 +72,21 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: 'ID is required' }, { status: 400 });
     }
 
-    await deleteDoc(doc(db, COLLECTION_NAME, id));
+    const data = await fs.readFile(DATA_FILE, 'utf-8');
+    const servicesData = JSON.parse(data);
+
+    const services = servicesData.filter((s: { id: string }) => s.id !== id);
+
+    // Reorder remaining services
+    const reorderedServices = services.map((s: { id: string; order?: number }, index: number) => ({
+      ...s,
+      order: index
+    }));
+
+    await fs.writeFile(DATA_FILE, JSON.stringify(reorderedServices, null, 2));
 
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error('Error deleting service:', error);
+  } catch {
     return NextResponse.json({ error: 'Failed to delete service' }, { status: 500 });
   }
 }

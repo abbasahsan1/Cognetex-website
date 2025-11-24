@@ -77,12 +77,12 @@ export default function ImageUpload({ value, onChange, label = "Upload Image", c
 
     return (
         <div className={`w-full ${className}`}>
-            {label && <label className="block text-sm font-medium text-muted-foreground mb-2">{label}</label>}
+            {label && <label className="block text-xs sm:text-sm font-medium text-muted-foreground mb-1.5 sm:mb-2">{label}</label>}
 
             <div
-                className={`relative group cursor-pointer transition-all duration-200 border-2 border-dashed rounded-xl overflow-hidden
+                className={`relative group cursor-pointer transition-all duration-200 border-2 border-dashed rounded-xl overflow-hidden touch-manipulation
           ${dragActive ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50 hover:bg-muted/50'}
-          ${value ? 'h-64' : 'h-32'}
+          ${value ? 'h-48 sm:h-64' : 'h-28 sm:h-32'}
         `}
                 onDragEnter={handleDrag}
                 onDragLeave={handleDrag}
@@ -110,25 +110,25 @@ export default function ImageUpload({ value, onChange, label = "Upload Image", c
                             className="w-full h-full object-contain bg-black/20"
                         />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <p className="text-white font-medium flex items-center gap-2">
-                                <Upload className="w-4 h-4" /> Change Image
+                            <p className="text-white font-medium flex items-center gap-2 text-sm sm:text-base px-4 text-center">
+                                <Upload className="w-3 sm:w-4 h-3 sm:h-4" /> Change Image
                             </p>
                         </div>
                         <button
                             onClick={removeImage}
-                            className="absolute top-2 right-2 p-1.5 bg-destructive text-destructive-foreground rounded-full hover:scale-110 transition-transform z-20"
+                            className="absolute top-2 right-2 p-2 sm:p-1.5 bg-destructive text-destructive-foreground rounded-full hover:scale-110 transition-transform z-20 touch-manipulation"
                             title="Remove image"
                         >
                             <X className="w-4 h-4" />
                         </button>
                     </div>
                 ) : (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground">
-                        <div className="p-3 rounded-full bg-muted mb-2 group-hover:scale-110 transition-transform">
-                            <ImageIcon className="w-6 h-6" />
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground px-4">
+                        <div className="p-2 sm:p-3 rounded-full bg-muted mb-2 group-hover:scale-110 transition-transform">
+                            <ImageIcon className="w-5 sm:w-6 h-5 sm:h-6" />
                         </div>
-                        <p className="text-sm font-medium">Click or drag image to upload</p>
-                        <p className="text-xs opacity-70 mt-1">SVG, PNG, JPG or GIF</p>
+                        <p className="text-xs sm:text-sm font-medium text-center">Click or drag image to upload</p>
+                        <p className="text-[10px] sm:text-xs opacity-70 mt-1">SVG, PNG, JPG or GIF</p>
                     </div>
                 )}
             </div>

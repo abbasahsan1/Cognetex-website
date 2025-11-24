@@ -64,7 +64,7 @@ export default function BlurText({
           observer.unobserve(ref.current!);
         }
       },
-      { threshold, rootMargin }
+      { threshold: 0, rootMargin: '0px 0px -50px 0px' }
     );
     observer.observe(ref.current);
     return () => observer.disconnect();

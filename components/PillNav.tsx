@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
+import { Menu, X } from 'lucide-react';
 
 interface PillNavItem {
   label: string;
@@ -32,7 +33,6 @@ const PillNav = ({
   const circleRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const tlRefs = useRef<gsap.core.Timeline[]>([]);
   const activeTweenRefs = useRef<gsap.core.Tween[]>([]);
-  const hamburgerRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const navItemsRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
@@ -91,7 +91,7 @@ const PillNav = ({
 
     const menu = mobileMenuRef.current;
     if (menu) {
-      gsap.set(menu, { visibility: 'hidden', opacity: 0, y: 0 });
+      gsap.set(menu, { height: 0, opacity: 0, display: 'none' });
     }
 
     // Initial load animation
@@ -139,36 +139,20 @@ const PillNav = ({
     const newState = !isMobileMenuOpen;
     setIsMobileMenuOpen(newState);
 
-    const hamburger = hamburgerRef.current;
     const menu = mobileMenuRef.current;
-
-    if (hamburger) {
-      const lines = hamburger.querySelectorAll('.hamburger-line');
-      if (newState) {
-        gsap.to(lines[0], { rotation: 45, y: 3, duration: 0.3, ease });
-        gsap.to(lines[1], { rotation: -45, y: -3, duration: 0.3, ease });
-      } else {
-        gsap.to(lines[0], { rotation: 0, y: 0, duration: 0.3, ease });
-        gsap.to(lines[1], { rotation: 0, y: 0, duration: 0.3, ease });
-      }
-    }
 
     if (menu) {
       if (newState) {
-        gsap.set(menu, { visibility: 'visible' });
-        gsap.fromTo(
-          menu,
-          { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, duration: 0.3, ease }
-        );
+        gsap.set(menu, { display: 'block', height: 0, opacity: 0 });
+        gsap.to(menu, { height: 'auto', opacity: 1, duration: 0.4, ease: 'power3.out' });
       } else {
         gsap.to(menu, {
+          height: 0,
           opacity: 0,
-          y: 10,
-          duration: 0.2,
-          ease,
+          duration: 0.3,
+          ease: 'power3.in',
           onComplete: () => {
-            gsap.set(menu, { visibility: 'hidden' });
+            gsap.set(menu, { display: 'none' });
           }
         });
       }
@@ -177,115 +161,125 @@ const PillNav = ({
 
   const handleItemClick = (href: string) => {
     setIsMobileMenuOpen(false);
+    const menu = mobileMenuRef.current;
+    if (menu) {
+        gsap.to(menu, {
+            height: 0,
+            opacity: 0,
+            duration: 0.3,
+            ease: 'power3.in',
+            onComplete: () => {
+              gsap.set(menu, { display: 'none' });
+            }
+          });
+    }
     onItemClick?.(href);
   };
 
   return (
-    <div className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-fit px-4 ${className}`}>
-      <nav className="w-full flex items-center justify-between md:justify-start" aria-label="Primary">
-        {/* Logo - Now on the LEFT */}
-        <div
-          ref={logoRef}
-          className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden glass-morphism border border-primary/30 cursor-pointer order-first"
-          style={{ width: '48px', height: '48px' }}
-        >
-          {logo}
-        </div>
+    <div className={`fixed top-4 left-0 right-0 z-50 px-4 flex justify-center ${className}`}>
+      <div className="relative w-full max-w-7xl mx-auto flex flex-col items-center">
+        <nav className="w-full flex items-center justify-between glass-morphism rounded-full p-2 border border-primary/20 backdrop-blur-xl bg-background/60 relative z-50">
+          {/* Logo */}
+          <div
+            ref={logoRef}
+            className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden cursor-pointer"
+            style={{ width: '48px', height: '48px' }}
+          >
+            {logo}
+          </div>
 
-        {/* Desktop Nav - Now on the RIGHT with ml-auto */}
+          {/* Desktop Nav */}
+          <div
+            ref={navItemsRef}
+            className="hidden md:flex items-center h-full"
+          >
+            <ul role="menubar" className="list-none flex items-center m-0 p-0 gap-1 h-full">
+              {items.map((item, i) => {
+                const isActive = activeHref === item.href;
+
+                return (
+                  <li key={item.href} role="none" className="flex h-full">
+                    <button
+                      role="menuitem"
+                      onClick={() => handleItemClick(item.href)}
+                      className="relative overflow-hidden inline-flex items-center justify-center gap-2 h-10 px-5 rounded-full font-semibold text-sm transition-all duration-300"
+                      aria-label={item.label}
+                      onMouseEnter={() => handleEnter(i)}
+                      onMouseLeave={() => handleLeave(i)}
+                    >
+                      <span
+                        className="hover-circle absolute left-1/2 bottom-0 rounded-full z-[1] block pointer-events-none bg-gradient-to-br from-primary to-blue-500"
+                        aria-hidden="true"
+                        ref={el => {
+                          circleRefs.current[i] = el;
+                        }}
+                      />
+
+                      {item.icon && <span className="relative z-[2]">{item.icon}</span>}
+
+                      <span className="label-stack relative inline-block leading-none z-[2]">
+                        <span className="pill-label relative z-[2] inline-block leading-none text-foreground/80">
+                          {item.label}
+                        </span>
+                        <span
+                          className="pill-label-hover absolute left-0 top-0 z-[3] inline-block text-white"
+                          aria-hidden="true"
+                        >
+                          {item.label}
+                        </span>
+                      </span>
+
+                      {isActive && (
+                        <span
+                          className="absolute left-1/2 -bottom-[6px] -translate-x-1/2 w-1 h-1 rounded-full z-[4] bg-primary"
+                          aria-hidden="true"
+                        />
+                      )}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          {/* Mobile Hamburger */}
+          <button
+            onClick={toggleMobileMenu}
+            aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
+            className="md:hidden rounded-full w-12 h-12 flex items-center justify-center text-foreground hover:bg-white/10 transition-colors"
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </nav>
+
+        {/* Mobile Menu Dropdown */}
         <div
-          ref={navItemsRef}
-          className="relative items-center rounded-full hidden md:flex ml-auto glass-morphism border border-primary/20 backdrop-blur-xl"
-          style={{ height: '48px' }}
+          ref={mobileMenuRef}
+          className="w-full mt-2 glass-morphism rounded-3xl overflow-hidden border border-primary/20 backdrop-blur-xl bg-background/90 absolute top-full left-0 z-40 hidden"
         >
-          <ul role="menubar" className="list-none flex items-stretch m-0 p-[4px] h-full gap-[4px]">
-            {items.map((item, i) => {
+          <ul className="list-none m-0 p-4 flex flex-col gap-2">
+            {items.map(item => {
               const isActive = activeHref === item.href;
 
               return (
-                <li key={item.href} role="none" className="flex h-full">
+                <li key={item.href}>
                   <button
-                    role="menuitem"
                     onClick={() => handleItemClick(item.href)}
-                    className="relative overflow-hidden inline-flex items-center justify-center gap-2 h-full no-underline rounded-full box-border font-semibold text-sm leading-none tracking-wide whitespace-nowrap cursor-pointer px-4 text-foreground bg-gradient-to-r from-primary/20 to-blue-500/20 hover:from-primary/35 hover:to-blue-500/35 transition-all duration-300"
-                    aria-label={item.label}
-                    onMouseEnter={() => handleEnter(i)}
-                    onMouseLeave={() => handleLeave(i)}
+                    className={`w-full flex items-center gap-3 py-3 px-4 text-base font-medium rounded-xl transition-all duration-300 ${isActive
+                        ? 'bg-gradient-to-r from-primary/20 to-blue-500/20 text-primary border border-primary/20'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-white/5'
+                      }`}
                   >
-                    <span
-                      className="hover-circle absolute left-1/2 bottom-0 rounded-full z-[1] block pointer-events-none bg-gradient-to-br from-primary to-blue-500"
-                      aria-hidden="true"
-                      ref={el => {
-                        circleRefs.current[i] = el;
-                      }}
-                    />
-
-                    {item.icon && <span className="relative z-[2]">{item.icon}</span>}
-
-                    <span className="label-stack relative inline-block leading-none z-[2]">
-                      <span className="pill-label relative z-[2] inline-block leading-none">
-                        {item.label}
-                      </span>
-                      <span
-                        className="pill-label-hover absolute left-0 top-0 z-[3] inline-block text-foreground"
-                        aria-hidden="true"
-                      >
-                        {item.label}
-                      </span>
-                    </span>
-
-                    {isActive && (
-                      <span
-                        className="absolute left-1/2 -bottom-[6px] -translate-x-1/2 w-2 h-2 rounded-full z-[4] bg-gradient-to-r from-primary to-blue-500"
-                        aria-hidden="true"
-                      />
-                    )}
+                    {item.icon && <span>{item.icon}</span>}
+                    {item.label}
                   </button>
                 </li>
               );
             })}
           </ul>
         </div>
-
-        {/* Mobile Hamburger */}
-        <button
-          ref={hamburgerRef}
-          onClick={toggleMobileMenu}
-          aria-label="Toggle menu"
-          aria-expanded={isMobileMenuOpen}
-          className="md:hidden rounded-full border border-primary/30 flex flex-col items-center justify-center gap-1 cursor-pointer p-0 relative glass-morphism backdrop-blur-xl"
-          style={{ width: '48px', height: '48px' }}
-        >
-          <span className="hamburger-line w-4 h-0.5 rounded origin-center bg-foreground" />
-          <span className="hamburger-line w-4 h-0.5 rounded origin-center bg-foreground" />
-        </button>
-      </nav>
-
-      {/* Mobile Menu */}
-      <div
-        ref={mobileMenuRef}
-        className="md:hidden absolute top-[3.5rem] left-4 right-4 rounded-3xl shadow-2xl z-[998] origin-top glass-morphism border border-primary/30 backdrop-blur-xl bg-background/90"
-      >
-        <ul className="list-none m-0 p-2 flex flex-col gap-1">
-          {items.map(item => {
-            const isActive = activeHref === item.href;
-
-            return (
-              <li key={item.href}>
-                <button
-                  onClick={() => handleItemClick(item.href)}
-                  className={`w-full flex items-center gap-3 py-3 px-4 text-sm font-medium rounded-2xl transition-all duration-300 ${isActive
-                      ? 'bg-gradient-to-r from-primary to-blue-500 text-foreground'
-                      : 'bg-white/5 text-muted-foreground hover:bg-gradient-to-r hover:from-primary/30 hover:to-blue-500/30 hover:text-foreground'
-                    }`}
-                >
-                  {item.icon && <span>{item.icon}</span>}
-                  {item.label}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
       </div>
     </div>
   );

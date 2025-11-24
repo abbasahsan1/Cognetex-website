@@ -99,7 +99,7 @@ export default function CognetexWebsite() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  
+
   // Dynamic data state
   const [services, setServices] = useState<Service[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
@@ -108,7 +108,7 @@ export default function CognetexWebsite() {
   const [team, setTeam] = useState<TeamMember[]>([]);
   const [tools, setTools] = useState<Tool[]>([]);
   const [links, setLinks] = useState<Link[]>([]);
-  
+
   // Loading states
   const [loading, setLoading] = useState({
     services: true,
@@ -144,7 +144,7 @@ export default function CognetexWebsite() {
       contact: contactInfo ? 'loaded' : 'null',
       loading
     });
-    
+
     // Also log to alert if nothing in console
     if (typeof window !== 'undefined' && services.length === 0 && !loading.services) {
       console.warn('⚠️ Services loaded but array is empty!');
@@ -327,7 +327,7 @@ export default function CognetexWebsite() {
 
     window.addEventListener('scroll', handleScroll);
     handleScroll();
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
       observer.disconnect();
@@ -336,7 +336,7 @@ export default function CognetexWebsite() {
   }, []);
 
   return (
-    <div className="min-h-screen text-foreground bg-background font-heading">
+    <div className="min-h-screen min-h-dvh text-foreground bg-background font-heading overflow-x-hidden w-full">
       {/* Static Background Overlays */}
       <div className="fixed inset-0 pointer-events-none z-0">
         {/* Glass Texture Overlay */}
@@ -396,31 +396,31 @@ export default function CognetexWebsite() {
         {/* Animated gradient orbs - blue background with STRONG orange accents */}
         <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-primary/25 to-primary/15 rounded-full filter blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-br from-blue-500/12 to-blue-400/8 rounded-full filter blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        
+
         <div className="max-w-6xl mx-auto text-center relative z-10">
           <div className="mb-6 inline-flex items-center px-6 py-3 glass-morphism rounded-full animate-fade-in-up relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/15 via-primary/10 to-primary/15 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
             <Sparkles className="w-5 h-5 text-primary mr-3 relative z-10 animate-pulse" />
             <span className="text-muted-foreground font-medium relative z-10">Engineering tomorrow&apos;s technology, today</span>
           </div>
-          
-          <div className="mb-6">
+
+          <div className="mb-8 md:mb-6">
             <GradientText
               colors={["#FF8A00", "#FFA940", "#FF8A00", "#FFA940", "#FF8A00"]}
               animationSpeed={4}
               showBorder={false}
-              className="text-6xl md:text-8xl font-bold py-4 overflow-visible"
+              className="text-5xl sm:text-6xl md:text-8xl font-bold py-4 overflow-visible"
             >
               Cognetex
             </GradientText>
           </div>
-          
-          <div className="flex items-center justify-center space-x-6 mb-6 animate-fade-in-up animate-delay-300">
-            <div className="h-px w-24 bg-gradient-to-r from-transparent via-orange-500/80 to-transparent"></div>
-            <div className="glass-morphism px-6 py-3 rounded-2xl border border-orange-500/30 min-w-[450px] flex justify-center bg-black/30">
+
+          <div className="flex items-center justify-center space-x-6 mb-8 md:mb-6 animate-fade-in-up animate-delay-300 w-full">
+            <div className="hidden sm:block h-px w-24 bg-gradient-to-r from-transparent via-orange-500/80 to-transparent"></div>
+            <div className="glass-morphism px-4 sm:px-6 py-3 rounded-2xl border border-orange-500/30 w-full max-w-[450px] flex justify-center bg-black/30 mx-auto">
               <RotatingText
                 texts={['Code It. Nail It. Scale It.', 'AI-Powered Solutions', 'Future-Ready Technology', 'Innovation at Scale']}
-                mainClassName="text-2xl md:text-4xl font-bold text-foreground whitespace-nowrap"
+                mainClassName="text-2xl sm:text-2xl md:text-4xl font-bold text-foreground whitespace-nowrap"
                 elementLevelClassName="bg-gradient-to-r from-primary via-orange-500 to-orange-600 bg-clip-text text-transparent"
                 staggerFrom="center"
                 staggerDuration={0.02}
@@ -428,31 +428,31 @@ export default function CognetexWebsite() {
                 transition={{ type: 'spring', damping: 30, stiffness: 400 }}
               />
             </div>
-            <div className="h-px w-24 bg-gradient-to-l from-transparent via-orange-500/80 to-transparent"></div>
+            <div className="hidden sm:block h-px w-24 bg-gradient-to-l from-transparent via-orange-500/80 to-transparent"></div>
           </div>
-          
+
           <div className="glass-morphism p-6 rounded-3xl mb-10 animate-fade-in-up animate-delay-400 max-w-4xl mx-auto border border-orange-500/20">
             <BlurText
               text="We deliver intelligent, scalable, and future-ready software solutions powered by AI, automation, and modern development stacks."
-              delay={50}
+              delay={20}
               animateBy="words"
               direction="top"
               className="text-lg md:text-xl text-muted-foreground leading-relaxed justify-center"
             />
           </div>
-          
+
           {/* Dynamic CTA Buttons - STRONG ORANGE */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animate-delay-500">
             {getLinksByLocation('hero').map((link) => {
               const IconComponent = getIconComponent(link.icon);
               return (
-                <a 
+                <a
                   key={link.id}
-                  href={link.url} 
+                  href={link.url}
                   className={
                     link.type === 'primary-cta'
-                      ? "group relative px-10 py-4 rounded-2xl font-bold text-lg flex items-center justify-center text-white overflow-hidden transition-all duration-300 hover:scale-105"
-                      : "glass-card-hover px-10 py-4 glass-morphism rounded-2xl flex items-center justify-center font-bold text-lg text-white group border border-orange-500/40"
+                      ? "group relative px-6 sm:px-10 py-3 sm:py-4 rounded-2xl font-bold text-base sm:text-lg flex items-center justify-center text-white overflow-hidden transition-all duration-300 hover:scale-105 w-full sm:w-auto"
+                      : "glass-card-hover px-6 sm:px-10 py-3 sm:py-4 glass-morphism rounded-2xl flex items-center justify-center font-bold text-base sm:text-lg text-white group border border-orange-500/40 w-full sm:w-auto"
                   }
                 >
                   {link.type === 'primary-cta' && (
@@ -478,7 +478,7 @@ export default function CognetexWebsite() {
             <span className="inline-block px-4 py-2 bg-gradient-to-r from-primary/10 to-blue-500/10 backdrop-blur-sm border border-primary/30 rounded-full text-primary font-medium mb-4">
               What We Do
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
               <GradientText
                 colors={["#ffffff", "#FF8A00", "#3b82f6", "#FF8A00", "#ffffff"]}
                 animationSpeed={5}
@@ -497,7 +497,7 @@ export default function CognetexWebsite() {
               We deliver intelligent, scalable, and future-ready software solutions powered by AI, automation, and modern development stacks.
             </ScrollReveal>
           </div>
-          
+
           {loading.services ? (
             <div className="flex justify-center items-center py-20">
               <Loader2 className="w-12 h-12 text-blue-500 animate-spin" />
@@ -507,54 +507,84 @@ export default function CognetexWebsite() {
               <p className="text-gray-400 text-xl">No services available yet.</p>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {services.map((service, index) => {
-                const useSpotlight = service.title.toLowerCase().includes('agentic') || 
-                                     service.title.toLowerCase().includes('ai') || 
-                                     service.title.toLowerCase().includes('integration') || 
-                                     service.title.toLowerCase().includes('automation');
-                
-                const content = (
-                  <>
-                    <h3 className="text-2xl font-bold mb-4 text-foreground group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-blue-500 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
-                      {service.title}
-                    </h3>
-                    
-                    <p className="text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors duration-300">
-                      {service.description}
-                    </p>
-                    
-                    <div className="mt-6 flex items-center text-primary opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                      <span className="text-sm font-medium">Learn more</span>
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" />
-                    </div>
-                  </>
-                );
-
-                return (
-                  <div 
-                    key={service.id} 
-                    className="group relative fade-in-section"
-                    style={{ transitionDelay: `${index * 100}ms` }}
+            <>
+              {/* Mobile Services Carousel */}
+              <div className="md:hidden flex overflow-x-auto snap-x gap-4 pb-8 -mx-4 px-4 scrollbar-hide mb-8">
+                {services.map((service, index) => (
+                  <div
+                    key={service.id}
+                    className="min-w-[85vw] snap-center h-full"
                   >
-                    {useSpotlight ? (
-                      <SpotlightCard 
-                        className="!bg-transparent glass-morphism glass-card-hover !border-primary/30"
-                        spotlightColor="rgba(255, 138, 0, 0.3)"
-                      >
-                        {content}
-                      </SpotlightCard>
-                    ) : (
-                      <div className="glass-morphism glass-card-hover rounded-3xl p-8 relative overflow-hidden">
-                        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-                        <div className="absolute top-0 left-0 bottom-0 w-px bg-gradient-to-b from-white/10 via-transparent to-transparent"></div>
-                        {content}
+                    <div className="glass-morphism rounded-2xl p-6 relative overflow-hidden h-full border border-white/5 flex flex-col justify-between">
+                      <div>
+                        <h3 className="text-xl font-bold mb-3 text-foreground">
+                          {service.title}
+                        </h3>
+                        <p className="text-muted-foreground leading-relaxed text-sm line-clamp-4">
+                          {service.description}
+                        </p>
                       </div>
-                    )}
+                      <div className="mt-4 flex items-center text-primary">
+                        <span className="text-sm font-medium">Learn more</span>
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </div>
+                    </div>
                   </div>
-                );
-              })}
-            </div>
+                ))}
+              </div>
+
+              {/* Desktop Services Grid */}
+              <div className="hidden md:grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 md:gap-8">
+                {services.map((service, index) => {
+                  const useSpotlight = service.title.toLowerCase().includes('agentic') ||
+                    service.title.toLowerCase().includes('ai') ||
+                    service.title.toLowerCase().includes('integration') ||
+                    service.title.toLowerCase().includes('automation');
+
+                  const content = (
+                    <>
+                      <h3 className="text-2xl font-bold mb-4 text-foreground group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-blue-500 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                        {service.title}
+                      </h3>
+
+                      <p className="text-muted-foreground leading-relaxed group-hover:text-foreground transition-colors duration-300">
+                        {service.description}
+                      </p>
+
+                      <div className="mt-6 flex items-center text-primary opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                        <span className="text-sm font-medium">Learn more</span>
+                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" />
+                      </div>
+                    </>
+                  );
+
+                  return (
+                    <div
+                      key={service.id}
+                      className="group relative fade-in-section w-full"
+                      style={{ transitionDelay: `${index * 100}ms` }}
+                    >
+                      <div className="h-full">
+                          {useSpotlight ? (
+                          <SpotlightCard
+                              className="!bg-transparent glass-morphism glass-card-hover !border-primary/30 h-full"
+                              spotlightColor="rgba(255, 138, 0, 0.3)"
+                          >
+                              {content}
+                          </SpotlightCard>
+                          ) : (
+                          <div className="glass-morphism glass-card-hover rounded-3xl p-8 relative overflow-hidden h-full">
+                              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                              <div className="absolute top-0 left-0 bottom-0 w-px bg-gradient-to-b from-white/10 via-transparent to-transparent"></div>
+                              {content}
+                          </div>
+                          )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </>
           )}
         </div>
       </section>
@@ -566,7 +596,7 @@ export default function CognetexWebsite() {
             <span className="inline-block px-4 py-2 bg-gradient-to-r from-blue-500/10 to-primary/10 backdrop-blur-sm border border-blue-500/30 rounded-full text-blue-500 font-medium mb-6">
               Portfolio
             </span>
-            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6">
               <GradientText
                 colors={["#3b82f6", "#ff8a00", "#ffffff", "#ff8a00", "#3b82f6"]}
                 animationSpeed={5}
@@ -577,31 +607,85 @@ export default function CognetexWebsite() {
             </h2>
             <BlurText
               text="Some of the solutions we've delivered"
-              delay={100}
+              delay={30}
               animateBy="words"
               direction="top"
               className="text-gray-400 text-xl justify-center"
             />
           </div>
-          
+
           {loading.projects ? (
             <div className="flex justify-center items-center py-20">
               <Loader2 className="w-12 h-12 text-[#3b82f6] animate-spin" />
             </div>
           ) : projects.length > 0 ? (
             <>
-              <div className="grid lg:grid-cols-3 gap-8 mb-12">
+              {/* Mobile Carousel */}
+              <div className="md:hidden flex overflow-x-auto snap-x gap-4 pb-8 -mx-4 px-4 scrollbar-hide mb-8">
+                {projects.slice(0, 5).map((project, index) => (
+                  <div
+                    key={project.id}
+                    className="min-w-[85vw] snap-center"
+                  >
+                    <div className="glass-morphism glass-card-hover rounded-3xl overflow-hidden relative h-full">
+                      {/* Glass reflection effects */}
+                      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                      <div className="absolute top-0 left-0 bottom-0 w-px bg-gradient-to-b from-white/10 via-transparent to-transparent"></div>
+
+                      <div className="h-40 glass-morphism flex items-center justify-center relative overflow-hidden border-b border-primary/10">
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-primary/5 to-blue-500/10"></div>
+                        <div className="grid grid-cols-3 gap-3 p-6 relative z-10">
+                          {[...Array(9)].map((_, i) => (
+                            <div key={i} className="w-5 h-5 glass-morphism rounded border border-primary/10">
+                              <div className="w-full h-full bg-gradient-to-br from-blue-500/30 via-primary/20 to-blue-500/30 rounded"></div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="p-6">
+                        <h3 className="text-xl font-bold mb-2 text-foreground">
+                          {project.title}
+                        </h3>
+                        <p className="text-muted-foreground mb-4 text-sm leading-relaxed line-clamp-3">
+                          {project.description}
+                        </p>
+
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {project.tags.slice(0, 3).map((tag, tagIndex) => (
+                            <span key={tagIndex} className="px-2 py-1 glass-morphism text-blue-400 rounded-full text-xs font-medium border border-primary/10">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+
+                        <div className="grid grid-cols-3 gap-2 pt-4 border-t border-white/10">
+                          {Object.entries(project.metrics).slice(0, 3).map(([key, value], i) => (
+                            <div key={i} className="text-center">
+                              <div className="text-lg font-bold bg-gradient-to-r from-blue-500 to-primary bg-clip-text text-transparent">{value}</div>
+                              <div className="text-[10px] text-muted-foreground uppercase tracking-wider">{key}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Desktop Grid */}
+              <div className="hidden md:grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8 mb-12">
                 {projects.map((project, index) => (
-                  <div 
-                    key={project.id} 
-                    className="group fade-in-section"
+                  <div
+                    key={project.id}
+                    className="group fade-in-section w-full"
                     style={{ transitionDelay: `${index * 150}ms` }}
                   >
                     <div className="glass-morphism glass-card-hover rounded-3xl overflow-hidden relative">
                       {/* Glass reflection effects */}
                       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
                       <div className="absolute top-0 left-0 bottom-0 w-px bg-gradient-to-b from-white/10 via-transparent to-transparent"></div>
-                      
+
                       <div className="h-48 glass-morphism flex items-center justify-center relative overflow-hidden border-b border-primary/10">
                         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-primary/5 to-blue-500/10 group-hover:from-blue-500/20 group-hover:via-primary/10 group-hover:to-blue-500/20 transition-all duration-300"></div>
                         <div className="grid grid-cols-3 gap-3 p-6 relative z-10">
@@ -612,7 +696,7 @@ export default function CognetexWebsite() {
                           ))}
                         </div>
                       </div>
-                      
+
                       <div className="p-8">
                         <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-primary group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
                           {project.title}
@@ -620,7 +704,7 @@ export default function CognetexWebsite() {
                         <p className="text-muted-foreground mb-6 leading-relaxed group-hover:text-foreground transition-colors duration-300">
                           {project.description}
                         </p>
-                        
+
                         <div className="flex flex-wrap gap-2 mb-6">
                           {project.tags.map((tag, tagIndex) => (
                             <span key={tagIndex} className="px-3 py-1 glass-morphism text-blue-400 rounded-full text-sm font-medium hover:scale-105 hover:bg-gradient-to-r hover:from-primary/20 hover:to-blue-500/20 hover:text-primary transition-all duration-200 border border-primary/10">
@@ -628,7 +712,7 @@ export default function CognetexWebsite() {
                             </span>
                           ))}
                         </div>
-                        
+
                         <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10">
                           {Object.entries(project.metrics).map(([key, value], i) => (
                             <div key={i} className="text-center group-hover:scale-105 transition-transform duration-300" style={{ transitionDelay: `${i * 100}ms` }}>
@@ -642,7 +726,7 @@ export default function CognetexWebsite() {
                   </div>
                 ))}
               </div>
-              
+
               <div className="text-center">
                 <a href="#" className="cursor-target inline-flex items-center px-8 py-4 bg-white/5 backdrop-blur-xl border-2 border-primary/30 rounded-2xl hover:bg-gradient-to-r hover:from-primary/10 hover:to-blue-500/10 hover:border-primary/50 transition-all duration-300 group">
                   <span className="text-primary font-semibold">View All Projects</span>
@@ -661,9 +745,9 @@ export default function CognetexWebsite() {
       {/* Expertise Section - HORIZONTAL INFINITE SCROLL */}
       <section id="expertise" className="py-16 px-4 relative fade-in-section overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-orange-500/5 to-transparent"></div>
-        
+
         {/* Decorative Magnet Lines */}
-        <div className="absolute top-20 right-10 opacity-20">
+        <div className="absolute top-20 right-10 opacity-20 hidden md:block">
           <MagnetLines
             rows={7}
             columns={7}
@@ -674,13 +758,13 @@ export default function CognetexWebsite() {
             baseAngle={0}
           />
         </div>
-        
+
         <div className="max-w-full mx-auto relative z-10">
           <div className="text-center mb-16 px-4">
             <span className="inline-block px-4 py-2 bg-gradient-to-r from-primary/10 to-blue-500/10 backdrop-blur-sm border border-primary/30 rounded-full text-primary font-medium mb-6">
               Tech Stack
             </span>
-            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6">
               <GradientText
                 colors={["#ff8a00", "#3b82f6", "#ff8a00", "#3b82f6", "#ff8a00"]}
                 animationSpeed={4}
@@ -699,36 +783,63 @@ export default function CognetexWebsite() {
               We leverage cutting-edge technologies and frameworks to build robust, scalable, and future-ready solutions
             </ScrollReveal>
           </div>
-          
+
           {loading.tools ? (
             <div className="flex justify-center items-center py-20">
               <Loader2 className="w-12 h-12 text-[#3b82f6] animate-spin" />
             </div>
           ) : tools.length > 0 ? (
             <div className="space-y-4">
-              {/* First Row - Scrolling Left to Right */}
-              <InfiniteScroll 
-                items={tools.slice(0, Math.ceil(tools.length / 2)).map(tool => ({
-                  id: tool.id,
-                  name: tool.name,
-                  image: tool.image
-                } as ScrollingItem))}
-                direction="right"
-                speed={60}
-                pauseOnHover={true}
-              />
-              
-              {/* Second Row - Scrolling Right to Left */}
-              <InfiniteScroll 
-                items={tools.slice(Math.ceil(tools.length / 2)).map(tool => ({
-                  id: tool.id,
-                  name: tool.name,
-                  image: tool.image
-                } as ScrollingItem))}
-                direction="left"
-                speed={60}
-                pauseOnHover={true}
-              />
+              {/* Infinite Scroll (Mobile & Desktop) */}
+              <div className="space-y-4">
+                <InfiniteScroll
+                  items={tools.slice(0, Math.ceil(tools.length / 2)).map(tool => ({
+                    id: tool.id,
+                    name: tool.name,
+                    image: tool.image
+                  } as ScrollingItem))}
+                  direction="right"
+                  speed={30}
+                  pauseOnHover={true}
+                  className="md:hidden" // Mobile specific styling if needed
+                />
+                <InfiniteScroll
+                  items={tools.slice(Math.ceil(tools.length / 2)).map(tool => ({
+                    id: tool.id,
+                    name: tool.name,
+                    image: tool.image
+                  } as ScrollingItem))}
+                  direction="left"
+                  speed={30}
+                  pauseOnHover={true}
+                  className="md:hidden"
+                />
+
+                {/* Desktop only - keep original structure if needed, but InfiniteScroll handles both now */}
+                <div className="hidden md:block space-y-4">
+                   <InfiniteScroll
+                    items={tools.slice(0, Math.ceil(tools.length / 2)).map(tool => ({
+                      id: tool.id,
+                      name: tool.name,
+                      image: tool.image
+                    } as ScrollingItem))}
+                    direction="right"
+                    speed={60}
+                    pauseOnHover={true}
+                  />
+
+                  <InfiniteScroll
+                    items={tools.slice(Math.ceil(tools.length / 2)).map(tool => ({
+                      id: tool.id,
+                      name: tool.name,
+                      image: tool.image
+                    } as ScrollingItem))}
+                    direction="left"
+                    speed={60}
+                    pauseOnHover={true}
+                  />
+                </div>
+              </div>
             </div>
           ) : (
             <div className="text-center py-20">
@@ -745,7 +856,7 @@ export default function CognetexWebsite() {
             <span className="inline-block px-4 py-2 bg-gradient-to-r from-blue-500/10 to-primary/10 backdrop-blur-sm border border-blue-500/30 rounded-full text-blue-500 font-medium mb-6">
               Our People
             </span>
-            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6">
               <GradientText
                 colors={["#3b82f6", "#ffffff", "#ff8a00", "#ffffff", "#3b82f6"]}
                 animationSpeed={5}
@@ -764,13 +875,13 @@ export default function CognetexWebsite() {
               Behind every solution is a team of engineers, designers, and innovators dedicated to pushing the boundaries of technology.
             </ScrollReveal>
           </div>
-          
+
           {loading.team ? (
             <div className="flex justify-center items-center py-20">
               <Loader2 className="w-12 h-12 text-[#3b82f6] animate-spin" />
             </div>
           ) : team.length > 0 ? (
-            <div className="min-h-[600px] relative">
+            <div className="min-h-[600px] relative hidden md:block">
               <ChromaGrid
                 items={team.map((member) => ({
                   image: member.avatarUrl,
@@ -792,7 +903,35 @@ export default function CognetexWebsite() {
               <p className="text-gray-400 text-xl">No team members available yet. Check back soon!</p>
             </div>
           )}
-          
+
+          {/* Mobile Team View - Horizontal Scroll */}
+          {team.length > 0 && (
+            <div className="md:hidden flex overflow-x-auto snap-x gap-4 pb-8 -mx-4 px-4 scrollbar-hide mb-12">
+              {team.slice(0, 5).map((member, index) => (
+                <div
+                  key={member.id}
+                  className="min-w-[280px] snap-center"
+                >
+                  <div className="glass-morphism rounded-2xl overflow-hidden h-full border border-white/10">
+                    <div className="h-64 overflow-hidden relative">
+                      <img
+                        src={member.avatarUrl}
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    </div>
+                    <div className="p-6 relative">
+                      <h3 className="text-xl font-bold text-white mb-1">{member.name}</h3>
+                      <p className="text-primary text-sm mb-2">{member.title}</p>
+                      <p className="text-gray-400 text-xs">{member.handle}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
           <div className="text-center bg-gradient-to-r from-primary/10 via-blue-500/10 to-primary/10 backdrop-blur-xl border border-primary/30 rounded-3xl p-12">
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
               We believe in <span className="text-primary font-semibold">collaboration</span>, <span className="text-blue-500 font-semibold">innovation</span>, and <span className="text-primary font-semibold">craftsmanship</span> — values that drive us to deliver technology with impact.
@@ -813,7 +952,7 @@ export default function CognetexWebsite() {
             <span className="inline-block px-4 py-2 bg-gradient-to-r from-orange-500/10 to-[#3b82f6]/10 backdrop-blur-sm border border-orange-500/30 rounded-full text-orange-500 font-medium mb-6">
               Insights
             </span>
-            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6">
               <GradientText
                 colors={["#ff8a00", "#3b82f6", "#ffffff", "#3b82f6", "#ff8a00"]}
                 animationSpeed={5}
@@ -824,42 +963,78 @@ export default function CognetexWebsite() {
             </h2>
             <BlurText
               text="Explore insights, trends, and ideas from our team of experts"
-              delay={80}
+              delay={30}
               animateBy="words"
               direction="top"
               className="text-gray-400 text-xl justify-center"
             />
           </div>
-          
+
           {loading.blogs ? (
             <div className="flex justify-center items-center py-20">
               <Loader2 className="w-12 h-12 text-[#3b82f6] animate-spin" />
             </div>
           ) : blogs.length > 0 ? (
             <>
-              <div className="grid md:grid-cols-3 gap-8 mb-12">
+              {/* Mobile Blog Carousel */}
+              <div className="md:hidden flex overflow-x-auto snap-x gap-4 pb-8 -mx-4 px-4 scrollbar-hide mb-12">
+                {blogs.slice(0, 5).map((post, index) => (
+                  <div
+                    key={post.id}
+                    className="min-w-[300px] snap-center h-full"
+                  >
+                    <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 h-full flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-4">
+                          <span className="px-2 py-1 bg-gradient-to-r from-orange-500/20 to-[#3b82f6]/20 text-orange-500 rounded-full text-[10px] font-medium uppercase tracking-wider border border-orange-500/20">
+                            {post.category}
+                          </span>
+                          <span className="text-gray-500 text-xs">{post.date}</span>
+                        </div>
+
+                        <h3 className="text-xl font-bold mb-2 text-white leading-tight">
+                          {post.title}
+                        </h3>
+                        <p className="text-gray-400 mb-4 text-sm leading-relaxed line-clamp-3">
+                          {post.description}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center justify-between mt-auto">
+                        <span className="text-xs text-gray-500">{post.readTime}</span>
+                        <ArrowRight className="w-4 h-4 text-orange-500" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Desktop Blog Grid */}
+              <div className="hidden md:grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8 mb-12">
                 {blogs.map((post, index) => (
-                  <div 
-                    key={post.id} 
-                    className="group relative cursor-pointer fade-in-section"
+                  <div
+                    key={post.id}
+                    className="group relative cursor-pointer fade-in-section w-full"
                     style={{ transitionDelay: `${index * 150}ms` }}
                   >
-                    <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-gradient-to-br hover:from-orange-500/10 hover:to-[#3b82f6]/10 hover:border-orange-500/30 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300">
-                      <div className="flex items-center justify-between mb-6">
-                        <span className="px-3 py-1 bg-gradient-to-r from-orange-500/20 to-[#3b82f6]/20 text-orange-500 rounded-full text-xs font-medium uppercase tracking-wider border border-orange-500/20">
-                          {post.category}
-                        </span>
-                        <span className="text-gray-500 text-sm">{post.date}</span>
+                    <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-gradient-to-br hover:from-orange-500/10 hover:to-[#3b82f6]/10 hover:border-orange-500/30 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300 h-full flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between mb-6">
+                          <span className="px-3 py-1 bg-gradient-to-r from-orange-500/20 to-[#3b82f6]/20 text-orange-500 rounded-full text-xs font-medium uppercase tracking-wider border border-orange-500/20">
+                            {post.category}
+                          </span>
+                          <span className="text-gray-500 text-sm">{post.date}</span>
+                        </div>
+
+                        <h3 className="text-2xl font-bold mb-3 text-white group-hover:bg-gradient-to-r group-hover:from-orange-500 group-hover:to-[#3b82f6] group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300 leading-tight">
+                          {post.title}
+                        </h3>
+                        <p className="text-gray-400 mb-6 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                          {post.description}
+                        </p>
                       </div>
-                      
-                      <h3 className="text-2xl font-bold mb-3 text-white group-hover:bg-gradient-to-r group-hover:from-orange-500 group-hover:to-[#3b82f6] group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300 leading-tight">
-                        {post.title}
-                      </h3>
-                      <p className="text-gray-400 mb-6 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-                        {post.description}
-                      </p>
-                      
-                      <div className="flex items-center justify-between">
+
+                      <div className="flex items-center justify-between mt-auto">
                         <span className="text-sm text-gray-500">{post.readTime}</span>
                         <ArrowRight className="w-5 h-5 text-orange-500 opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-300" />
                       </div>
@@ -867,7 +1042,7 @@ export default function CognetexWebsite() {
                   </div>
                 ))}
               </div>
-              
+
               <div className="text-center">
                 <a href="#" className="cursor-target inline-flex items-center px-8 py-4 bg-white/5 backdrop-blur-xl border-2 border-orange-500/30 rounded-2xl hover:bg-gradient-to-r hover:from-orange-500/10 hover:to-[#3b82f6]/10 hover:border-orange-500/50 transition-all duration-300 group">
                   <span className="text-orange-500 font-semibold">Read All Blogs</span>
@@ -886,7 +1061,7 @@ export default function CognetexWebsite() {
       {/* Why Choose Us Section */}
       <section id="why" className="py-16 px-4 relative fade-in-section overflow-hidden">
         {/* Decorative Magnet Lines */}
-        <div className="absolute bottom-20 left-10 opacity-10">
+        <div className="absolute bottom-20 left-10 opacity-10 hidden md:block">
           <MagnetLines
             rows={6}
             columns={6}
@@ -897,13 +1072,13 @@ export default function CognetexWebsite() {
             baseAngle={45}
           />
         </div>
-        
+
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-20">
             <span className="inline-block px-4 py-2 bg-gradient-to-r from-orange-500/10 to-[#3b82f6]/10 backdrop-blur-sm border border-orange-500/30 rounded-full text-orange-500 font-medium mb-6">
               Why Us
             </span>
-            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6">
               <GradientText
                 colors={["#ff8a00", "#ffffff", "#3b82f6", "#ffffff", "#ff8a00"]}
                 animationSpeed={5}
@@ -913,25 +1088,50 @@ export default function CognetexWebsite() {
               </GradientText>
             </h2>
           </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+          <div className="md:hidden flex overflow-x-auto snap-x gap-4 pb-8 -mx-4 px-4 scrollbar-hide mb-8">
             {[
               { title: "Scalable Solutions", desc: "Built to grow with your business", gradient: "from-orange-500 to-[#3b82f6]" },
               { title: "AI-First Mindset", desc: "Harnessing Agentic AI, ML, and automation", gradient: "from-[#3b82f6] to-orange-500" },
               { title: "End-to-End Expertise", desc: "From product design to deployment", gradient: "from-orange-500 to-[#60a5fa]" },
               { title: "Proven Impact", desc: "Delivering real results across industries", gradient: "from-[#60a5fa] to-orange-500" }
             ].map((item, index) => (
-              <div 
-                key={index} 
-                className="group text-center fade-in-section"
+              <div
+                key={index}
+                className="min-w-[80vw] snap-center h-full"
+              >
+                <div className="glass-morphism p-6 rounded-2xl h-full flex flex-col justify-center items-center text-center border border-white/5">
+                  <h3 className="text-xl font-bold mb-3 text-white">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-400 leading-relaxed text-sm">
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="hidden md:grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 md:gap-8">
+            {[
+              { title: "Scalable Solutions", desc: "Built to grow with your business", gradient: "from-orange-500 to-[#3b82f6]" },
+              { title: "AI-First Mindset", desc: "Harnessing Agentic AI, ML, and automation", gradient: "from-[#3b82f6] to-orange-500" },
+              { title: "End-to-End Expertise", desc: "From product design to deployment", gradient: "from-orange-500 to-[#60a5fa]" },
+              { title: "Proven Impact", desc: "Delivering real results across industries", gradient: "from-[#60a5fa] to-orange-500" }
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="group text-center fade-in-section w-full"
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <h3 className="text-xl font-bold mb-3 text-white group-hover:bg-gradient-to-r group-hover:from-orange-500 group-hover:to-[#3b82f6] group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
-                  {item.title}
-                </h3>
-                <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-                  {item.desc}
-                </p>
+                <div className="glass-morphism p-6 rounded-2xl h-full flex flex-col justify-center items-center md:bg-transparent md:p-0 md:block">
+                  <h3 className="text-xl font-bold mb-3 text-white group-hover:bg-gradient-to-r group-hover:from-orange-500 group-hover:to-[#3b82f6] group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                    {item.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -939,23 +1139,23 @@ export default function CognetexWebsite() {
       </section>
 
       {/* Contact Section - DYNAMIC */}
-      <section id="contact" className="py-16 px-4 relative fade-in-section">
+      <section id="contact" className="py-12 md:py-16 px-4 relative fade-in-section">
         <div className="max-w-7xl mx-auto">
-          <div className="relative glass-morphism rounded-3xl p-12 md:p-16 overflow-hidden border border-orange-500/20">
+          <div className="relative glass-morphism rounded-3xl p-6 sm:p-12 md:p-16 overflow-hidden border border-orange-500/20">
             {/* Liquid glass background orbs */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-orange-500/15 to-[#3b82f6]/10 rounded-full filter blur-3xl"></div>
             <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-br from-[#3b82f6]/15 to-orange-500/10 rounded-full filter blur-3xl"></div>
-            
+
             {/* Glass reflection effects */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
             <div className="absolute top-0 left-0 bottom-0 w-px bg-gradient-to-b from-white/10 via-transparent to-transparent"></div>
-            
+
             <div className="relative z-10">
               <div className="text-center mb-16">
                 <span className="inline-block px-6 py-3 glass-morphism rounded-full text-orange-500 font-medium mb-6 border border-orange-500/30">
                   Let&apos;s Connect
                 </span>
-                <h2 className="text-5xl md:text-6xl font-bold mb-6">
+                <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6">
                   <GradientText
                     colors={["#ff8a00", "#3b82f6", "#ffffff", "#3b82f6", "#ff8a00"]}
                     animationSpeed={5}
@@ -966,13 +1166,13 @@ export default function CognetexWebsite() {
                 </h2>
                 <BlurText
                   text="Ready to transform your ideas into reality? Let's talk."
-                  delay={100}
+                  delay={30}
                   animateBy="words"
                   direction="top"
                   className="text-gray-200 text-xl justify-center"
                 />
               </div>
-              
+
               {loading.contact ? (
                 <div className="flex justify-center items-center py-20">
                   <Loader2 className="w-12 h-12 text-[#3b82f6] animate-spin" />
@@ -980,8 +1180,8 @@ export default function CognetexWebsite() {
               ) : contactInfo && (
                 <>
                   <div className="grid md:grid-cols-1 gap-6 mb-12">
-                    <a 
-                      href={`mailto:${contactInfo.email}`} 
+                    <a
+                      href={`mailto:${contactInfo.email}`}
                       className="group glass-morphism glass-card-hover flex items-center space-x-4 p-6 rounded-2xl relative overflow-hidden"
                     >
                       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
@@ -997,10 +1197,10 @@ export default function CognetexWebsite() {
                       </div>
                     </a>
                   </div>
-                  
+
                   <div className="flex justify-center mb-8">
-                    <a 
-                      href={contactInfo.whatsapp} 
+                    <a
+                      href={contactInfo.whatsapp}
                       className="group glass-morphism glass-card-hover flex items-center space-x-4 px-8 py-6 rounded-2xl relative overflow-hidden"
                     >
                       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
@@ -1021,8 +1221,8 @@ export default function CognetexWebsite() {
                   {contactInfo.socialMedia && (
                     <div className="flex justify-center space-x-4 pt-8 border-t border-white/10">
                       {contactInfo.socialMedia.github && (
-                        <a 
-                          href={contactInfo.socialMedia.github} 
+                        <a
+                          href={contactInfo.socialMedia.github}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="w-12 h-12 glass-morphism rounded-xl flex items-center justify-center hover:scale-110 transition-all duration-300 text-gray-300 hover:text-[#3b82f6] relative overflow-hidden group"
@@ -1032,8 +1232,8 @@ export default function CognetexWebsite() {
                         </a>
                       )}
                       {contactInfo.socialMedia.linkedin && (
-                        <a 
-                          href={contactInfo.socialMedia.linkedin} 
+                        <a
+                          href={contactInfo.socialMedia.linkedin}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="w-12 h-12 glass-morphism rounded-xl flex items-center justify-center hover:scale-110 transition-all duration-300 text-gray-300 hover:text-[#3b82f6] relative overflow-hidden group"
@@ -1043,8 +1243,8 @@ export default function CognetexWebsite() {
                         </a>
                       )}
                       {contactInfo.socialMedia.twitter && (
-                        <a 
-                          href={contactInfo.socialMedia.twitter} 
+                        <a
+                          href={contactInfo.socialMedia.twitter}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="w-12 h-12 glass-morphism rounded-xl flex items-center justify-center hover:scale-110 transition-all duration-300 text-gray-300 hover:text-[#3b82f6] relative overflow-hidden group"
@@ -1063,13 +1263,13 @@ export default function CognetexWebsite() {
       </section>
 
       {/* Footer */}
-      <footer className="py-16 px-4 border-t border-white/5">
+      <footer className="py-8 md:py-16 px-4 border-t border-white/5">
         <div className="max-w-7xl mx-auto">
           <div className="glass-morphism rounded-3xl p-8 relative overflow-hidden">
             {/* Glass reflection effects */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
             <div className="absolute top-0 left-0 bottom-0 w-px bg-gradient-to-b from-white/10 via-transparent to-transparent"></div>
-            
+
             <div className="flex flex-col md:flex-row justify-between items-center mb-8 relative z-10">
               <div className="flex items-center space-x-3 mb-6 md:mb-0">
                 <div className="w-12 h-12 glass-morphism rounded-2xl flex items-center justify-center relative overflow-hidden">
@@ -1078,17 +1278,17 @@ export default function CognetexWebsite() {
                 </div>
                 <span className="text-2xl font-bold bg-gradient-to-r from-white via-blue-100 to-[#3b82f6] bg-clip-text text-transparent">Cognetex</span>
               </div>
-              
+
               <div className="flex items-center space-x-3 mb-6 md:mb-0 glass-morphism px-4 py-2 rounded-2xl">
                 <Zap className="w-5 h-5 text-[#3b82f6]" />
                 <p className="text-[#3b82f6] font-semibold">Code It. Scale It. Nail It.</p>
               </div>
-              
+
               {contactInfo?.socialMedia && (
                 <div className="flex space-x-4">
                   {contactInfo.socialMedia.github && (
-                    <a 
-                      href={contactInfo.socialMedia.github} 
+                    <a
+                      href={contactInfo.socialMedia.github}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-12 h-12 glass-morphism rounded-xl flex items-center justify-center hover:scale-110 transition-all duration-300 text-gray-300 hover:text-[#3b82f6] relative overflow-hidden group"
@@ -1098,8 +1298,8 @@ export default function CognetexWebsite() {
                     </a>
                   )}
                   {contactInfo.socialMedia.linkedin && (
-                    <a 
-                      href={contactInfo.socialMedia.linkedin} 
+                    <a
+                      href={contactInfo.socialMedia.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-12 h-12 glass-morphism rounded-xl flex items-center justify-center hover:scale-110 transition-all duration-300 text-gray-300 hover:text-[#3b82f6] relative overflow-hidden group"
@@ -1109,8 +1309,8 @@ export default function CognetexWebsite() {
                     </a>
                   )}
                   {contactInfo.socialMedia.twitter && (
-                    <a 
-                      href={contactInfo.socialMedia.twitter} 
+                    <a
+                      href={contactInfo.socialMedia.twitter}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-12 h-12 glass-morphism rounded-xl flex items-center justify-center hover:scale-110 transition-all duration-300 text-gray-300 hover:text-[#3b82f6] relative overflow-hidden group"
@@ -1122,7 +1322,7 @@ export default function CognetexWebsite() {
                 </div>
               )}
             </div>
-            
+
             <div className="pt-6 border-t border-white/10 text-center relative z-10">
               <p className="text-gray-300">&copy; 2025 Cognetex. All rights reserved.</p>
             </div>

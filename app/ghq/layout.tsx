@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { LayoutDashboard, Briefcase, FolderKanban, FileText, Mail, LogOut, Loader2, Users, Code, Wrench, Link2 } from 'lucide-react';
+import { LayoutDashboard, Briefcase, FolderKanban, FileText, Mail, LogOut, Loader2, Users, Code, Wrench, Link2, Menu, X } from 'lucide-react';
 import PillNav from '@/components/PillNav';
 
 export default function AdminLayout({
@@ -16,6 +16,7 @@ export default function AdminLayout({
   const [isLoading, setIsLoading] = useState(true);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     checkAuth();
@@ -113,10 +114,22 @@ export default function AdminLayout({
   }
 
   return (
-    <div className="min-h-screen bg-[#0D0C10] flex">
+    <div className="min-h-screen bg-[#0D0C10] flex relative">
+      {/* Mobile Sidebar Toggle */}
+      <button
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-full glass-morphism border border-primary/30 text-white"
+      >
+        {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+
       {/* Sidebar */}
-      <aside className="w-64 glass-morphism border-r border-[#2C2A33] p-6">
-        <div className="mb-8">
+      <aside className={`
+        fixed inset-y-0 left-0 z-40 w-64 glass-morphism border-r border-[#2C2A33] p-6 transform transition-transform duration-300 ease-in-out
+        md:relative md:translate-x-0
+        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+      `}>
+        <div className="mb-8 mt-8 md:mt-0">
           <h1 className="text-2xl font-bold text-white">Cognetex</h1>
           <p className="text-sm text-gray-400">Admin Panel</p>
         </div>
@@ -125,6 +138,7 @@ export default function AdminLayout({
           <Link
             href="/ghq"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
+            onClick={() => setIsSidebarOpen(false)}
           >
             <LayoutDashboard className="w-5 h-5" />
             <span>Dashboard</span>
@@ -133,6 +147,7 @@ export default function AdminLayout({
           <Link
             href="/ghq/services"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
+            onClick={() => setIsSidebarOpen(false)}
           >
             <Briefcase className="w-5 h-5" />
             <span>Services</span>
@@ -141,6 +156,7 @@ export default function AdminLayout({
           <Link
             href="/ghq/projects"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
+            onClick={() => setIsSidebarOpen(false)}
           >
             <FolderKanban className="w-5 h-5" />
             <span>Projects</span>
@@ -149,6 +165,7 @@ export default function AdminLayout({
           <Link
             href="/ghq/blogs"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
+            onClick={() => setIsSidebarOpen(false)}
           >
             <FileText className="w-5 h-5" />
             <span>Blogs</span>
@@ -157,6 +174,7 @@ export default function AdminLayout({
           <Link
             href="/ghq/team"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
+            onClick={() => setIsSidebarOpen(false)}
           >
             <Users className="w-5 h-5" />
             <span>Team</span>
@@ -165,6 +183,7 @@ export default function AdminLayout({
           <Link
             href="/ghq/tools"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
+            onClick={() => setIsSidebarOpen(false)}
           >
             <Wrench className="w-5 h-5" />
             <span>Tools</span>
@@ -173,6 +192,7 @@ export default function AdminLayout({
           <Link
             href="/ghq/links"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
+            onClick={() => setIsSidebarOpen(false)}
           >
             <Link2 className="w-5 h-5" />
             <span>Links & Buttons</span>
@@ -181,6 +201,7 @@ export default function AdminLayout({
           <Link
             href="/ghq/contact"
             className="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-[#1A181F] hover:text-white transition-colors"
+            onClick={() => setIsSidebarOpen(false)}
           >
             <Mail className="w-5 h-5" />
             <span>Contact</span>
@@ -199,60 +220,70 @@ export default function AdminLayout({
       </aside>
       
       {/* Main Content */}
-      <main className="flex-1 p-8 overflow-y-auto">
-        {/* Pill Navigation */}
-        <PillNav
-          logo={<Code className="w-6 h-6 text-[#3b82f6]" />}
-          logoAlt="Cognetex Admin"
-          items={[
-            {
-              icon: <LayoutDashboard size={16} />,
-              label: 'Dashboard',
-              href: '/ghq'
-            },
-            {
-              icon: <Briefcase size={16} />,
-              label: 'Services',
-              href: '/ghq/services'
-            },
-            {
-              icon: <FolderKanban size={16} />,
-              label: 'Projects',
-              href: '/ghq/projects'
-            },
-            {
-              icon: <FileText size={16} />,
-              label: 'Blogs',
-              href: '/ghq/blogs'
-            },
-            {
-              icon: <Users size={16} />,
-              label: 'Team',
-              href: '/ghq/team'
-            },
-            {
-              icon: <Wrench size={16} />,
-              label: 'Tools',
-              href: '/ghq/tools'
-            },
-            {
-              icon: <Link2 size={16} />,
-              label: 'Links',
-              href: '/ghq/links'
-            },
-            {
-              icon: <Mail size={16} />,
-              label: 'Contact',
-              href: '/ghq/contact'
-            }
-          ]}
-          onItemClick={(href) => router.push(href)}
-        />
+      <main className="flex-1 p-4 md:p-8 overflow-y-auto w-full">
+        {/* Pill Navigation - Hidden on mobile since we have sidebar */}
+        <div className="hidden md:block">
+            <PillNav
+            logo={<Code className="w-6 h-6 text-[#3b82f6]" />}
+            logoAlt="Cognetex Admin"
+            items={[
+                {
+                icon: <LayoutDashboard size={16} />,
+                label: 'Dashboard',
+                href: '/ghq'
+                },
+                {
+                icon: <Briefcase size={16} />,
+                label: 'Services',
+                href: '/ghq/services'
+                },
+                {
+                icon: <FolderKanban size={16} />,
+                label: 'Projects',
+                href: '/ghq/projects'
+                },
+                {
+                icon: <FileText size={16} />,
+                label: 'Blogs',
+                href: '/ghq/blogs'
+                },
+                {
+                icon: <Users size={16} />,
+                label: 'Team',
+                href: '/ghq/team'
+                },
+                {
+                icon: <Wrench size={16} />,
+                label: 'Tools',
+                href: '/ghq/tools'
+                },
+                {
+                icon: <Link2 size={16} />,
+                label: 'Links',
+                href: '/ghq/links'
+                },
+                {
+                icon: <Mail size={16} />,
+                label: 'Contact',
+                href: '/ghq/contact'
+                }
+            ]}
+            onItemClick={(href) => router.push(href)}
+            />
+        </div>
         
-        <div className="mt-24">
+        <div className="mt-16 md:mt-24">
           {children}
         </div>
       </main>
+      
+      {/* Overlay for mobile sidebar */}
+      {isSidebarOpen && (
+        <div 
+            className="fixed inset-0 bg-black/50 z-30 md:hidden"
+            onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
     </div>
   );
 }

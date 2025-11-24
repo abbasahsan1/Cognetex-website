@@ -67,27 +67,27 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div>
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold text-foreground mb-2">Dashboard</h1>
-        <p className="text-muted-foreground">Welcome to Cognetex Admin Panel</p>
+    <div className="pb-8">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-1 sm:mb-2">Dashboard</h1>
+        <p className="text-sm sm:text-base text-muted-foreground">Welcome to Cognetex Admin Panel</p>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8">
         {statCards.map((stat, index) => (
           <a
             key={index}
             href={stat.href}
-            className="glass-morphism p-6 rounded-2xl hover:scale-105 transition-all duration-300 cursor-pointer group"
+            className="glass-morphism p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl hover:scale-105 transition-all duration-300 cursor-pointer group touch-manipulation"
           >
-            <div className="flex items-center justify-between mb-4">
-              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center`}>
-                <stat.icon className="w-6 h-6 text-white" />
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-2 sm:mb-4 gap-2">
+              <div className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center`}>
+                <stat.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
               </div>
-              <span className="text-3xl font-bold text-foreground">{stat.value}</span>
+              <span className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">{stat.value}</span>
             </div>
-            <h3 className="text-muted-foreground group-hover:text-foreground transition-colors">
+            <h3 className="text-xs sm:text-sm md:text-base text-muted-foreground group-hover:text-foreground transition-colors leading-tight">
               {stat.title}
             </h3>
           </a>
@@ -95,36 +95,36 @@ export default function AdminDashboard() {
       </div>
 
       {/* Quick Actions */}
-      <div className="glass-morphism p-6 rounded-2xl">
-        <h2 className="text-2xl font-bold text-foreground mb-6">Quick Actions</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="glass-morphism p-4 sm:p-6 rounded-xl sm:rounded-2xl">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-4 sm:mb-6">Quick Actions</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
           <Link
             href="/ghq/services"
-            className="px-6 py-4 rounded-xl bg-card hover:bg-secondary text-foreground transition-colors text-center border border-border"
+            className="px-4 sm:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl bg-card hover:bg-secondary text-foreground transition-colors text-center border border-border text-sm sm:text-base touch-manipulation"
           >
             + Add Service
           </Link>
           <Link
             href="/ghq/projects"
-            className="px-6 py-4 rounded-xl bg-card hover:bg-secondary text-foreground transition-colors text-center border border-border"
+            className="px-4 sm:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl bg-card hover:bg-secondary text-foreground transition-colors text-center border border-border text-sm sm:text-base touch-manipulation"
           >
             + Add Project
           </Link>
           <Link
             href="/ghq/blogs"
-            className="px-6 py-4 rounded-xl bg-card hover:bg-secondary text-foreground transition-colors text-center border border-border"
+            className="px-4 sm:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl bg-card hover:bg-secondary text-foreground transition-colors text-center border border-border text-sm sm:text-base touch-manipulation"
           >
             + Add Blog Post
           </Link>
           <Link
             href="/ghq/team"
-            className="px-6 py-4 rounded-xl bg-card hover:bg-secondary text-foreground transition-colors text-center border border-border"
+            className="px-4 sm:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl bg-card hover:bg-secondary text-foreground transition-colors text-center border border-border text-sm sm:text-base touch-manipulation"
           >
             + Add Team Member
           </Link>
           <Link
             href="/ghq/contact"
-            className="px-6 py-4 rounded-xl bg-card hover:bg-secondary text-foreground transition-colors text-center border border-border"
+            className="px-4 sm:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl bg-card hover:bg-secondary text-foreground transition-colors text-center border border-border text-sm sm:text-base touch-manipulation sm:col-span-2 lg:col-span-1"
           >
             Edit Contact Info
           </Link>
@@ -132,9 +132,9 @@ export default function AdminDashboard() {
       </div>
 
       {/* Info Section */}
-      <div className="mt-8 glass-morphism p-6 rounded-2xl">
-        <h2 className="text-2xl font-bold text-foreground mb-4">Admin Panel Information</h2>
-        <div className="space-y-3 text-muted-foreground">
+      <div className="mt-6 sm:mt-8 glass-morphism p-4 sm:p-6 rounded-xl sm:rounded-2xl">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-3 sm:mb-4">Admin Panel Information</h2>
+        <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm md:text-base text-muted-foreground leading-relaxed">
           <p>• Manage all website content from this centralized dashboard</p>
           <p>• Changes are saved immediately and reflect on the live website</p>
           <p>• Use drag-and-drop to reorder items</p>
